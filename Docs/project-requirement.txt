@@ -1,0 +1,292 @@
+Course
+Code
+FACULTY OF COMPUTER SCIENCE AND
+INFORMATION TECHNOLOGY
+
+Title
+
+Objectives
+
+Method
+
+Mode
+
+Submission
+
+Course
+
+BIT22103
+
+Item
+
+PROJECT
+
+INTEGRATED SYSTEM
+TECHNOLOGIES
+
+Date
+Release
+
+W8 - MAY 2026
+
+Secure-by-Design E-Commerce Platform: API Integration, Data
+Conversion and Client–Server Architecture
+At the end of this task, student should be able to:
+ Understand the concept of Client–Server Architecture and APIbased communication.
+ Apply secure system design principles (authentication,
+authorization, data protection).
+ Demonstrate key skills in Backend API development and
+Frontend integration.
+ Demonstrate the use of External API integration within a system.
+ Perform data conversion techniques (JSON to CSV/XML).
+ Implement a secure communication flow between client and
+server
+ System development (Backend API & Frontend
+ Implementation of secure authentication and RBAC
+ Integration with external APIs
+ Testing and observation of system workflow
+ Books/Journals; Internet
+
+
+Group (4 - 5 members only)
+
+
+
+
+
+Report - Week 13
+Presentation - Week 14 - 15 (will be scheduled / Recorded)
+Author - Group Activities tab
+
+1.
+
+Project Overview
+Your team is required to develop a secure e-commerce system using a Client–Server Architecture.
+The system must demonstrate:
+ Secure API communication
+ System integration (Frontend ↔ Backend ↔ External API)
+ Data conversion (JSON → CSV/XML)
+
+2.
+
+System Architecture
+You must build:
+a. Backend (API Server)
+ Handles business logic & security
+ Provides REST API endpoints
+b. Frontend (Web Client)
+ Calls backend using HTTP
+ Displays data to users
+*Both MUST be fully separated (decoupled)
+
+3.
+
+Core Functional Requirements
+a. Authentication & Security (MANDATORY)
+i. JWT-based login system
+ii. Password hashing (bcrypt or equivalent)
+iii. Role-Based Access Control (RBAC): Customer / Administrator
+b. Core API (CRUD)
+c. Integration System
+i. External API Integration
+1. Fetch data from public API (e.g., weather API)
+2. Convert response
+ii. Payment Webhook Simulation
+1. Simulate payment gateway callback
+iii. Data Conversion
+
+BIT22103 Project
+
+d.
+
+1. Retrieve order data (JSON)
+2. Convert to: CSV or XML
+3. Allow download
+Frontend Requirements
+i. Authentication Pages
+ii. Customer Dashboard
+iii. Admin Panel
+
+NOTES:
+ Label all figures (screenshot) with: Figure number and title
+ Use only the given cover format.
+ Submit your report to your lecturer for the lab session.
+ Please attach the Evaluation Form to the report.
+ Fill up group members’ names and IDs in the Evaluation Form.
+ Submit 1 FOLDER containing:
+1. Full report.
+2. One compiled, recorded demo video.
+3. Source Code, but not including node modules.
+4. Database file.
+
+BIT22103 Project
+
+UNIVERSITI TUN HUSSEIN ONN MALAYSIA
+PROJECT REPORT:
+Secure-by-Design E-Commerce Platform
+(Client–Server Architecture)
+SEM II 2025/2026
+COURSE NAME
+COURSE CODE
+
+: INTEGRATED SYSTEM
+TECHNOLOGIES
+: BIT 22103
+
+SECTION NO
+
+: 1/2/3
+
+LECTURER
+
+:
+
+STUDENT NAME &
+MATRIC NO
+
+: 1.
+2.
+3.
+4.
+
+XXXXXXX ( AI XXXXX)
+YYYYYYY ( CI YYYYY)
+ZZZZZZZZ ( )
+AAAAAAA ( )
+
+COGNITIVE: ___ /5%; PSYCHOMOTOR: ___/ 10%; AFFECTIVE: ___/5%
+
+BIT22103 Project
+
+EVALUATION FORM:
+NO.
+
+NAME
+
+MATRIC NUMBER
+
+TOTAL MARKS (A +
+B + C)
+
+1.
+2.
+3.
+4.
+A.
+
+Documentation – Project Report (COGNITIVE)
+Criteria
+
+
+
+Explain the problem context and system requirements for a secure ecommerce platform (Client–Server, API, Integration). [C2]
+
+
+
+Clearly explain system design including input/output flow, API
+requests/responses, and basic logic (if-else, validation, data handling).
+[C4]
+Analyze key components: authentication (JWT), RBAC, API
+integration, and data conversion. [C4]
+Propose and justify secure and effective solutions (e.g., rate limiting,
+hashing, API protection). [C4]
+Proper references and formatting according to UTHM thesis/report
+guidelines. [C2]
+
+
+
+
+
+Rating
+
+Marks
+
+
+
+
+
+
+Total
+
+B.
+
+
+
+
+
+
+Technical Skills (PSYCHOMOTOR)
+Criteria
+Execute: Successfully set up Backend API server and database
+(authentication & CRUD). [P3]
+Practice: Successfully implement secure API (JWT, RBAC, validation,
+rate limiting). [P4]
+Practice: Successfully implement integration features: [P4]
+- External API
+- Payment webhook
+- Data export (JSON → CSV/XML)
+Demonstrate: Complete system workflow (Frontend ↔ Backend ↔
+API integration). [P3]
+
+Rating
+
+
+
+
+
+
+Organize and deliver presentation within allocated time. [A1]
+Demonstrate clear, confident explanation of system architecture and
+features. [A2]
+Present key functionalities (security, API integration, data
+conversion) effectively. [A4]
+Respond to questions accurately and confidently (technical & security
+aspects). [A3]
+Autonomy & Responsibility (Teamwork): Participation and
+collaboration among group members. [A3]
+1 (Very weak) – Not able to work in a team
+2 (Weak) – Poor ability of : Teamwork; Collaboration in reaching
+consensus on an issue
+3 (Fair) – Satisfactory ability of : Teamwork; Collaboration in
+reaching consensus on an issue
+4 (Good) – Good ability of : Teamwork; Collaboration in reaching
+consensus on an issue
+5 (Very good) – Excellent ability of : Teamwork; Collaboration in
+reaching consensus on an issue
+
+
+
+
+
+[
+
+Rating
+
+/20 ] *10 =
+Marks
+
+
+
+
+
+
+
+
+Total
+
+BIT22103 Project
+
+/25 ] *5 =
+Marks
+
+Total
+C. Presentation (AFFECTIVE)
+Criteria
+
+[
+
+[
+
+/25 ] *5 =
+
+
