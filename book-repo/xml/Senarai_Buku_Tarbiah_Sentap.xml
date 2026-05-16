@@ -1,0 +1,425 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>openpyxl</Author>
+  <LastAuthor>Muhammad Khairul Ibad Bin Jima'Ain</LastAuthor>
+  <Created>2026-05-15T15:22:44Z</Created>
+  <LastSaved>2026-05-16T08:21:03Z</LastSaved>
+  <Version>16.00</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <AllowPNG/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>11760</WindowHeight>
+  <WindowWidth>20740</WindowWidth>
+  <WindowTopX>32767</WindowTopX>
+  <WindowTopY>660</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s16">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#FFFFFF" ss:Bold="1"/>
+   <Interior ss:Color="#2C3E50" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s17">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+   </Borders>
+   <Interior ss:Color="#F9F9F9" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s18">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+   </Borders>
+   <Interior ss:Color="#F9F9F9" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="&quot;RM&quot;\ #,##0.00"/>
+  </Style>
+  <Style ss:ID="s19">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s20">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+   </Borders>
+   <NumberFormat ss:Format="&quot;RM&quot;\ #,##0.00"/>
+  </Style>
+  <Style ss:ID="s21">
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+   </Borders>
+   <Interior ss:Color="#F9F9F9" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s22">
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s23">
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+   </Borders>
+   <Interior ss:Color="#F9F9F9" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="&quot;RM&quot;\ #,##0.00"/>
+  </Style>
+  <Style ss:ID="s24">
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"
+     ss:Color="#DDDDDD"/>
+   </Borders>
+   <NumberFormat ss:Format="&quot;RM&quot;\ #,##0.00"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Katalog Buku">
+  <Table ss:ExpandedColumnCount="5" ss:ExpandedRowCount="45" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultColumnWidth="53" ss:DefaultRowHeight="15">
+   <Column ss:AutoFitWidth="0" ss:Width="360"/>
+   <Column ss:AutoFitWidth="0" ss:Width="211"/>
+   <Column ss:AutoFitWidth="0" ss:Width="90"/>
+   <Column ss:AutoFitWidth="0" ss:Width="114" ss:Span="1"/>
+   <Row>
+    <Cell ss:StyleID="s16"><Data ss:Type="String">Judul Buku</Data></Cell>
+    <Cell ss:StyleID="s16"><Data ss:Type="String">Penulis</Data></Cell>
+    <Cell ss:StyleID="s16"><Data ss:Type="String">Harga (RM)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Izinkan Aku Mencintai-Mu</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Abeben</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="Number">35</Data></Cell>
+    <Cell ss:StyleID="s21"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Diantara Berjuta Engkaulah Yang Jelita</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Aniq Muhai</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">35</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Tarbiah Kampus 2</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Abeben &amp; Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="Number">40</Data></Cell>
+    <Cell ss:StyleID="s21"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Surat Cinta Dari Tuhan(Sinopsis 30 Juz Quran)</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">60</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Surat Cinta Untuk Pendosa</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="Number">30</Data></Cell>
+    <Cell ss:StyleID="s21"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">100 Doa Taubat Dari Al-Quran dan Hadith Nabi Muhammad SAW</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Tarbiah Sentap</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">20</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Tuhan, Aku Ingin Sembuh</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="Number">35</Data></Cell>
+    <Cell ss:StyleID="s21"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Parenting Akhir Zaman</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Adnin Roslan &amp; Dr Sabariah Faridah</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">40</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Aku Juga Punya Hati</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Aniq Muhai</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="Number">35</Data></Cell>
+    <Cell ss:StyleID="s21"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Kombo Koleksi Komik Tarbiah Sentap</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Tarbiah Sentap</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">65</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Tuhan, Aku Ingin Cahaya</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Adnin Roslan &amp; Aiman Roslan</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="Number">35</Data></Cell>
+    <Cell ss:StyleID="s21"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Kombo Hijrah </Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">75</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">[HARD COVER] Surat Cinta Dari Tuhan(Edisi Istimewa)</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="Number">120</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Teruntuk Jiwa Yang Terluka</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Aniq Muhai</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">30</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">40 Pesan Akhir Zaman </Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Syed Salahuddin</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="Number">40</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Tarbiah Kampus </Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Abeben &amp; Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">35</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Tuhan, Aku Ingin Jumpa Nabi</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="Number">35</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Menjadi Bidadari Syurga</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Aizuddin Hamid</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">30</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Healing Dengan Doa</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Syed Salahuddin</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="Number">30</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Menggapai Cinta Dengan Doa</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Syed Salahuddin</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">35</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Aku Bukan Ustaz</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Najmi Fetih</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="Number">35</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Patahnya Sayap Harapan</Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Najmi Fetih</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">30</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Novel Mangkat</Data></Cell>
+    <Cell ss:StyleID="s17"><Data ss:Type="String">Aniq Muhai</Data></Cell>
+    <Cell ss:StyleID="s18"><Data ss:Type="Number">35</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Noktah Dari Palestin </Data></Cell>
+    <Cell ss:StyleID="s19"><Data ss:Type="String">Aizuddin Hamid</Data></Cell>
+    <Cell ss:StyleID="s20"><Data ss:Type="Number">40</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Khabar Murka Dari Tuhan</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Aizuddin Hamid</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">35</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Novel Ajari Aku Tentang Cinta</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="Number">35</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Khabar Gembira Dari Tuhan</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Syed Salahuddin</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">35</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">KOMBO MEGA KOLEKSI USTAZ ADNIN</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="Number">460</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Retaknya Sebuah Percaya</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Najmi Fetih</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">35</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Novel Izinkan Aku Menacari Tuhan</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Aizuddin Hamid</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="Number">35</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Koleksi Buku Ustaz Adnin</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">275</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Kombo Buku Baru Ustaz Adnin</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="Number">105</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Novel Selindung</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Aniq Muhai</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">40</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Kombo Koleksi Buku Aizuddin Hamid</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Aizuddin Hamid</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="Number">65</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Kombo Koleksi Buku Aniq Muhai</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Aniq Muhai</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">65</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Kombo Koleksi Buku Syed Salahuddin</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Syed Salahuddin</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Kombo Koleksi Buku Najmi Fetih</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Najmi Fetih</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">100</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Ini Semua Mitos</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="Number">30</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Maksiat Akhir Zaman</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">30</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Saat Kiamat Menghampiri</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="Number">30</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Surat Untuk Orang Yang Putus Asa</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">30</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Ajari Aku Tentang Rindu</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="Number">35</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Manga Tarbiah: Analogi Kehidupan</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Abe Mat</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="Number">30</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Tuhan Aku Ingin Hijrah</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Adnin Roslan</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="Number">40</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>14</ActiveRow>
+     <ActiveCol>4</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>
