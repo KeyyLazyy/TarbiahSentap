@@ -1,0 +1,23 @@
+{
+  "name": "tarbiah-sentap-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Tarbiah Sentap e-commerce prototype",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.1",
+    "express-rate-limit": "^6.0.0",
+    "helmet": "^5.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

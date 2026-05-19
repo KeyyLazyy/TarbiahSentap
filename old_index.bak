@@ -1,0 +1,824 @@
+import React, { useState, useMemo, useEffect } from 'react';
+import {
+    ShoppingCart, BookOpen, User, Star, Trash2, Plus,
+    Search, LogOut, Package, ChevronRight, X, Check,
+    CreditCard, ShieldCheck, LayoutDashboard, Edit,
+    Sparkles, MessageSquare, Bot, Send
+} from 'lucide-react';
+
+const GlobalStyles = () => (
+    <style>{`
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #1f2937; /* Charcoal */
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  `}</style>
+);
+
+const MOCK_BOOKS = [
+    { id: 1, title: 'The Quantum Age', author: 'Dr. Aris Thorne', price: 29.99, genre: 'Science', rating: 4.8, cover: 'https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?auto=format&fit=crop&q=80&w=400&h=600' },
+    { id: 2, title: 'Echoes of Eternity', author: 'Lyra Vance', price: 19.50, genre: 'Sci-Fi', rating: 4.5, cover: 'https://images.unsplash.com/photo-1618553676231-50e560fcc4cb?auto=format&fit=crop&q=80&w=400&h=600' },
+    { id: 3, title: 'Minimalist Living', author: 'Jane Doe', price: 24.00, genre: 'Lifestyle', rating: 4.9, cover: 'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&q=80&w=400&h=600' },
+    { id: 4, title: 'Deep Work', author: 'Cal Newport', price: 22.90, genre: 'Productivity', rating: 4.7, cover: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=400&h=600' },
+    { id: 5, title: 'The Silent Patient', author: 'Alex Michaelides', price: 18.99, genre: 'Thriller', rating: 4.6, cover: 'https://images.unsplash.com/photo-1587876931567-564ce588bfbd?auto=format&fit=crop&q=80&w=400&h=600' },
+    { id: 6, title: 'Dune', author: 'Frank Herbert', price: 25.00, genre: 'Sci-Fi', rating: 4.9, cover: 'https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&q=80&w=400&h=600' },
+];
+
+export default function App() {
+    const [view, setView] = useState('catalog'); // 'catalog', 'cart', 'checkout', 'login', 'admin', 'orders'
+    const [user, setUser] = useState(null); // null or { email, role: 'user' | 'admin' }
+    const [books, setBooks] = useState(MOCK_BOOKS);
+    const [cart, setCart] = useState([]);
+    const [orders, setOrders] = useState([]);
+    const [toasts, setToasts] = useState([]);
+
+    const [aiChatOpen, setAiChatOpen] = useState(false);
+    const [aiMessages, setAiMessages] = useState([
+        { role: 'model', text: 'Hello! I am the LuminaBooks AI Librarian. What kind of book are you looking for today?' }
+    ]);
+    const [aiChatInput, setAiChatInput] = useState('');
+    const [aiChatLoading, setAiChatLoading] = useState(false);
+
+    const [summaryModal, setSummaryModal] = useState({ isOpen: false, book: null, summary: '', loading: false });
+
+    // Toast Notification System
+    const addToast = (message, type = 'success') => {
+        const id = Date.now();
+        setToasts(prev => [...prev, { id, message, type }]);
+        setTimeout(() => {
+            setToasts(prev => prev.filter(t => t.id !== id));
+        }, 3000);
+    };
+
+    const addToCart = (book) => {
+        setCart(prev => {
+            const existing = prev.find(item => item.book.id === book.id);
+            if (existing) {
+                return prev.map(item => item.book.id === book.id ? { ...item, quantity: item.quantity + 1 } : item);
+            }
+            return [...prev, { book, quantity: 1 }];
+        });
+        addToast(`Added ${book.title} to cart`);
+    };
+
+    const removeFromCart = (bookId) => {
+        setCart(prev => prev.filter(item => item.book.id !== bookId));
+    };
+
+    const updateQuantity = (bookId, delta) => {
+        setCart(prev => prev.map(item => {
+            if (item.book.id === bookId) {
+                const newQ = Math.max(1, item.quantity + delta);
+                return { ...item, quantity: newQ };
+            }
+            return item;
+        }));
+    };
+
+    const handleCheckout = () => {
+        if (!user) {
+            addToast('Please login to checkout', 'error');
+            setView('login');
+            return;
+        }
+        setView('checkout');
+    };
+
+    const processPayment = () => {
+        const newOrder = {
+            id: `ORD-${Math.floor(Math.random() * 10000)}`,
+            date: new Date().toISOString(),
+            items: [...cart],
+            total: cart.reduce((sum, item) => sum + (item.book.price * item.quantity), 0),
+            status: 'Processing'
+        };
+        setOrders([newOrder, ...orders]);
+        setCart([]);
+        setView('orders');
+        addToast('Payment successful! Order placed.');
+    };
+
+    const generateAIContent = async (prompt, systemInstruction = null) => {
+        const apiKey = "";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+        const payload = {
+            contents: [{ parts: [{ text: prompt }] }],
+        };
+        if (systemInstruction) {
+            payload.systemInstruction = { parts: [{ text: systemInstruction }] };
+        }
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+            return result.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response at this time.";
+        } catch (error) {
+            console.error("AI API Error:", error);
+            return "Oops! My AI connection is currently offline. Please try again later.";
+        }
+    };
+
+    const handleSendAIMessage = async (e) => {
+        e.preventDefault();
+        if (!aiChatInput.trim()) return;
+
+        const userText = aiChatInput.trim();
+        const newMessages = [...aiMessages, { role: 'user', text: userText }];
+        setAiMessages(newMessages);
+        setAiChatInput('');
+        setAiChatLoading(true);
+
+        const bookTitles = books.map(b => `${b.title} by ${b.author} (${b.genre})`).join(', ');
+        const systemPrompt = `You are a helpful and enthusiastic AI Librarian for LuminaBooks. Keep answers concise (1-3 sentences). Here are the books currently in our catalog: ${bookTitles}. Recommend from our catalog if relevant to the user's query, but feel free to discuss other books or general literary topics too.`;
+
+        const chatHistory = newMessages.map(m => ({
+            role: m.role,
+            parts: [{ text: m.text }]
+        }));
+
+        const payload = {
+            contents: chatHistory,
+            systemInstruction: { parts: [{ text: systemPrompt }] },
+        };
+
+        const apiKey = "";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+            const aiText = result.candidates?.[0]?.content?.parts?.[0]?.text || "I'm having trouble thinking right now. Could you ask me something else?";
+            setAiMessages(prev => [...prev, { role: 'model', text: aiText }]);
+        } catch (error) {
+            setAiMessages(prev => [...prev, { role: 'model', text: "Error connecting to my knowledge base." }]);
+        } finally {
+            setAiChatLoading(false);
+        }
+    };
+
+    const handleGetBookSummary = async (book) => {
+        setSummaryModal({ isOpen: true, book, summary: '', loading: true });
+        const prompt = `Write a short, exciting 2-3 sentence teaser/summary for the book "${book.title}" by ${book.author}. Make the reader want to buy it.`;
+        const summary = await generateAIContent(prompt);
+        setSummaryModal(prev => ({ ...prev, summary, loading: false }));
+    };
+
+    const Header = () => {
+        const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+        return (
+            <header className= "sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm" >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between" >
+                <div 
+            className="flex items-center gap-2 cursor-pointer group"
+        onClick = {() => setView('catalog')
+}
+          >
+    <div className="bg-blue-600 p-2 rounded-lg group-hover:bg-blue-700 transition-colors" >
+        <BookOpen className="w-5 h-5 text-white" />
+            </div>
+            < span className = "font-bold text-xl tracking-tight text-gray-900" > Lumina < span className = "text-blue-600" > Books < /span></span >
+                </div>
+
+                < div className = "flex items-center gap-6" >
+                    <button 
+              onClick={ () => setView('cart') }
+className = "relative p-2 text-gray-600 hover:text-blue-600 transition-colors"
+    >
+    <ShoppingCart className="w-5 h-5" />
+        { cartCount > 0 && (
+            <span className="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center translate-x-1 -translate-y-1" >
+                { cartCount }
+                </span>
+              )}
+</button>
+
+{
+    user ? (
+        <div className= "flex items-center gap-4" >
+        {
+            user.role === 'admin' && (
+                <button 
+                    onClick={ () => setView('admin') }
+    className = "text-sm font-medium text-gray-600 hover:text-blue-600 flex items-center gap-1"
+        >
+        <LayoutDashboard className="w-4 h-4" /> Admin
+            </button>
+                )
+}
+<button 
+                  onClick={ () => setView('orders') }
+className = "text-sm font-medium text-gray-600 hover:text-blue-600 flex items-center gap-1"
+    >
+    <Package className="w-4 h-4" /> Orders
+        </button>
+        < div className = "h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 font-semibold border border-gray-200" >
+            { user.email[0].toUpperCase() }
+            </div>
+            < button
+onClick = {() => { setUser(null); addToast('Logged out'); setView('catalog'); }}
+className = "text-gray-400 hover:text-red-500 transition-colors"
+    >
+    <LogOut className="w-5 h-5" />
+        </button>
+        </div>
+            ) : (
+    <button 
+                onClick= {() => setView('login')}
+className = "flex items-center gap-2 bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors"
+    >
+    <User className="w-4 h-4" /> Sign In
+        </button>
+            )}
+</div>
+    </div>
+    </header>
+    );
+  };
+
+const CatalogView = () => {
+    const [search, setSearch] = useState('');
+    const [genre, setGenre] = useState('All');
+    const [sortBy, setSortBy] = useState('featured');
+
+    const genres = ['All', ...new Set(books.map(b => b.genre))];
+
+    const filteredBooks = useMemo(() => {
+        let result = books.filter(b =>
+            (genre === 'All' || b.genre === genre) &&
+            (b.title.toLowerCase().includes(search.toLowerCase()) || b.author.toLowerCase().includes(search.toLowerCase()))
+        );
+
+        if (sortBy === 'price-asc') result.sort((a, b) => a.price - b.price);
+        if (sortBy === 'price-desc') result.sort((a, b) => b.price - a.price);
+        if (sortBy === 'rating') result.sort((a, b) => b.rating - a.rating);
+
+        return result;
+    }, [books, search, genre, sortBy]);
+
+    return (
+        <div className= "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" >
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8" >
+            <div className="relative w-full md:w-96" >
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <input 
+              type="text"
+    placeholder = "Search books, authors..."
+    value = { search }
+    onChange = {(e) => setSearch(e.target.value)}
+className = "w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all"
+    />
+    </div>
+    < div className = "flex gap-4 w-full md:w-auto" >
+        <select 
+              value={ genre }
+onChange = {(e) => setGenre(e.target.value)}
+className = "px-4 py-2.5 rounded-xl border border-gray-200 bg-white outline-none focus:border-blue-500 cursor-pointer"
+    >
+    { genres.map(g => <option key={ g } value = { g } > { g } </option>) }
+    </select>
+    < select
+value = { sortBy }
+onChange = {(e) => setSortBy(e.target.value)}
+className = "px-4 py-2.5 rounded-xl border border-gray-200 bg-white outline-none focus:border-blue-500 cursor-pointer"
+    >
+    <option value="featured" > Featured </option>
+        < option value = "price-asc" > Price: Low to High </option>
+            < option value = "price-desc" > Price: High to Low </option>
+                < option value = "rating" > Highest Rated </option>
+                    </select>
+                    </div>
+                    </div>
+
+{
+    filteredBooks.length === 0 ? (
+        <div className= "text-center py-20 text-gray-500" > No books found matching your criteria.</div>
+        ) : (
+        <div className= "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" >
+        {
+            filteredBooks.map(book => (
+                <div key= { book.id } className = "group bg-white rounded-2xl p-4 border border-gray-100 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 flex flex-col" >
+                <div className="relative aspect-[3/4] mb-4 overflow-hidden rounded-xl bg-gray-100" >
+            <img src={ book.cover } alt = { book.title } className = "w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div className="absolute top-2 right-2 bg-white/90 backdrop-blur text-xs font-bold px-2 py-1 rounded-md flex items-center gap-1 shadow-sm" >
+            <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" /> { book.rating }
+            </div>
+            </div>
+            < div className = "flex flex-col flex-grow" >
+            <span className="text-xs font-medium text-blue-600 mb-1 uppercase tracking-wider" > { book.genre } </span>
+            < h3 className = "font-bold text-gray-900 text-lg leading-tight mb-1" > { book.title } </h3>
+            < p className = "text-sm text-gray-500 mb-4" > { book.author } </p>
+            < div className = "mt-auto flex items-center justify-between" >
+            <span className="font-bold text-xl" > ${ book.price.toFixed(2) } </span>
+            < div className = "flex gap-2" >
+            <button 
+                          onClick={() => handleGetBookSummary(book)}
+    className = "bg-blue-50 text-blue-600 p-2.5 rounded-xl hover:bg-blue-100 transition-colors shadow-sm"
+    title = "AI Book Summary"
+        >
+        <Sparkles className="w-5 h-5" />
+            </button>
+            < button
+    onClick = {() => addToCart(book)
+}
+className = "bg-gray-900 text-white p-2.5 rounded-xl hover:bg-blue-600 transition-colors shadow-sm"
+    >
+    <Plus className="w-5 h-5" />
+        </button>
+        </div>
+        </div>
+        </div>
+        </div>
+            ))}
+</div>
+        )}
+</div>
+    );
+  };
+
+const CartView = () => {
+    const subtotal = cart.reduce((sum, item) => sum + (item.book.price * item.quantity), 0);
+    const tax = subtotal * 0.08;
+    const total = subtotal + tax;
+
+    if (cart.length === 0) {
+        return (
+            <div className= "max-w-3xl mx-auto px-4 py-20 text-center" >
+            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6" >
+                <ShoppingCart className="w-10 h-10 text-gray-400" />
+                    </div>
+                    < h2 className = "text-2xl font-bold text-gray-900 mb-2" > Your cart is empty </h2>
+                        < p className = "text-gray-500 mb-8" > Looks like you haven't added any books yet.</p>
+                            < button
+        onClick = {() => setView('catalog')}
+className = "bg-blue-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-blue-700 transition-colors"
+    >
+    Start Shopping
+        </button>
+        </div>
+      );
+    }
+
+return (
+    <div className= "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" >
+    <h1 className="text-3xl font-bold text-gray-900 mb-8" > Shopping Cart </h1>
+        < div className = "flex flex-col lg:flex-row gap-8" >
+            <div className="flex-grow space-y-4" >
+            {
+                cart.map(item => (
+                    <div key= { item.book.id } className = "bg-white p-4 rounded-2xl border border-gray-100 flex items-center gap-6 shadow-sm" >
+                    <img src={ item.book.cover } alt = { item.book.title } className = "w-20 h-28 object-cover rounded-lg" />
+                    <div className="flex-grow" >
+                <h3 className="font-bold text-lg text-gray-900" > { item.book.title } </h3>
+                < p className = "text-gray-500 text-sm mb-2" > { item.book.author } </p>
+                < span className = "font-bold text-blue-600" > ${ item.book.price.toFixed(2) } </span>
+                </div>
+                < div className = "flex items-center gap-3 bg-gray-50 p-1 rounded-xl border border-gray-200" >
+                <button onClick={() => updateQuantity(item.book.id, -1)} className = "w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white hover:shadow-sm transition-all" > -</button>
+                    < span className = "w-4 text-center font-medium" > { item.quantity } </span>
+                        < button onClick = {() => updateQuantity(item.book.id, 1)} className = "w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white hover:shadow-sm transition-all" > +</button>
+                            </div>
+                            < button onClick = {() => removeFromCart(item.book.id)} className = "p-2 text-gray-400 hover:text-red-500 transition-colors ml-4" >
+                                <Trash2 className="w-5 h-5" />
+                                    </button>
+                                    </div>
+            ))}
+</div>
+
+    < div className = "w-full lg:w-96" >
+        <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm sticky top-24" >
+            <h2 className="text-xl font-bold text-gray-900 mb-6" > Order Summary </h2>
+                < div className = "space-y-4 mb-6 text-sm" >
+                    <div className="flex justify-between text-gray-600" >
+                        <span>Subtotal({ cart.reduce((a, b) => a + b.quantity, 0) } items) </span>
+                        < span > ${ subtotal.toFixed(2) } </span>
+                            </div>
+                            < div className = "flex justify-between text-gray-600" >
+                                <span>Estimated Tax(8 %) </span>
+                                    < span > ${ tax.toFixed(2) } </span>
+                                        </div>
+                                        < div className = "border-t border-gray-100 pt-4 flex justify-between font-bold text-lg text-gray-900" >
+                                            <span>Total </span>
+                                            < span > ${ total.toFixed(2) } </span>
+                                                </div>
+                                                </div>
+                                                < button
+onClick = { handleCheckout }
+className = "w-full bg-blue-600 text-white py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-blue-700 transition-all shadow-md shadow-blue-600/20"
+    >
+    Proceed to Checkout < ChevronRight className = "w-5 h-5" />
+        </button>
+        </div>
+        </div>
+        </div>
+        </div>
+    );
+  };
+
+const CheckoutView = () => {
+    return (
+        <div className= "max-w-3xl mx-auto px-4 py-12" >
+        <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100" >
+            <div className="flex items-center justify-center mb-8" >
+                <div className="bg-blue-50 text-blue-600 p-3 rounded-full flex items-center gap-2 font-semibold" >
+                    <ShieldCheck className="w-5 h-5" /> Secure Checkout(Mock)
+                        </div>
+                        </div>
+
+                        < div className = "space-y-6" >
+                            <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2" > Shipping Address </label>
+                                < input type = "text" placeholder = "123 Main St, City, Country" className = "w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none" />
+                                    </div>
+
+                                    < div className = "pt-6 border-t border-gray-100" >
+                                        <label className="block text-sm font-medium text-gray-700 mb-4" > Payment Method </label>
+                                            < div className = "bg-gray-50 p-4 rounded-xl border border-gray-200 mb-4 flex items-center gap-3" >
+                                                <CreditCard className="text-gray-400" />
+                                                    <div className="flex-grow" >
+                                                        <p className="font-medium text-gray-900" > Credit Card </p>
+                                                            < p className = "text-xs text-gray-500" > Powered by Stripe </p>
+                                                                </div>
+                                                                </div>
+                                                                < div className = "grid grid-cols-2 gap-4" >
+                                                                    <div className="col-span-2" >
+                                                                        <input type="text" placeholder = "Card Number (Mock)" className = "w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none" />
+                                                                            </div>
+                                                                            < div >
+                                                                            <input type="text" placeholder = "MM/YY" className = "w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none" />
+                                                                                </div>
+                                                                                < div >
+                                                                                <input type="text" placeholder = "CVC" className = "w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none" />
+                                                                                    </div>
+                                                                                    </div>
+                                                                                    </div>
+
+                                                                                    < button
+    onClick = { processPayment }
+    className = "w-full mt-8 bg-gray-900 text-white py-4 rounded-xl font-bold text-lg hover:bg-gray-800 transition-colors shadow-lg"
+        >
+        Pay ${ (cart.reduce((s, i) => s + (i.book.price * i.quantity), 0) * 1.08).toFixed(2) }
+    </button>
+        </div>
+        </div>
+        </div>
+    );
+  };
+
+const LoginView = () => {
+    const [email, setEmail] = useState('');
+    const handleLogin = (e) => {
+        e.preventDefault();
+        // Mock Authentication
+        if (email === 'admin@bookstore.com') {
+            setUser({ email, role: 'admin' });
+            addToast('Logged in as Admin');
+        } else {
+            setUser({ email: email || 'user@example.com', role: 'user' });
+            addToast('Successfully logged in');
+        }
+        setView('catalog');
+    };
+
+    return (
+        <div className= "max-w-md mx-auto px-4 py-20" >
+        <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100" >
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center" > Welcome Back </h2>
+                < form onSubmit = { handleLogin } className = "space-y-4" >
+                    <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1" > Email </label>
+                        < input
+    type = "email"
+    value = { email }
+    onChange = { e => setEmail(e.target.value)}
+placeholder = "Try admin@bookstore.com"
+className = "w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+required
+    />
+    </div>
+    < div >
+    <label className="block text-sm font-medium text-gray-700 mb-1" > Password </label>
+        < input
+type = "password"
+placeholder = "••••••••"
+className = "w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+required
+    />
+    </div>
+    < button type = "submit" className = "w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors mt-6" >
+        Sign In
+            </button>
+            </form>
+            < div className = "mt-6 text-center text-sm text-gray-500" >
+                Hint: Use < b > admin@bookstore.com</b> to test Admin features.
+                    </div>
+                    </div>
+                    </div>
+    );
+  };
+
+const OrdersView = () => (
+    <div className= "max-w-5xl mx-auto px-4 py-8" >
+    <h1 className="text-3xl font-bold text-gray-900 mb-8" > Your Orders </h1>
+{
+    orders.length === 0 ? (
+        <p className= "text-gray-500" > You haven't placed any orders yet.</p>
+      ) : (
+        <div className= "space-y-6" >
+        {
+            orders.map(order => (
+                <div key= { order.id } className = "bg-white p-6 rounded-2xl border border-gray-100 shadow-sm" >
+                <div className="flex justify-between items-center border-b border-gray-100 pb-4 mb-4" >
+            <div>
+            <p className="font-bold text-gray-900" > Order #{ order.id } </p>
+            < p className = "text-sm text-gray-500" > { new Date(order.date).toLocaleDateString() } </p>
+            </div>
+            < div className = "text-right" >
+            <span className="inline-block bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-medium mb-1" >
+            { order.status }
+            </span>
+            < p className = "font-bold text-lg" > ${ order.total.toFixed(2) } </p>
+            </div>
+            </div>
+            < div className = "space-y-2" >
+            {
+                order.items.map(item => (
+                    <div key= { item.book.id } className = "flex justify-between text-sm" >
+                    <span className="text-gray-600" > { item.quantity }x { item.book.title } </span>
+                < span className = "text-gray-900 font-medium" > ${(item.book.price * item.quantity).toFixed(2)} </span>
+            </div>
+            ))
+        }
+        </div>
+        </div>
+          ))
+}
+</div>
+      )}
+</div>
+  );
+
+const AdminView = () => {
+    if (!user || user.role !== 'admin') return <div className="p-8 text-center text-red-500" > Unauthorized </div>;
+    return (
+        <div className= "max-w-7xl mx-auto px-4 py-8" >
+        <h1 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3" >
+            <LayoutDashboard className="w-8 h-8 text-blue-600" /> Admin Dashboard
+                </h1>
+                < div className = "bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden" >
+                    <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50" >
+                        <h2 className="text-xl font-bold text-gray-900" > Book Catalog Management </h2>
+                            < button className = "bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors flex items-center gap-2" >
+                                <Plus className="w-4 h-4" /> Add Book
+                                    </button>
+                                    </div>
+                                    < div className = "overflow-x-auto" >
+                                        <table className="w-full text-left text-sm text-gray-500" >
+                                            <thead className="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-100" >
+                                                <tr>
+                                                <th className="px-6 py-4" > Title </th>
+                                                    < th className = "px-6 py-4" > Author </th>
+                                                        < th className = "px-6 py-4" > Price </th>
+                                                            < th className = "px-6 py-4" > Stock(Mock) </th>
+                                                                < th className = "px-6 py-4 text-right" > Actions </th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+    {
+        books.map(book => (
+            <tr key= { book.id } className = "border-b border-gray-50 hover:bg-gray-50/50 transition-colors" >
+            <td className="px-6 py-4 font-medium text-gray-900 flex items-center gap-3" >
+        <img src={ book.cover } className = "w-10 h-14 object-cover rounded shadow-sm" alt = "" />
+        { book.title }
+        </td>
+        < td className = "px-6 py-4" > { book.author } </td>
+        < td className = "px-6 py-4" > ${ book.price.toFixed(2) } </td>
+        < td className = "px-6 py-4" > <span className="bg-green-100 text-green-800 px-2.5 py-0.5 rounded-full text-xs font-medium" > In Stock < /span></td >
+        <td className="px-6 py-4 text-right" >
+        <button className="text-blue-600 hover:text-blue-900 p-2" > <Edit className="w-4 h-4" /> </button>
+        < button className = "text-red-600 hover:text-red-900 p-2" > <Trash2 className="w-4 h-4" /> </button>
+        </td>
+        </tr>
+        ))
+    }
+    </tbody>
+        </table>
+        </div>
+        </div>
+        </div>
+    );
+  };
+
+return (
+    <div className= "min-h-screen flex flex-col relative" >
+    <GlobalStyles />
+    < Header />
+
+    <main className="flex-grow" >
+        { view === 'catalog' && <CatalogView />}
+{ view === 'cart' && <CartView /> }
+{ view === 'checkout' && <CheckoutView /> }
+{ view === 'login' && <LoginView /> }
+{ view === 'orders' && <OrdersView /> }
+{ view === 'admin' && <AdminView /> }
+</main>
+
+{/* Floating Checkout Bar (Appears when items are in cart) */ }
+{
+    cart.length > 0 && (view === 'catalog') && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-lg bg-white rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.15)] border border-gray-100 flex items-center justify-between p-2 pl-6 animate-in slide-in-from-bottom-10 fade-in duration-300" >
+            <div className="flex items-center gap-6" >
+                {/* Image & Badge Wrapper */ }
+                < div className = "relative -mt-6" >
+                    <div className="w-16 h-16 bg-white rounded-xl shadow-md border border-gray-100 flex items-center justify-center overflow-hidden z-10 relative" >
+                        {
+                            cart[cart.length - 1]?.book?.cover ? (
+                                <img src= { cart[cart.length - 1].book.cover } alt="Latest item" className="w-full h-full object-cover" />
+                        ) : (
+                                    <Package className="w-8 h-8 text-blue-600" />
+                        )
+}
+</div>
+{/* Red Notification Badge */ }
+<span className="absolute -top-3 -right-3 bg-red-500 text-white text-sm font-bold w-7 h-7 rounded-full flex items-center justify-center border-2 border-white z-20 shadow-sm" >
+    { cart.reduce((sum, item) => sum + item.quantity, 0) }
+    </span>
+    </div>
+{/* Total Price */ }
+<span className="text-2xl font-extrabold text-[#1a237e]" >
+    ${ cart.reduce((sum, item) => sum + (item.book.price * item.quantity), 0).toFixed(2) }
+</span>
+    </div>
+{/* Checkout Button */ }
+<button 
+                onClick={ () => setView('cart') }
+className = "bg-[#1a237e] text-white px-8 py-3.5 rounded-full font-bold text-lg hover:bg-blue-900 transition-colors shadow-md"
+    >
+    Checkout
+    </button>
+    </div>
+      )}
+
+{/* AI Chatbot UI */ }
+<div className={ `fixed right-6 z-40 flex flex-col items-end transition-all duration-300 ${cart.length > 0 && view === 'catalog' ? 'bottom-28' : 'bottom-6'}` }>
+    { aiChatOpen && (
+        <div className="bg-white border border-gray-200 shadow-2xl rounded-2xl w-[90vw] max-w-sm mb-4 overflow-hidden flex flex-col h-[500px] max-h-[75vh] transition-all duration-300 transform origin-bottom-right" >
+            <div className="bg-blue-600 p-4 text-white flex justify-between items-center" >
+                <div className="flex items-center gap-2" >
+                    <Bot className="w-6 h-6" />
+                        <span className="font-semibold" > AI Librarian </span>
+                            </div>
+                            < button onClick = {() => setAiChatOpen(false)} className = "text-white/80 hover:text-white transition-colors" >
+                                <X className="w-5 h-5" />
+                                    </button>
+                                    </div>
+                                    < div className = "flex-grow p-4 overflow-y-auto bg-gray-50 space-y-4" >
+                                    {
+                                        aiMessages.map((msg, idx) => (
+                                            <div key= { idx } className = {`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`} >
+                                        <div className={
+                                            `max-w-[85%] p-3.5 rounded-2xl text-sm leading-relaxed ${msg.role === 'user'
+                                                ? 'bg-blue-600 text-white rounded-br-sm'
+                                                : 'bg-white border border-gray-100 text-gray-800 shadow-sm rounded-bl-sm'
+                                            }`
+}>
+    { msg.text }
+    </div>
+    </div>
+                    ))}
+{
+    aiChatLoading && (
+        <div className="flex justify-start" >
+            <div className="bg-white border border-gray-100 text-gray-500 shadow-sm rounded-2xl rounded-bl-sm p-3.5 text-sm flex gap-1" >
+                <span className="animate-bounce" >.< /span><span className="animate-bounce delay-100">.</span > <span className="animate-bounce delay-200" >.</span>
+                    </div>
+                    </div>
+                    )
+}
+</div>
+    < form onSubmit = { handleSendAIMessage } className = "p-3 bg-white border-t border-gray-100 flex gap-2 items-center" >
+        <input 
+                        type="text"
+value = { aiChatInput }
+onChange = {(e) => setAiChatInput(e.target.value)}
+placeholder = "Ask for recommendations..."
+className = "flex-grow px-4 py-2.5 bg-gray-100 rounded-full text-sm outline-none focus:ring-2 focus:ring-blue-200 transition-all"
+    />
+    <button 
+                        type="submit"
+disabled = { aiChatLoading || !aiChatInput.trim()}
+className = "bg-blue-600 text-white p-2.5 rounded-full hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+    >
+    <Send className="w-4 h-4" />
+        </button>
+        </form>
+        </div>
+        )}
+
+<button 
+            onClick={ () => setAiChatOpen(!aiChatOpen) }
+className = "bg-blue-600 text-white p-4 rounded-full shadow-xl shadow-blue-900/20 hover:bg-blue-700 hover:scale-105 active:scale-95 transition-all flex items-center justify-center"
+    >
+    { aiChatOpen?<X className = "w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
+</button>
+    </div>
+
+{/* AI Summary Modal */ }
+{
+    summaryModal.isOpen && (
+        <div className="fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4" >
+            <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl relative overflow-hidden animate-in fade-in zoom-in duration-200" >
+                <button 
+                    onClick={ () => setSummaryModal({ isOpen: false, book: null, summary: '', loading: false }) }
+    className = "absolute top-4 right-4 text-gray-400 hover:text-gray-900 bg-gray-100 rounded-full p-1.5 transition-colors"
+        >
+        <X className="w-5 h-5" />
+            </button>
+
+            < div className = "flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6" >
+                <div className="w-32 h-48 sm:w-24 sm:h-36 bg-gray-100 rounded-xl overflow-hidden flex-shrink-0 shadow-md" >
+                    <img src={ summaryModal.book?.cover } alt = { summaryModal.book?.title } className = "w-full h-full object-cover" />
+                        </div>
+                        < div className = "text-center sm:text-left" >
+                            <div className="flex items-center justify-center sm:justify-start gap-2 text-blue-600 mb-2" >
+                                <Sparkles className="w-4 h-4" />
+                                    <span className="text-xs font-bold tracking-wider uppercase" > AI Teaser Summary </span>
+                                        </div>
+                                        < h2 className = "text-2xl font-bold text-gray-900 leading-tight mb-1" > { summaryModal.book?.title } </h2>
+                                            < p className = "text-gray-500 font-medium" > { summaryModal.book?.author } </p>
+                                                </div>
+                                                </div>
+
+                                                < div className = "bg-blue-50/50 p-5 rounded-2xl border border-blue-100/50 min-h-[120px] flex items-center justify-center relative overflow-hidden" >
+                                                {
+                                                    summaryModal.loading && (
+                                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full animate-[shimmer_2s_infinite]" />
+                    )
+                                                }
+    {
+        summaryModal.loading ? (
+            <div className= "flex items-center gap-3 text-blue-500 font-medium w-full justify-center py-4" >
+            <Sparkles className="w-5 h-5 animate-pulse" /> Reading the book...
+        </div>
+                    ) : (
+            <p className= "text-gray-700 leading-relaxed italic text-center sm:text-left" >
+            "{summaryModal.summary}"
+            </p>
+                    )
+    }
+    </div>
+
+        < div className = "mt-6 flex justify-end gap-3" >
+            <button 
+                        onClick={
+        () => {
+            addToCart(summaryModal.book);
+            setSummaryModal({ isOpen: false, book: null, summary: '', loading: false });
+        }
+    }
+    className = "w-full sm:w-auto bg-gray-900 text-white px-6 py-3 rounded-xl font-medium hover:bg-gray-800 transition-colors flex items-center justify-center gap-2 shadow-lg"
+        >
+        <Plus className="w-5 h-5" /> Add to Cart - ${ summaryModal.book?.price.toFixed(2) }
+    </button>
+        </div>
+        </div>
+
+        < style > {`
+                @keyframes shimmer {
+                    100% { transform: translateX(100%); }
+                }
+            `} </style>
+    </div>
+      )}
+
+{/* Global Toast Container */ }
+<div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2" >
+{
+    toasts.map(toast => (
+        <div key= { toast.id } className = {`flex items-center gap-2 px-4 py-3 rounded-xl shadow-lg text-sm font-medium transform transition-all duration-300 translate-y-0 opacity-100 ${toast.type === 'error' ? 'bg-red-600 text-white' : 'bg-gray-900 text-white'}`} >
+    { toast.type === 'error' ? <X className="w-4 h-4" /> : <Check className="w-4 h-4 text-green-400" / >}
+{ toast.message }
+</div>
+        ))}
+</div>
+    </div>
+  );
+}

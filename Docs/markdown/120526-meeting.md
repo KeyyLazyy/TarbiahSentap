@@ -36,3 +36,9 @@
    - Fetch public API & convert response
 7. Middleware
 8. Data Conversion
+
+## Question to ask lecturer - lecturer has answered already
+- ⁠authentication and security (2FA) - firebase
+- ⁠middleware
+- ⁠architecture -> client server (help me to do the client server and need to setup docker)
+- ⁠external API (fetch public API and data conversion) - payment gateway (razorpay)

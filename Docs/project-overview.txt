@@ -1,0 +1,149 @@
+================================================================================
+           PROJECT OVERVIEW: SECURE-BY-DESIGN E-COMMERCE PLATFORM
+                               (TARBIAH SENTAP)
+================================================================================
+
+1. PROJECT INTRO & PURPOSE
+--------------------------
+Tarbiah Sentap is a decoupled, highly secure, and modern e-commerce prototype 
+designed following premium client-server architecture principles. Modeled after 
+the Tarbiah Sentap brand, the application functions as a spiritual and 
+intellectual online catalog where users can securely browse, add books to their
+cart, checkout, and view purchase history. Administrators are provided with an
+executive dashboard containing real-time store analytics, catalog management, 
+and secure data export capabilities.
+
+2. SYSTEM ARCHITECTURE
+----------------------
+The system utilizes a fully decoupled Client-Server Architecture:
+
+   a. Backend (Express API Server)
+      - Decoupled, stateless REST API server operating on Node.js/Express.
+      - Handles critical business logic, security protocols, and route management.
+      - Integrates modular routes separated by domain (Auth, Books, Orders, Admin, 
+        and External simulated calls).
+
+   b. Frontend (Vite + React Web Client)
+      - Fast, modern, and decoupled React single-page application (SPA).
+      - Integrates Axios HTTP client with interceptors for automatic JWT attachments.
+      - Utilizes standard Lucide icons, responsive navigation views, and dynamic state.
+
+   c. Database Layer (In-Memory Mock Database Service)
+      - Organized under `backend/src/services/db.js` using a structured, queryable 
+        service paradigm.
+      - Manages in-memory schemas for Users, Books, Orders, and Reports.
+      - Supports complete CRUD operations with robust search predicates and ID 
+        generators (UUID v4).
+
+3. DETAILED PROGRESS & IMPLEMENTED FEATURES
+-------------------------------------------
+
+   [A] CORE SECURITY & AUTHENTICATION (SECURE-BY-DESIGN)
+       - Password & Identity Hashing: Built-in validation matches users against stored keys.
+       - JWT-based authentication system: User verification on login produces a JSON Web
+         Token signed by a server secret, valid for 1 hour, stored on the client.
+       - Role-Based Access Control (RBAC): Implementation of server-side `permit()` 
+         middleware allowing selective route access for 'customer' and 'admin' accounts.
+       - Two-Factor Authentication (2FA): Administrative account (admin@tarbiahsentap.com)
+         is flagged with `twofa_enabled: true`. Login returns a temporary challenge token 
+         demanding validation of a 6-digit OTP code (mock OTP '123456' active for validation).
+       - Global Security Headers: Integrates `helmet` middleware to set critical secure headers.
+       - CORS Protection: Configured using the `cors` package to control client origin policies.
+       - API Rate Limiting: Integrates `express-rate-limit` restricting client requests 
+         to 100 queries per 15 minutes to deter DDoS/Brute-force intrusions.
+
+   [B] FRONTEND PREMIUM DESIGN SYSTEM & VIEWS
+       - Dark Aesthetic (Charcoal Black & Metallic Gold): High-fidelity design utilizing
+         tailored HSL colors, gold gradients, and modern glassmorphism utilities (`glass-dark`, 
+         `glass`, custom `gold-gradient` effects).
+       - Responsive Grid Design: Mobile-first grids tailored to adapt dynamically to 
+         smartphones, tablets, and large screens.
+       - Navigation Views: Active single-page view router seamlessly handling views:
+         * 'catalog' - Book collection and front-panel banner.
+         * 'cart' - Detailed cart breakdown.
+         * 'checkout' - Order placement and payment verification.
+         * 'login' - Identity credentials input.
+         * 'admin' - Exclusive operations center.
+         * 'orders' - Personal order receipt archive.
+         * '2fa' - Biometric / OTP authorization challenge.
+       - Interactive Features:
+         * Toast notification prompt system confirming actions dynamically.
+         * Interactive Hero Section ("New Arrival 2026") boasting custom Unsplash banners.
+         * Real-time sorting (Featured, Price: Low-High, Price: High-Low, Rating) and 
+           search filtering.
+         * Dynamic Cart logic: dynamic counters, instant totals, 8% service tax calculations.
+         * AI Chatbot Simulator Panel: interactive chat assistant styled to match the brand.
+         * AI Summary Modal: dynamic overlay presenting synthesized context via a "Sparkles" button.
+
+   [C] ADMINISTRATIVE CORE & DATA CONVERSION
+       - Analytical Cards: Real-time calculation counters (Gross Revenue, Registered Souls, 
+         and Active Matrix Session limits).
+       - CSV Exporter Module: Allows administrators to trigger the conversion of JSON orders 
+         into a downloadable CSV spreadsheet directly from the dashboard via the backend route 
+         `GET /api/admin/export/csv`.
+       - Sidebar Navigation: Dedicated tab selector separating Dashboard, Books Catalog, 
+         Users monitoring, Promotions, and Orders.
+
+   [D] INTEGRATION SYSTEM & SIMULATORS
+       - Payment Gateway Simulation: Simulates payment gateway processes during checkout, 
+         invoking a mock callback which verifies payment status and logs new customer orders.
+       - Recommendation API Simulator: Active external recommendation endpoint under 
+         `/api/external/recommendations` simulating API call responses from another service.
+
+4. SYSTEM FOLDER STRUCTURE
+--------------------------
+TarbiahSentap/
+├── package.json               # Workspace root file containing concurrent run scripts
+├── old_index.bak              # Backup log
+├── Docs/                      # Project documentation and resources
+│   ├── project-requirement.pdf
+│   ├── project-requirement.txt
+│   ├── project-overview.txt   # [THIS FILE] Executive workspace overview
+│   └── markdown/
+│       └── 120526-meeting.md
+├── backend/                   # Node.js + Express API Server
+│   ├── package.json
+│   ├── .env                   # Environment variables (PORT, JWT_SECRET, CLIENT_ORIGIN)
+│   └── src/
+│       ├── index.js           # Server bootstrap and global middlewares
+│       ├── middleware/
+│       │   └── auth.js        # Verify JWT & RBAC token handler
+│       ├── services/
+│       │   └── db.js          # In-memory database service & seed data
+│       └── routes/
+│           ├── auth.js        # Login & 2FA challenge endpoints
+│           ├── books.js       # CRUD endpoints for books
+│           ├── orders.js      # User orders and creation endpoints
+│           ├── admin.js       # Orders list & CSV export endpoints
+│           └── external.js    # External recommendation API simulations
+└── frontend/                  # React + Vite Client
+    ├── package.json
+    ├── vite.config.js
+    ├── index.html
+    └── src/
+        ├── main.jsx           # App entry point
+        ├── App.jsx            # Dynamic client views, state, and layouts
+        ├── index.css          # Core CSS, Tailwind CSS v4, Charcoal & Gold design tokens
+        ├── App.css            # Component and style layout definitions
+        └── services/
+            └── api.js         # Axios client config with JWT header interceptors
+
+5. HOW TO INITIALIZE & RUN
+--------------------------
+The workspace is fully configured to launch both applications in a single terminal.
+
+   a. Install Dependencies (Frontend & Backend):
+      Run the following command at the workspace root:
+      $ npm run install:all
+
+   b. Start Development Servers:
+      Run the following command at the workspace root:
+      $ npm run dev
+
+      This concurrently initializes:
+      - Express Server at http://localhost:4000
+      - Vite Client at http://localhost:5173
+
+================================================================================
+Document generated on: 2026-05-19T11:22:04+08:00
+================================================================================
