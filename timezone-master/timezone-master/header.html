@@ -1,0 +1,78 @@
+<style>
+        /* Default menu link style */
+        #navigation li a {
+            color: white;              /* Normal text color */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        /* Hover effect */
+        #navigation li a:hover {
+            color: #f8c146;            /* Gold color when hover */
+        }
+
+        /* Optional: Highlight current page */
+        #navigation li.active a {
+            color: #f8c146;
+        }
+
+        
+        /* Default icon color */
+        .header-right #navigation li a span,
+        .header-right #navigation li .nav-search span {
+            color: white !important;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+
+        /* Hover effect */
+        .header-right #navigation li a:hover span,
+        .header-right #navigation li .nav-search:hover span {
+            color: #f8c146 !important; /* Gold */
+            transform: scale(1.15);
+        }
+</style>
+
+<header>
+        <!-- Header Start -->
+        <div class="header-area" style="background-color: black;">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="index.html"><img src="assets/img/logo/tarbiah-sentap-logo.png" width="100" height="auto" alt="Tarbiah Sentap"></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu d-none d-lg-block">
+                            <nav>                                                
+                                <ul id="navigation">  
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="shop.html">shop</a></li>
+                                    <li><a href="about.html">about</a></li>
+                                    
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Header Right -->
+                        <div class="header-right">
+                            <ul id="navigation">
+                                <li>
+                                    <div class="nav-search search-switch">
+                                        <span class="flaticon-search"></span>
+                                    </div>
+                                </li>
+                                <li><a href="login.html"><span class="flaticon-user"></span></a></li>
+                                <li><a href="cart.html"><span class="flaticon-shopping-cart"></span></a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+    </header>
