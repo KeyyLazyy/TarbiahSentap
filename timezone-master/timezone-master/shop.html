@@ -54,58 +54,76 @@ function addToCart(productName, price) {
     // ===============================
     const books = [
         {
-            title: "Tuhan Aku Ingin Hijrah",
+            title: "Izinkan Aku Mencintai Mu",
             author: "Adnin Roslan",
-            price: "RM 40.00",
-            image: "assets/img/gallery/tuhan-aku-ingin-hijrah.jpg"
+            price: "RM -",
+            image: "assets/img/books/1-Izinkan-Aku-Mencintai-Mu.jpg"
         },
         {
-            title: "Tuhan, Aku Ingin Sembuh",
+            title: "Diantara Berjuta Engkaulah Yang Jelita",
             author: "Adnin Roslan",
-            price: "RM 35.00",
-            image: "assets/img/gallery/tuhan-aku-ingin-sembuh.jpg"
+            price: "RM -",
+            image: "assets/img/books/2-Diantara-Berjuta-Engkaulah-Yang-Jelita.jpg   "
         },
         {
-            title: "Tuhan, Aku Ingin Cahaya",
+            title: "Tarbiah Kampus 2",
             author: "Adnin Roslan",
-            price: "RM 35.00",
-            image: "assets/img/gallery/tuhan-aku-ingin-cahaya.jpg"
+            price: "RM -",
+            image: "assets/img/books/3-Tarbiah-Kampus-2.jpg"
         },
         {
-            title: "Tuhan, Aku Ingin Jumpa Nabi",
+            title: "Surat Cinta Dari Tuhan: Sinopsis 30 Juz Quran",
             author: "Adnin Roslan",
-            price: "RM 35.00",
-            image: "assets/img/gallery/tuhan-aku-ingin-jumpa-nabi.jpg"
+            price: "RM -",
+            image: "assets/img/books/4-Surat-Cinta-Dari-Tuhan-Sinopsis-30-Juz-Quran.jpg"
         },
         {
             title: "Surat Cinta Untuk Pendosa",
             author: "Adnin Roslan",
-            price: "RM 30.00",
-            image: "assets/img/gallery/surat-cinta-untuk-pendosa.jpg"
+            price: "RM -",
+            image: "assets/img/books/5-Surat-Cinta-Untuk-Pendosa.jpg"
+        },
+        {
+            title: "100 Doa Taubat Dari Al-Quran dan Hadith Nabi Muhammad SAW",
+            author: "Aniq Muhai",
+            price: "RM -",
+            image: "assets/img/books/6-100-Doa-Taubat Dari-Al-Quran-dan-Hadith-Nabi-Muhammad-SAW.jpg"
+        },
+        {
+            title: "Tuhan Aku Ingin Sembuh",
+            author: "Najmi Fetih",
+            price: "RM -",
+            image: "assets/img/books/7-Tuhan-Aku-Ingin-Sembuh.jpg"
+        },
+        {
+            title: "Parenting Akhir Zaman",
+            author: "Syed Salahuddin",
+            price: "RM -",
+            image: "assets/img/books/8-Parenting-Akhir-Zaman.jpg"
+        },
+        {
+            title: "Aku Juga Punya Hati",
+            author: "Aizuddin Hamid",
+            price: "RM -",
+            image: "assets/img/books/9-Aku-Juga-Punya-Hati.jpg"
+        },
+        {
+            title: "Tuhan Aku Ingin Cahaya",
+            author: "Aizuddin Hamid",
+            price: "RM -",
+            image: "assets/img/books/11-Tuhan-Aku-Ingin-Cahaya.jpg"
+        },
+        {
+            title: "Surat Cinta Dari Tuhan Edisi Istimewa",
+            author: "Aizuddin Hamid",
+            price: "RM -",
+            image: "assets/img/books/13-Surat-Cinta-Dari-Tuhan-Edisi-Istimewa.jpg"
         },
         {
             title: "Teruntuk Jiwa Yang Terluka",
-            author: "Aniq Muhai",
-            price: "RM 30.00",
-            image: "assets/img/gallery/teruntuk-jiwa-yang-terluka.jpg"
-        },
-        {
-            title: "Aku Bukan Ustaz",
-            author: "Najmi Fetih",
-            price: "RM 35.00",
-            image: "assets/img/gallery/aku-bukan-ustaz.jpg"
-        },
-        {
-            title: "Healing Dengan Doa",
-            author: "Syed Salahuddin",
-            price: "RM 30.00",
-            image: "assets/img/gallery/healing-dengan-doa.jpg"
-        },
-        {
-            title: "Menjadi Bidadari Syurga",
             author: "Aizuddin Hamid",
-            price: "RM 30.00",
-            image: "assets/img/gallery/menjadi-bidadari-syurga.jpg"
+            price: "RM -",
+            image: "assets/img/books/14-Teruntuk-Jiwa-Yang-Terluka.jpg"
         }
     ];
 
@@ -121,13 +139,22 @@ function addToCart(productName, price) {
         html += `
         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
             <div class="single-popular-items text-center">
+
                 <div class="popular-img">
+                    
+                    <!-- Add to Cart Icon Button -->
+                    <button class="cart-icon-btn" onclick='addToCart(${JSON.stringify(b)})'>
+                        🛒
+                    </button>
+
                     <img loading="lazy" src="${b.image}" />
                 </div>
+
                 <div class="popular-caption">
                     <h3>${b.title}</h3>
                     <span>${b.price}</span>
                 </div>
+
             </div>
         </div>`;
     });
@@ -139,8 +166,20 @@ function addToCart(productName, price) {
     // ===============================
     // ADD TO CART
     // ===============================
-    function addToCart(title, price) {
-        alert(title + " telah ditambah ke cart.\nHarga: " + price);
+    function addToCart(book) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        let exists = cart.find(item => item.title === book.title);
+
+        if (exists) {
+            alert("Already in cart!");
+            return;
+        }
+
+        cart.push(book);
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        alert(book.title + " added to cart!");
     }
 </script>
 
@@ -176,6 +215,51 @@ function addToCart(productName, price) {
         .header-right #navigation li .nav-search:hover span {
             color: #f8c146 !important; /* Gold */
             transform: scale(1.15);
+        }
+
+        .popular-img {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            overflow: hidden;
+        }
+
+        .popular-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ICON CART BUTTON */
+        .cart-icon-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+
+            width: 40px;
+            height: 40px;
+
+            background: black;
+            border: none;
+            border-radius: 50%;
+
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 18px;
+
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+
+            transition: 0.2s ease;
+        }
+
+        .cart-icon-btn:hover {
+            transform: scale(1.1);
+            background: #f8c146;
+            color: white;
         }
     </style>
 
@@ -295,7 +379,7 @@ function addToCart(productName, price) {
         </section>
         <!-- Latest Products End -->
         <!--? Shop Method Start-->
-        <div class="shop-method-area">
+        <!-- <div class="shop-method-area">
             <div class="container">
                 <div class="method-wrapper">
                     <div class="row d-flex justify-content-between">
@@ -323,7 +407,7 @@ function addToCart(productName, price) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Shop Method End-->
     </main>
     <footer>
