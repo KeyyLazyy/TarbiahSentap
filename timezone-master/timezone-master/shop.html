@@ -48,7 +48,136 @@ function addToCart(productName, price) {
     // Show notification
     alert(productName + ' has been added to cart!');
 }
+
+    // ===============================
+    // DATA BUKU (COPY DARI CSV)
+    // ===============================
+    const books = [
+        {
+            title: "Tuhan Aku Ingin Hijrah",
+            author: "Adnin Roslan",
+            price: "RM 40.00",
+            image: "assets/img/gallery/tuhan-aku-ingin-hijrah.jpg"
+        },
+        {
+            title: "Tuhan, Aku Ingin Sembuh",
+            author: "Adnin Roslan",
+            price: "RM 35.00",
+            image: "assets/img/gallery/tuhan-aku-ingin-sembuh.jpg"
+        },
+        {
+            title: "Tuhan, Aku Ingin Cahaya",
+            author: "Adnin Roslan",
+            price: "RM 35.00",
+            image: "assets/img/gallery/tuhan-aku-ingin-cahaya.jpg"
+        },
+        {
+            title: "Tuhan, Aku Ingin Jumpa Nabi",
+            author: "Adnin Roslan",
+            price: "RM 35.00",
+            image: "assets/img/gallery/tuhan-aku-ingin-jumpa-nabi.jpg"
+        },
+        {
+            title: "Surat Cinta Untuk Pendosa",
+            author: "Adnin Roslan",
+            price: "RM 30.00",
+            image: "assets/img/gallery/surat-cinta-untuk-pendosa.jpg"
+        },
+        {
+            title: "Teruntuk Jiwa Yang Terluka",
+            author: "Aniq Muhai",
+            price: "RM 30.00",
+            image: "assets/img/gallery/teruntuk-jiwa-yang-terluka.jpg"
+        },
+        {
+            title: "Aku Bukan Ustaz",
+            author: "Najmi Fetih",
+            price: "RM 35.00",
+            image: "assets/img/gallery/aku-bukan-ustaz.jpg"
+        },
+        {
+            title: "Healing Dengan Doa",
+            author: "Syed Salahuddin",
+            price: "RM 30.00",
+            image: "assets/img/gallery/healing-dengan-doa.jpg"
+        },
+        {
+            title: "Menjadi Bidadari Syurga",
+            author: "Aizuddin Hamid",
+            price: "RM 30.00",
+            image: "assets/img/gallery/menjadi-bidadari-syurga.jpg"
+        }
+    ];
+
+    // ===============================
+    // DISPLAY SEMUA BUKU
+    // ===============================
+    document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("book-list");
+
+    let html = "";
+
+    books.forEach(b => {
+        html += `
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+            <div class="single-popular-items text-center">
+                <div class="popular-img">
+                    <img loading="lazy" src="${b.image}" />
+                </div>
+                <div class="popular-caption">
+                    <h3>${b.title}</h3>
+                    <span>${b.price}</span>
+                </div>
+            </div>
+        </div>`;
+    });
+
+    container.innerHTML = html;
+});
+
+
+    // ===============================
+    // ADD TO CART
+    // ===============================
+    function addToCart(title, price) {
+        alert(title + " telah ditambah ke cart.\nHarga: " + price);
+    }
 </script>
+
+<style>
+        /* Default menu link style */
+        #navigation li a {
+            color: white;              /* Normal text color */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        /* Hover effect */
+        #navigation li a:hover {
+            color: #f8c146;            /* Gold color when hover */
+        }
+
+        /* Optional: Highlight current page */
+        #navigation li.active a {
+            color: #f8c146;
+        }
+
+        
+        /* Default icon color */
+        .header-right #navigation li a span,
+        .header-right #navigation li .nav-search span {
+            color: white !important;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+
+        /* Hover effect */
+        .header-right #navigation li a:hover span,
+        .header-right #navigation li .nav-search:hover span {
+            color: #f8c146 !important; /* Gold */
+            transform: scale(1.15);
+        }
+    </style>
 
 <body>
     <!--? Preloader Start -->
@@ -57,7 +186,7 @@ function addToCart(productName, price) {
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/logo.png" alt="">
+                    <img src="assets/img/logo/tarbiah-sentap-logo.png" alt="">
                 </div>
             </div>
         </div>
@@ -65,13 +194,13 @@ function addToCart(productName, price) {
     <!-- Preloader Start -->
     <header>
         <!-- Header Start -->
-        <div class="header-area">
-            <div class="main-header header-sticky">
+        <div class="header-area" style="background-color: black;">
+            <div class="main-header header-sticky" style="background-color: black;">
                 <div class="container-fluid">
                     <div class="menu-wrapper">
                         <!-- Logo -->
                         <div class="logo">
-                            <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                            <a href="index.html"><img src="assets/img/logo/tarbiah-sentap-logo.png" width="100" height="auto" alt="Tarbiah Sentap"></a>
                         </div>
                         <!-- Main-menu -->
                         <div class="main-menu d-none d-lg-block">
@@ -80,40 +209,19 @@ function addToCart(productName, price) {
                                     <li><a href="index.html">Home</a></li>
                                     <li><a href="shop.html">shop</a></li>
                                     <li><a href="about.html">about</a></li>
-                                    <li class="hot"><a href="#">Latest</a>
-                                        <ul class="submenu">
-                                            <li><a href="shop.html"> Product list</a></li>
-                                            <li><a href="product_details.html"> Product Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="blog.html">Blog</a>
-                                        <ul class="submenu">
-                                            <li><a href="blog.html">Blog</a></li>
-                                            <li><a href="blog-details.html">Blog Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Pages</a>
-                                        <ul class="submenu">
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="cart.html">Cart</a></li>
-                                            <li><a href="elements.html">Element</a></li>
-                                            <li><a href="confirmation.html">Confirmation</a></li>
-                                            <li><a href="checkout.html">Product Checkout</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    
                                 </ul>
                             </nav>
                         </div>
                         <!-- Header Right -->
                         <div class="header-right">
-                            <ul>
+                            <ul id="navigation">
                                 <li>
                                     <div class="nav-search search-switch">
                                         <span class="flaticon-search"></span>
                                     </div>
                                 </li>
-                                <li> <a href="login.html"><span class="flaticon-user"></span></a></li>
+                                <li><a href="login.html"><span class="flaticon-user"></span></a></li>
                                 <li><a href="cart.html"><span class="flaticon-shopping-cart"></span></a> </li>
                             </ul>
                         </div>
@@ -177,329 +285,9 @@ function addToCart(productName, price) {
                 </div>
                 <!-- Nav Card -->
                 <div class="tab-content" id="nav-tabContent">
-                    <!-- card one -->
+                    <!-- Semua Buku dari CSV -->
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                        <div class="row">
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/tuhan-aku-ingin-hijrah.jpg" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-product">
-                                    <div class="product-img">
-                                        <img src="assets/img/gallery/tuhan-aku-ingin-hijrah.jpg" alt="Tuhan Aku Ingin Hijrah">
-
-                                        <!-- Add to Cart Button -->
-                                        <div class="img-cap">
-                                            <button onclick="addToCart('Tuhan Aku Ingin Hijrah', 29.90)"
-                                                    style="background: none; border: none; color: white; cursor: pointer; font-size: 16px;">
-                                                Add to cart
-                                            </button>
-                                        </div>
-
-                                        <!-- Favorite Icon -->
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/tuhan-aku-ingin-hijrah.jpg" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/tuhan-aku-ingin-hijrah.jpg" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/tuhan-aku-ingin-hijrah.jpg" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/tuhan-aku-ingin-hijrah.jpg" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card two -->
-                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                        <div class="row">
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/tuhan-aku-ingin-hijrah.jpg" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/tuhan-aku-ingin-hijrah.jpg" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/tuhan-aku-ingin-hijrah.jpg" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/tuhan-aku-ingin-hijrah.jpg" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/tuhan-aku-ingin-hijrah.jpg" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/popular6.png" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card three -->
-                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                        <div class="row">
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/popular1.png" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/popular2.png" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/popular3.png" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/popular4.png" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/popular5.png" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                        <img src="assets/img/gallery/popular6.png" alt="">
-                                        <div class="img-cap">
-                                            <span>Add to cart</span>
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
-                                    </div>
-                                    <div class="popular-caption">
-                                        <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                        <span>$ 45,743</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="row" id="book-list"></div>
                     </div>
                 </div>
                 <!-- End Nav Card -->
@@ -548,7 +336,7 @@ function addToCart(productName, price) {
                             <div class="single-footer-caption mb-30">
                                 <!-- logo -->
                                 <div class="footer-logo">
-                                    <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
+                                    <a href="index.html"><img src="assets/img/logo/tarbiah-sentap-logo2.png" width="150" height="auto" alt=""></a>
                                 </div>
                                 <div class="footer-tittle">
                                     <div class="footer-pera">
@@ -563,10 +351,10 @@ function addToCart(productName, price) {
                             <div class="footer-tittle">
                                 <h4>Quick Links</h4>
                                 <ul>
-                                    <li><a href="#">About</a></li>
-                                    <li><a href="#"> Offers & Discounts</a></li>
-                                    <li><a href="#"> Get Coupon</a></li>
-                                    <li><a href="#">  Contact Us</a></li>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="shop.html">Shop</a></li>
+                                    <li><a href="about.html">About</a></li>
+                                    <li><a href="contact.html">  Contact Us</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -574,17 +362,17 @@ function addToCart(productName, price) {
                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
                         <div class="single-footer-caption mb-50">
                             <div class="footer-tittle">
-                                <h4>New Products</h4>
+                                <h4>Products</h4>
                                 <ul>
-                                    <li><a href="#">Woman Cloth</a></li>
-                                    <li><a href="#">Fashion Accessories</a></li>
+                                    <li><a href="#">Book</a></li>
+                                    <!-- <li><a href="#">Fashion Accessories</a></li>
                                     <li><a href="#"> Man Accessories</a></li>
-                                    <li><a href="#"> Rubber made Toys</a></li>
+                                    <li><a href="#"> Rubber made Toys</a></li> -->
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
+                    <!-- <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
                         <div class="single-footer-caption mb-50">
                             <div class="footer-tittle">
                                 <h4>Support</h4>
@@ -596,7 +384,7 @@ function addToCart(productName, price) {
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- Footer bottom -->
                 <div class="row align-items-center">
