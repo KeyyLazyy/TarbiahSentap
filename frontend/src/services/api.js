@@ -16,6 +16,7 @@ api.interceptors.request.use((config) => {
 export const authApi = {
   login: (email, password) => api.post('/auth/login', { email, password }),
   verify2FA: (otp, tempToken) => api.post('/auth/2fa/verify', { otp, tempToken }),
+  signup: (email, password) => api.post('/auth/signup', { email, password }),
 };
 
 export const bookApi = {

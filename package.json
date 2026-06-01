@@ -4,11 +4,11 @@
   "private": true,
   "description": "Root workspace to manage Tarbiah Sentap frontend and backend",
   "scripts": {
-    "dev:frontend": "npm run dev --prefix frontend",
+    "dev:frontend": "npm run dev --prefix Tarbiah-Sentap",
     "dev:backend": "npm run dev --prefix backend",
-    "dev": "npx concurrently -n \"backend,frontend\" -c \"blue,magenta\" \"npm run dev:backend\" \"npm run dev:frontend\"",
-    "install:all": "npm install --prefix backend && npm install --prefix frontend",
-    "build:frontend": "npm run build --prefix frontend",
-    "lint:frontend": "npm run lint --prefix frontend"
+    "dev:laravel": "D:\\laragon\\bin\\php\\php-8.4.23-Win32-vs17-x64\\php.exe Tarbiah-Sentap/artisan serve",
+    "dev": "npx concurrently -n \"backend,laravel-vite,laravel-server\" -c \"blue,magenta,green\" \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:laravel\"",
+    "install:all": "npm install --prefix backend && npm install --prefix Tarbiah-Sentap",
+    "build:frontend": "npm run build --prefix Tarbiah-Sentap"
   }
 }

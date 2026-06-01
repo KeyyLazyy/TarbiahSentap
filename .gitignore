@@ -1,0 +1,23 @@
+# Root gitignore
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+Tarbiah-Sentap/node_modules/
+Tarbiah-Sentap/vendor/
+
+# Environment files
+.env
+Tarbiah-Sentap/.env
+backend/.env
+
+# Build outputs
+frontend/dist/
+Tarbiah-Sentap/public/build/
+
+# Secret files
+*firebase-adminsdk*.json
+tarbiahsentap-*-firebase-adminsdk-*.json
+
+# OS files
+.DS_Store
+Thumbs.db

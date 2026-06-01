@@ -16,8 +16,10 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 // Global middlewares
-app.use(helmet());
-app.use(cors({ origin: process.env.CLIENT_ORIGIN || '*' }));
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}));
+app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
@@ -48,6 +50,14 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ success: false, error: err.message || 'Server Error' });
 });
 
+// Seed default Firebase users if enabled
+const { seedUsers } = require('./services/firebase');
+seedUsers().catch(err => console.error('❌ Error during Firebase seeding:', err));
+
+// Run Express Server
 app.listen(PORT, () => {
   console.log(`🚀 API server running on http://localhost:${PORT}`);
 });
+
+// nodemon touch 4
+

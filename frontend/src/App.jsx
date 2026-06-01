@@ -25,6 +25,51 @@ export default function App() {
     const [aiChatLoading, setAiChatLoading] = useState(false);
 
     const [summaryModal, setSummaryModal] = useState({ isOpen: false, book: null, summary: '', loading: false });
+    const [billingAddress, setBillingAddress] = useState('');
+    const [cardNumber, setCardNumber] = useState('');
+    const [cardExpiry, setCardExpiry] = useState('');
+    const [cardCvc, setCardCvc] = useState('');
+
+    const getBookSummary = (book) => {
+        const summaries = {
+            '1': 'Sebuah coretan rohani yang membimbing jiwa untuk meletakkan cinta tertinggi hanya kepada Allah SWT sebelum mencintai makhluk-Nya.',
+            '2': 'Novel islamik berkisarkan tentang pencarian keindahan iman dan akhlak dalam melayari hubungan sesama manusia berlandaskan syariat.',
+            '3': 'Kesinambungan kisah dakwah di kampus, membimbing mahasiswa menghadapi cabaran akademik, persahabatan, dan tarbiah diri.',
+            '4': 'Himpunan sinopsis dan tadabbur ringkas 30 juzuk Al-Quran, ditulis dengan bahasa yang mudah difahami untuk mendekatkan diri dengan kalam tuhan.',
+            '5': 'Naskhah buat setiap pendosa yang merasakan dirinya tidak layak diampuni, membawakan khabar gembira tentang keluasan rahmat dan keampunan Allah.',
+            '6': 'Himpunan 100 doa-doa taubat pilihan daripada Al-Quran serta Hadith sahih untuk diamalkan dalam membersihkan jiwa yang leka.',
+            '7': 'Sebuah buku motivasi dan terapi jiwa yang sangat popular, membincangkan cara menyembuhkan luka emosi dan mental melalui kekuatan doa dan tawakal.',
+            '8': 'Panduan keibubapaan berlandaskan acuan syariat Islam bagi mendidik anak-anak menghadapi fitnah akhir zaman.',
+            '9': 'Coretan tentang perasaan, emosi, dan pergolakan hati manusia yang ditarbiah agar sentiasa tunduk pada ketentuan Ilahi.',
+            '11': 'Buku yang menyuntik harapan buat jiwa-jiwa yang sedang teraba-raba mencari sinar hidayah dan cahaya kebenaran.',
+            '13': 'Buku terlaris (Edisi Istimewa) yang menghimpunkan surat-surat muhasabah diri rohani seolah-olah surat cinta yang dikirimkan terus dari pencipta.',
+            '14': 'Ditujukan khas untuk sesiapa sahaja yang sedang kecewa, berduka, dan hilang arah, untuk kembali mencari ketenangan di sisi Allah.',
+            '15': 'Himpunan hadith dan pesanan penting tentang tanda-tanda akhir zaman dan persediaan yang wajib dilakukan oleh setiap Muslim.',
+            '16': 'Buku panduan dakwah dan tarbiah yang sangat santai, khusus untuk pelajar universiti membina jatidiri Muslim sejati di kampus.',
+            '17': 'Naskhah rohani yang memupuk rasa rindu mendalam untuk bertemu, mengenali, dan mengikut sunnah baginda Nabi Muhammad SAW.',
+            '18': 'Coretan khas mendidik wanita Muslimah untuk menghargai maruah diri dan bercita-cita menjadi bidadari yang dirindui syurga.',
+            '19': 'Terapi ketenangan minda dan fizikal melalui keajaiban doa-doa harian dan amalan zikir yang bersumberkan sunnah.',
+            '20': 'Buku motivasi yang membimbing pembaca meletakkan pergantungan mutlak kepada Allah dalam menggapai segala impian hidup.',
+            '21': 'Kisah fiksi dakwah yang memecah stereotaip masyarakat terhadap peranan pendakwah muda, penuh konflik dan pengajaran.',
+            '22': 'Bimbingan rohani ketika harapan duniawi musnah, membantu membina kembali kekuatan jiwa melalui redha dan husnudzon.',
+            '23': 'Sebuah novel fiksyen islamik bertemakan sejarah, perjuangan maruah, dan pegangan iman yang tidak goyah.',
+            '24': 'Catatan menyayat hati dan membakar semangat tentang perjuangan dan ketabahan saudara kita di bumi Palestin.',
+            '25': 'Muhasabah tajam tentang maksiat, kelalaian manusia, dan bagaimana kemurkaan tuhan boleh mengundang ujian di dunia.',
+            '26': 'Novel cinta islamik yang membincangkan erti cinta yang sebenar—cinta yang memandu kepada syurga, bukan maksiat.',
+            '27': 'Berita gembira daripada Allah buat hamba-hamba-Nya yang sabar, bertaubat, dan istiqamah dalam melakukan kebaikan.',
+            '29': 'Mengupas isu kekecewaan akibat dikhianati dan bagaimana membina semula kepercayaan serta memaafkan demi ketenangan jiwa.',
+            '30': 'Novel tarbiah tentang perjalanan seorang pemuda yang berkelana mencari erti ketuhanan dan tujuan sebenar kehidupan.',
+            '33': 'Novel islamik penuh misteri dan pengajaran tentang rahsia-rahsia kehidupan yang terselindung di sebalik ujian.',
+            '38': 'Membongkar pelbagai mitos dan salah faham masyarakat dalam memahami konsep agama, ibadah, dan kehidupan.',
+            '39': 'Kupasan tentang fitnah maksiat yang semakin bermaharajalela di akhir zaman serta benteng pertahanan iman yang perlu dibina.',
+            '40': 'Ulasan mendalam mengenai tanda-tanda kiamat yang semakin hampir berdasarkan dalil sahih Al-Quran dan Hadith.',
+            '41': 'Surat-surat penuh pujukan dan harapan yang ditujukan kepada jiwa yang putus asa agar bangkit semula mencari rahmat-Nya.',
+            '42': 'Novel cinta dan rindu islamik yang membimbing pembaca meluahkan rindu dalam batas-batas yang diredhai Allah.',
+            '43': 'Komik/Manga dakwah yang menyampaikan analogi-analogi kehidupan dan tarbiah dengan gaya ilustrasi yang santai dan menarik.',
+            '44': 'Langkah-langkah praktikal dan perkongsian motivasi bagi sesiapa sahaja yang ingin berhijrah meninggalkan masa silam yang kelam.'
+        };
+        return summaries[book.id] || 'Coretan rohani dan inspirasi untuk mendekatkan diri kepada Allah SWT serta membina peribadi Muslim yang cemerlang.';
+    };
 
     // Toast Notification System
     const addToast = (message, type = 'success') => {
@@ -107,7 +152,21 @@ export default function App() {
         setView('checkout');
     };
 
-    const processPayment = async () => {
+    const processPayment = () => {
+        if (!billingAddress.trim() || !cardNumber.trim() || !cardExpiry.trim() || !cardCvc.trim()) {
+            addToast('Please fill out all billing and payment details', 'error');
+            return;
+        }
+        setView('payment-gateway');
+    };
+
+    const completeTransaction = async (status) => {
+        if (status === 'fail') {
+            addToast('Transaction Declined: Card authorization failed.', 'error');
+            setView('checkout');
+            return;
+        }
+
         try {
             const total = cart.reduce((sum, item) => sum + (item.book.price * item.quantity), 0);
             const res = await orderApi.create({
@@ -117,8 +176,12 @@ export default function App() {
             
             if (res.data.success) {
                 setCart([]);
+                setBillingAddress('');
+                setCardNumber('');
+                setCardExpiry('');
+                setCardCvc('');
                 setView('orders');
-                addToast('Order placed successfully!');
+                addToast('Payment successful! Order processed.');
             }
         } catch (err) {
             addToast('Payment failed', 'error');
@@ -141,7 +204,37 @@ export default function App() {
                 addToast('Logged in successfully');
             }
         } catch (err) {
-            addToast('Invalid credentials', 'error');
+            const errorMsg = err.response?.data?.error || 'Invalid credentials';
+            addToast(errorMsg, 'error');
+            if (err.response?.data?.verificationLink) {
+                console.log('✉️ Firebase Verification Link:', err.response.data.verificationLink);
+            }
+        }
+    };
+
+    const handleSignup = async (email, password) => {
+        try {
+            const res = await authApi.signup(email, password);
+            if (res.data.success) {
+                if (res.data.verificationLink) {
+                    console.log('✉️ Firebase Verification Link:', res.data.verificationLink);
+                    addToast('Registration successful! Click the verification link in your browser console.', 'info');
+                    setView('login');
+                } else {
+                    const userData = res.data.user;
+                    localStorage.setItem('token', res.data.token);
+                    localStorage.setItem('user', JSON.stringify(userData));
+                    setUser(userData);
+                    setView('catalog');
+                    addToast('Registered & logged in successfully');
+                }
+            }
+        } catch (err) {
+            const errorMsg = err.response?.data?.error || 'Registration failed';
+            addToast(errorMsg, 'error');
+            if (err.response?.data?.verificationLink) {
+                console.log('✉️ Firebase Verification Link:', err.response.data.verificationLink);
+            }
         }
     };
 
@@ -170,54 +263,113 @@ export default function App() {
         addToast('Logged out');
     };
 
-    // UI Components (Refined)
+    const handleSendAIMessage = async (e) => {
+        if (!aiChatInput.trim()) return;
+        const userMsg = { role: 'user', text: aiChatInput };
+        setAiMessages(prev => [...prev, userMsg]);
+        const promptText = aiChatInput;
+        setAiChatInput('');
+        setAiChatLoading(true);
+
+        setTimeout(() => {
+            let responseText = "Terima kasih atas mesej anda! Sebagai Pembantu AI Tarbiah Sentap, saya mencadangkan anda membaca buku 'Tuhan Aku Ingin Sembuh' oleh Najmi Fetih untuk motivasi rohani, atau novel 'Izinkan Aku Mencintai-Mu' oleh Ustaz Adnin Roslan.";
+            const lower = promptText.toLowerCase();
+            if (lower.includes('admin') || lower.includes('password') || lower.includes('login')) {
+                responseText = "Untuk log masuk sebagai Admin, gunakan email: admin@tarbiahsentap.com dan kata laluan: password123. Sistem akan meminta 6-digit Device Verification code.";
+            } else if (lower.includes('beli') || lower.includes('bayar') || lower.includes('troli') || lower.includes('cart') || lower.includes('payment')) {
+                responseText = "Untuk membuat pembelian, sila tambah buku ke dalam troli, pergi ke halaman troli dan klik 'Secure Checkout'. Anda boleh memasukkan sebarang kad dummy (cth: Visa 4111 1111 1111 1111).";
+            } else if (lower.includes('adnin') || lower.includes('ustaz')) {
+                responseText = "Ustaz Adnin Roslan adalah pengasas Tarbiah Sentap. Buku popular beliau termasuk 'Izinkan Aku Mencintai-Mu', 'Surat Cinta Untuk Pendosa', dan 'Manga Tarbiah'.";
+            } else if (lower.includes('razer') || lower.includes('razorpay')) {
+                responseText = "Penyepaduan Razer Pay sedang dirancang untuk fasa pembangunan akan datang!";
+            } else if (lower.includes('stok') || lower.includes('stock') || lower.includes('buku')) {
+                responseText = "Anda boleh melihat stok semasa dengan meletakkan tetikus (hover) di atas kulit buku di kedai.";
+            }
+
+            setAiMessages(prev => [...prev, { role: 'model', text: responseText }]);
+            setAiChatLoading(false);
+        }, 1000);
+    };
+
+    // UI Components (Refined timezone-master Theme)
     const Header = () => {
         const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
         return (
-            <header className="sticky top-0 z-50 glass-dark shadow-xl border-b border-white/5">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-                    <div className="flex items-center gap-3 cursor-pointer group" onClick={() => setView('catalog')}>
-                        <div className="bg-gold-600 p-2.5 rounded-xl group-hover:bg-gold-500 transition-all shadow-lg shadow-gold-600/20">
-                            <BookOpen className="w-6 h-6 text-white" />
-                        </div>
-                        <span className="font-black text-xl sm:text-2xl tracking-tighter text-white">
-                            Tarbiah<span className="gold-text-gradient hidden xs:inline">Sentap</span>
-                        </span>
-                    </div>
-
-                    <div className="flex items-center gap-3 sm:gap-6">
-                        <button onClick={() => setView('cart')} className="relative p-2 text-gray-400 hover:text-gold-400 transition-all hover:scale-110">
-                            <ShoppingCart className="w-6 h-6" />
-                            {cartCount > 0 && (
-                                <span className="absolute top-0 right-0 bg-gold-500 text-charcoal-950 text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center translate-x-1 -translate-y-1 shadow-lg ring-2 ring-charcoal-900">
-                                    {cartCount}
-                                </span>
-                            )}
-                        </button>
-
-                        {user ? (
-                            <div className="flex items-center gap-2 sm:gap-4">
-                                {user.role === 'admin' && (
-                                    <button onClick={() => setView('admin')} className={`text-sm font-bold flex items-center gap-1.5 transition-colors px-4 py-2 rounded-xl ${view === 'admin' ? 'bg-gold-600 text-white' : 'text-gray-400 hover:text-gold-400'}`}>
-                                        <LayoutDashboard className="w-4 h-4" /> <span className="hidden md:inline">Admin</span>
-                                    </button>
-                                )}
-                                <button onClick={() => setView('orders')} className={`text-sm font-bold flex items-center gap-1.5 transition-colors px-4 py-2 rounded-xl ${view === 'orders' ? 'bg-gold-600 text-white' : 'text-gray-400 hover:text-gold-400'}`}>
-                                    <Package className="w-4 h-4" /> <span className="hidden md:inline">Orders</span>
-                                </button>
-                                <div className="h-10 w-10 rounded-xl gold-gradient flex items-center justify-center text-charcoal-950 font-black shadow-lg">
-                                    {user.email[0].toUpperCase()}
+            <header>
+                <div className="header-area" style={{ backgroundColor: 'black' }}>
+                    <div className="main-header header-sticky" style={{ backgroundColor: 'black', padding: '15px 0' }}>
+                        <div className="container-fluid">
+                            <div className="menu-wrapper d-flex align-items-center justify-content-between">
+                                <div className="logo" onClick={() => setView('catalog')} style={{ cursor: 'pointer' }}>
+                                    <img src="/assets/img/logo/tarbiah-sentap-logo.png" width="90" height="auto" alt="Tarbiah Sentap" />
                                 </div>
-                                <button onClick={handleLogout} className="text-gray-500 hover:text-red-500 transition-all p-2">
-                                    <LogOut className="w-5 h-5" />
-                                </button>
+                                <div className="main-menu d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation" className="d-flex align-items-center gap-4" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+                                            <li className={view === 'catalog' ? 'active' : ''}>
+                                                <a href="#" onClick={(e) => { e.preventDefault(); setView('catalog'); }} style={{ color: 'white', fontWeight: 'bold', textDecoration: 'none' }}>Home</a>
+                                            </li>
+                                            <li className={view === 'catalog' ? 'active' : ''}>
+                                                <a href="#" onClick={(e) => { e.preventDefault(); setView('catalog'); }} style={{ color: 'white', fontWeight: 'bold', textDecoration: 'none' }}>Shop</a>
+                                            </li>
+                                            {user && (
+                                                <li className={view === 'orders' ? 'active' : ''}>
+                                                    <a href="#" onClick={(e) => { e.preventDefault(); setView('orders'); }} style={{ color: 'white', fontWeight: 'bold', textDecoration: 'none' }}>Orders</a>
+                                                </li>
+                                            )}
+                                            {user && user.role === 'admin' && (
+                                                <li className={view === 'admin' ? 'active' : ''}>
+                                                    <a href="#" onClick={(e) => { e.preventDefault(); setView('admin'); }} style={{ color: 'white', fontWeight: 'bold', textDecoration: 'none' }}>Admin Core</a>
+                                                </li>
+                                            )}
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div className="header-right">
+                                    <ul id="navigation" className="d-flex align-items-center gap-4" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+                                        {user ? (
+                                            <>
+                                                <li style={{ color: 'white', fontWeight: 'bold', fontSize: '14px' }}>
+                                                    {user.email.split('@')[0]}
+                                                </li>
+                                                <li>
+                                                    <a href="#" onClick={(e) => { e.preventDefault(); handleLogout(); }} title="Sign Out">
+                                                        <span className="flaticon-user" style={{ color: '#ff2020' }}></span>
+                                                    </a>
+                                                </li>
+                                            </>
+                                        ) : (
+                                            <li>
+                                                <a href="#" onClick={(e) => { e.preventDefault(); setView('login'); }} title="Sign In">
+                                                    <span className="flaticon-user" style={{ color: 'white' }}></span>
+                                                </a>
+                                            </li>
+                                        )}
+                                        <li style={{ position: 'relative' }}>
+                                            <a href="#" onClick={(e) => { e.preventDefault(); setView('cart'); }}>
+                                                <span className="flaticon-shopping-cart" style={{ color: 'white' }}></span>
+                                                {cartCount > 0 && (
+                                                    <span style={{
+                                                        position: 'absolute',
+                                                        top: '-10px',
+                                                        right: '-10px',
+                                                        background: '#ff2020',
+                                                        color: 'white',
+                                                        borderRadius: '50%',
+                                                        padding: '2px 6px',
+                                                        fontSize: '11px',
+                                                        fontWeight: 'bold'
+                                                    }}>
+                                                        {cartCount}
+                                                    </span>
+                                                )}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        ) : (
-                            <button onClick={() => setView('login')} className="flex items-center gap-2 gold-gradient text-charcoal-950 px-6 py-2.5 rounded-xl text-xs sm:text-sm font-black hover:scale-105 transition-all shadow-xl shadow-gold-600/20 active:scale-95">
-                                <User className="w-4 h-4" /> <span className="hidden xs:inline">Sign In</span>
-                            </button>
-                        )}
+                        </div>
                     </div>
                 </div>
             </header>
@@ -245,116 +397,146 @@ export default function App() {
         }, [books, search, genre, sortBy]);
 
         if (loading) return (
-            <div className="flex flex-col items-center justify-center h-[60vh] gap-4">
-                <Loader2 className="w-12 h-12 text-primary-600 animate-spin" />
-                <p className="text-gray-500 font-medium">Curating your library...</p>
+            <div className="text-center py-5">
+                <Loader2 className="w-12 h-12 text-[#ff2020] animate-spin mx-auto mb-3" />
+                <p className="text-muted font-bold">Curating your library...</p>
             </div>
         );
 
         return (
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                {/* Hero Section / Front Panel */}
-                <div className="relative w-full rounded-[2.5rem] overflow-hidden mb-12 shadow-2xl group min-h-[300px] md:min-h-[450px] bg-gray-900">
-                    <img 
-                        src="/assets/front-panel.png" 
-                        alt="Tarbiah Sentap Hero" 
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent flex flex-col justify-center px-8 md:px-16">
-                        <div className="max-w-xl animate-in fade-in slide-in-from-left-8 duration-1000 delay-300">
-                            <span className="bg-primary-600 text-white text-[10px] font-black uppercase tracking-[0.3em] px-4 py-2 rounded-full mb-6 inline-block">
-                                New Arrival 2026
-                            </span>
-                            <h2 className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tight leading-tight">
-                                Transform Your <br />
-                                <span className="text-primary-400">Soul & Mind.</span>
-                            </h2>
-                            <p className="text-gray-300 text-sm md:text-lg mb-8 max-w-md font-medium leading-relaxed">
-                                Curated collections that inspire spiritual growth and intellectual excellence. Start your journey with Tarbiah Sentap.
-                            </p>
-                            <div className="flex flex-wrap gap-4">
-                                <button className="bg-white text-gray-900 px-8 py-4 rounded-2xl font-black text-sm hover:bg-primary-500 hover:text-white transition-all shadow-xl active:scale-95">
-                                    Explore Best Sellers
-                                </button>
-                                <button className="glass text-white px-8 py-4 rounded-2xl font-black text-sm hover:bg-white/20 transition-all active:scale-95 border border-white/20">
-                                    Our Story
-                                </button>
-                            </div>
+            <div className="container py-5 animate-in fade-in duration-500" style={{ color: '#1a1a1a' }}>
+                {/* Hero Banner (Vibrant Design matching timezone) */}
+                <div className="row align-items-center mb-5 p-5" style={{ background: '#f0f0f2', borderRadius: '20px', minHeight: '350px' }}>
+                    <div className="col-lg-7">
+                        <span className="badge text-white mb-3 px-3 py-2 uppercase tracking-wider" style={{ backgroundColor: '#ff2020', fontSize: '10px', fontWeight: 'bold' }}>PILIHAN UTAMA 2026</span>
+                        <h1 className="display-4 font-black mb-3" style={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: 800 }}>Tarbiah Sentap</h1>
+                        <p className="text-muted leading-relaxed mb-4" style={{ fontSize: '15px' }}>
+                            Membina jiwa dan minda Muslim berkualiti menerusi karya-karya motivasi, novel islamik, tarbiah rohani, dan panduan Al-Quran bertaraf dunia.
+                        </p>
+                        <div className="d-flex gap-3">
+                            <button className="btn text-white px-4 py-3" style={{ backgroundColor: '#ff2020', fontWeight: 'bold', fontSize: '13px', borderRadius: '8px' }}>Mula Meneroka</button>
+                            <button className="btn btn-outline-dark px-4 py-3" style={{ fontWeight: 'bold', fontSize: '13px', borderRadius: '8px' }}>Cerita Kami</button>
+                        </div>
+                    </div>
+                    <div className="col-lg-5 d-none d-lg-block text-center">
+                        <img src="/assets/img/gallery/popular3.png" alt="Hero Book" className="img-fluid" style={{ maxHeight: '280px', filter: 'drop-shadow(0 15px 30px rgba(0,0,0,0.15))' }} />
+                    </div>
+                </div>
+
+                {/* Filter and Search Bar */}
+                <div className="row g-3 justify-content-between align-items-center mb-5">
+                    <div className="col-md-4">
+                        <div className="input-group">
+                            <span className="input-group-text bg-white border-end-0 py-3"><Search className="w-4 h-4 text-muted" /></span>
+                            <input 
+                                type="text"
+                                className="form-control border-start-0 py-3"
+                                placeholder="Cari tajuk buku atau penulis..."
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                style={{ borderRadius: '0 8px 8px 0', fontSize: '13px' }}
+                            />
+                        </div>
+                    </div>
+                    <div className="col-md-6">
+                        <div className="d-flex gap-3 justify-content-md-end">
+                            <select 
+                                value={genre}
+                                onChange={(e) => setGenre(e.target.value)}
+                                className="form-select py-3"
+                                style={{ borderRadius: '8px', fontSize: '13px', maxWidth: '180px', cursor: 'pointer' }}
+                            >
+                                {genres.map(g => <option key={g} value={g}>{g}</option>)}
+                            </select>
+                            <select 
+                                value={sortBy}
+                                onChange={(e) => setSortBy(e.target.value)}
+                                className="form-select py-3"
+                                style={{ borderRadius: '8px', fontSize: '13px', maxWidth: '180px', cursor: 'pointer' }}
+                            >
+                                <option value="featured">Paling Popular</option>
+                                <option value="price-asc">Harga: Rendah ke Tinggi</option>
+                                <option value="price-desc">Harga: Tinggi ke Rendah</option>
+                                <option value="rating">Penilaian Tertinggi</option>
+                            </select>
                         </div>
                     </div>
                 </div>
 
-                <div className="flex flex-col lg:flex-row justify-between items-center gap-6 mb-10">
-                    <div className="relative w-full lg:w-96 group">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-gold-400 transition-colors" />
-                        <input 
-                            type="text"
-                            placeholder="Search the archive..."
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            className="w-full pl-12 pr-4 py-4 rounded-2xl bg-charcoal-900 border border-charcoal-800 text-white placeholder-gray-500 focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 outline-none transition-all shadow-inner"
-                        />
-                    </div>
-                    <div className="grid grid-cols-2 lg:flex gap-3 sm:gap-4 w-full lg:w-auto">
-                        <select 
-                            value={genre}
-                            onChange={(e) => setGenre(e.target.value)}
-                            className="px-6 py-4 rounded-2xl bg-charcoal-900 border border-charcoal-800 text-white outline-none focus:border-gold-500 cursor-pointer shadow-sm text-sm font-bold"
-                        >
-                            {genres.map(g => <option key={g} value={g}>{g}</option>)}
-                        </select>
-                        <select 
-                            value={sortBy}
-                            onChange={(e) => setSortBy(e.target.value)}
-                            className="px-6 py-4 rounded-2xl bg-charcoal-900 border border-charcoal-800 text-white outline-none focus:border-gold-500 cursor-pointer shadow-sm text-sm font-bold"
-                        >
-                            <option value="featured">Featured Picks</option>
-                            <option value="price-asc">Price: Low to High</option>
-                            <option value="price-desc">Price: High to Low</option>
-                            <option value="rating">Top Rated</option>
-                        </select>
-                    </div>
-                </div>
-
-                {filteredBooks.length === 0 ? (
-                    <div className="text-center py-20 text-gray-500">No books found matching your criteria.</div>
-                ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {filteredBooks.map(book => (
-                            <div key={book.id} className="group bg-charcoal-900 rounded-[2rem] p-6 border border-charcoal-800 hover:gold-border transition-all duration-500 flex flex-col relative overflow-hidden">
-                                <div className="relative aspect-[3/4] mb-6 overflow-hidden rounded-2xl bg-charcoal-950 shadow-2xl">
-                                    <img src={book.cover} alt={book.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90 group-hover:opacity-100" />
-                                    <div className="absolute top-3 right-3 bg-charcoal-950/80 backdrop-blur-md text-[10px] font-black text-gold-400 px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow-xl border border-white/5">
-                                        <Star className="w-3.5 h-3.5 fill-gold-400" /> {book.rating}
-                                    </div>
-                                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950 via-transparent to-transparent opacity-60" />
+                {/* Book Grid */}
+                <div className="row g-4">
+                    {filteredBooks.map(book => (
+                        <div key={book.id} className="col-sm-6 col-md-4 col-lg-3">
+                            <div className="card h-100 border-0 p-3 shadow-sm book-card position-relative" style={{ borderRadius: '15px', backgroundColor: '#ffffff', transition: 'all 0.3s ease' }}>
+                                {/* Hover Stock Indicator */}
+                                <div className="stock-indicator position-absolute" style={{ top: '15px', right: '15px', zIndex: 10 }}>
+                                    <span className="badge font-bold px-2.5 py-1.5" style={{ backgroundColor: book.stock > 10 ? '#28a74520' : '#dc354520', color: book.stock > 10 ? '#28a745' : '#dc3545', fontSize: '9px' }}>
+                                        Stok: {book.stock}
+                                    </span>
                                 </div>
-                                <div className="flex flex-col flex-grow">
-                                    <span className="text-[10px] font-black text-gold-500 mb-2 uppercase tracking-[0.25em]"> {book.genre} </span>
-                                    <h3 className="font-black text-white text-xl leading-tight mb-2 group-hover:gold-text-gradient transition-all"> {book.title} </h3>
-                                    <p className="text-xs text-gray-500 font-bold uppercase tracking-widest mb-6"> {book.author} </p>
-                                    <div className="mt-auto flex items-center justify-between">
-                                        <span className="font-black text-2xl text-white"> RM{book.price.toFixed(2)} </span>
-                                        <div className="flex gap-2">
-                                            <button 
-                                                className="bg-charcoal-800 text-gold-400 p-3.5 rounded-2xl hover:bg-gold-600 hover:text-white transition-all shadow-lg active:scale-90"
-                                                title="AI Insights"
-                                            >
-                                                <Sparkles className="w-5 h-5" />
-                                            </button>
-                                            <button 
-                                                onClick={() => addToCart(book)}
-                                                className="gold-gradient text-charcoal-950 p-3.5 rounded-2xl hover:scale-110 transition-all shadow-xl shadow-gold-600/10 active:scale-90"
-                                            >
-                                                <Plus className="w-5 h-5" />
-                                            </button>
+
+                                <div className="text-center bg-light p-4 mb-3" style={{ borderRadius: '12px', minHeight: '220px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+                                     onClick={async () => {
+                                         setSummaryModal({ isOpen: true, book, summary: '', loading: true });
+                                         try {
+                                             const summary = getBookSummary(book);
+                                             setSummaryModal(prev => ({ ...prev, summary, loading: false }));
+                                         } catch (err) {
+                                             setSummaryModal(prev => ({ ...prev, summary: 'Sinopsis tidak tersedia.', loading: false }));
+                                         }
+                                     }}>
+                                    <img src={book.cover} alt={book.title} className="img-fluid" style={{ maxHeight: '180px', filter: 'drop-shadow(0 8px 12px rgba(0,0,0,0.1))' }} />
+                                </div>
+                                <div className="card-body p-0 d-flex flex-col justify-between">
+                                    <div>
+                                        <span className="text-[10px] font-bold text-muted uppercase tracking-wider block mb-1">{book.genre}</span>
+                                        <h5 className="card-title font-bold text-sm mb-1" style={{ color: '#1a1a1a', cursor: 'pointer', fontFamily: 'Josefin Sans, sans-serif' }}
+                                            onClick={() => setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false })}>
+                                            {book.title}
+                                        </h5>
+                                        <p className="card-text text-muted text-xs mb-2">Penulis: {book.author}</p>
+                                        <div className="d-flex align-items-center gap-1 mb-3">
+                                            {[...Array(5)].map((_, i) => (
+                                                <Star key={i} className={`w-3.5 h-3.5 ${i < Math.floor(book.rating) ? 'text-[#f8c146] fill-[#f8c146]' : 'text-gray-200'}`} />
+                                            ))}
+                                            <span className="text-[11px] text-muted font-bold ml-1">{book.rating}</span>
                                         </div>
+                                    </div>
+                                    <div className="d-flex justify-content-between align-items-center pt-2 border-t border-gray-100">
+                                        <span className="font-bold text-lg" style={{ color: '#ff2020' }}>RM{book.price.toFixed(2)}</span>
+                                        <button 
+                                            onClick={() => addToCart(book)}
+                                            className="btn p-2.5 rounded-circle d-flex align-items-center justify-center text-white" 
+                                            style={{ backgroundColor: '#ff2020', width: '38px', height: '38px', border: 'none' }}
+                                        >
+                                            <ShoppingCart className="w-4 h-4" />
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        ))}
+                        </div>
+                    ))}
+                </div>
+
+                {/* Lower Showcase Gallery (timezone inspired) */}
+                <div className="row g-4 mt-5">
+                    <div className="col-xl-6 col-lg-8 col-md-6 col-sm-6">
+                        <div className="single-gallery mb-30" style={{ height: '350px', backgroundImage: 'url(/assets/img/gallery/gallery1.png)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
                     </div>
-                )}
+                    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                        <div className="single-gallery mb-30" style={{ height: '350px', backgroundImage: 'url(/assets/img/gallery/gallery2.png)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
+                    </div>
+                    <div className="col-xl-3 col-lg-4 col-md-12">
+                        <div className="row">
+                            <div className="col-xl-12 col-lg-12 col-md-6 col-sm-6">
+                                <div className="single-gallery mb-30" style={{ height: '165px', backgroundImage: 'url(/assets/img/gallery/gallery3.png)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
+                            </div>
+                            <div className="col-xl-12 col-lg-12 col-md-6 col-sm-6">
+                                <div className="single-gallery mb-30" style={{ height: '165px', backgroundImage: 'url(/assets/img/gallery/gallery4.png)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     };
@@ -366,77 +548,88 @@ export default function App() {
 
         if (cart.length === 0) {
             return (
-                <div className="max-w-3xl mx-auto px-4 py-20 text-center animate-in zoom-in duration-300">
-                    <div className="w-32 h-32 bg-charcoal-900 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner border border-white/5">
-                        <ShoppingCart className="w-12 h-12 text-gold-600" />
+                <div className="container py-5 text-center">
+                    <div className="p-5 bg-white rounded-lg border max-w-md mx-auto" style={{ boxShadow: '0 5px 25px rgba(0,0,0,0.05)' }}>
+                        <ShoppingCart className="w-16 h-16 text-muted mx-auto mb-4" />
+                        <h3 className="mb-2" style={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: 700 }}>Troli Anda Kosong</h3>
+                        <p className="text-muted text-sm mb-4">Tambahkan buku bermotivasi dan novel kegemaran anda ke dalam troli.</p>
+                        <button onClick={() => setView('catalog')} className="btn text-white px-4 py-3" style={{ backgroundColor: '#ff2020', fontWeight: 'bold', textTransform: 'uppercase', borderRadius: '8px' }}>Kembali Membeli Belah</button>
                     </div>
-                    <h2 className="text-3xl font-black text-white mb-3">Your collection is empty</h2>
-                    <p className="text-gray-500 mb-10 text-lg font-medium">Your next spiritual breakthrough is just a click away.</p>
-                    <button 
-                        onClick={() => setView('catalog')}
-                        className="gold-gradient text-charcoal-950 px-10 py-4 rounded-2xl font-black hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-gold-600/20"
-                    >
-                        Explore the Archive
-                    </button>
                 </div>
             );
         }
 
         return (
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 animate-in fade-in duration-500">
-                <h1 className="text-4xl font-black text-white mb-10 tracking-tight">Shopping <span className="gold-text-gradient">Collection</span></h1>
-                <div className="flex flex-col lg:flex-row gap-12">
-                    <div className="flex-grow space-y-6">
-                        {cart.map(item => (
-                            <div key={item.book.id} className="bg-charcoal-900 p-6 rounded-[2rem] border border-charcoal-800 flex items-center gap-8 shadow-2xl hover:gold-border transition-all group">
-                                <div className="w-24 h-36 flex-shrink-0 shadow-2xl rounded-xl overflow-hidden border border-white/5 bg-charcoal-950">
-                                    <img src={item.book.cover} alt={item.book.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
-                                </div>
-                                <div className="flex-grow">
-                                    <h3 className="font-black text-xl text-white mb-1 group-hover:gold-text-gradient transition-all"> {item.book.title} </h3>
-                                    <p className="text-gray-500 text-xs font-black uppercase tracking-widest mb-4"> {item.book.author} </p>
-                                    <span className="font-black gold-text-gradient text-2xl"> RM{item.book.price.toFixed(2)} </span>
-                                </div>
-                                <div className="flex items-center gap-4 bg-charcoal-950 p-2 rounded-2xl border border-charcoal-800 shadow-inner">
-                                    <button onClick={() => updateQuantity(item.book.id, -1)} className="w-10 h-10 flex items-center justify-center rounded-xl bg-charcoal-900 text-white shadow-sm hover:bg-charcoal-800 transition-all font-black"> - </button>
-                                    <span className="w-6 text-center font-black text-gold-400"> {item.quantity} </span>
-                                    <button onClick={() => updateQuantity(item.book.id, 1)} className="w-10 h-10 flex items-center justify-center rounded-xl bg-charcoal-900 text-white shadow-sm hover:bg-charcoal-800 transition-all font-black"> + </button>
-                                </div>
-                                <button onClick={() => removeFromCart(item.book.id)} className="p-3 text-gray-500 hover:text-red-500 transition-all rounded-2xl ml-4">
-                                    <Trash2 className="w-6 h-6" />
-                                </button>
+            <div className="container py-5 animate-in fade-in" style={{ color: '#1a1a1a' }}>
+                <h1 className="mb-5" style={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: 700 }}>
+                    Troli <span style={{ color: '#ff2020' }}>Pembelian</span>
+                </h1>
+                <div className="row">
+                    <div className="col-lg-8 mb-4">
+                        <div className="bg-white rounded-lg border p-4 shadow-sm">
+                            <div className="table-responsive">
+                                <table className="table align-middle">
+                                    <thead>
+                                        <tr className="text-uppercase text-muted font-bold text-xs">
+                                            <th>Buku</th>
+                                            <th>Harga</th>
+                                            <th>Kuantiti</th>
+                                            <th className="text-end">Jumlah</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {cart.map(item => (
+                                            <tr key={item.book.id}>
+                                                <td>
+                                                    <div className="d-flex align-items-center gap-3">
+                                                        <img src={item.book.cover} className="rounded border" style={{ width: '45px', height: '65px', objectFit: 'cover' }} />
+                                                        <div>
+                                                            <p className="mb-0 font-bold" style={{ fontSize: '13px' }}>{item.book.title}</p>
+                                                            <p className="text-muted mb-0" style={{ fontSize: '11px' }}>{item.book.author}</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className="font-bold" style={{ fontSize: '13px' }}>RM{item.book.price.toFixed(2)}</td>
+                                                <td>
+                                                    <div className="d-flex align-items-center border rounded-2 bg-light" style={{ width: 'fit-content' }}>
+                                                        <button onClick={() => updateQuantity(item.book.id, -1)} className="btn btn-sm px-2 border-0" style={{ fontWeight: 'bold' }}>-</button>
+                                                        <span className="px-3 text-xs font-bold">{item.quantity}</span>
+                                                        <button onClick={() => updateQuantity(item.book.id, 1)} className="btn btn-sm px-2 border-0" style={{ fontWeight: 'bold' }}>+</button>
+                                                    </div>
+                                                </td>
+                                                <td className="text-end font-bold" style={{ fontSize: '13px' }}>RM{(item.book.price * item.quantity).toFixed(2)}</td>
+                                                <td>
+                                                    <button onClick={() => removeFromCart(item.book.id)} className="btn text-danger p-1"><Trash2 className="w-4 h-4" /></button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
-                        ))}
+                        </div>
                     </div>
-
-                    <div className="w-full lg:w-[400px]">
-                        <div className="bg-charcoal-900 p-8 rounded-[2.5rem] border border-charcoal-800 shadow-2xl sticky top-28">
-                            <h2 className="text-2xl font-black text-white mb-8 tracking-tight">Order Summary</h2>
-                            <div className="space-y-5 mb-8">
-                                <div className="flex justify-between text-gray-500 font-bold uppercase tracking-widest text-[10px]">
-                                    <span>Subtotal ({cart.reduce((a, b) => a + b.quantity, 0)} items)</span>
-                                    <span className="text-white">RM{subtotal.toFixed(2)}</span>
-                                </div>
-                                <div className="flex justify-between text-gray-500 font-bold uppercase tracking-widest text-[10px]">
-                                    <span>Shipping</span>
-                                    <span className="text-gold-500 font-black">COMPLIMENTARY</span>
-                                </div>
-                                <div className="flex justify-between text-gray-500 font-bold uppercase tracking-widest text-[10px]">
-                                    <span>Est. Service Tax (8%)</span>
-                                    <span className="text-white">RM{tax.toFixed(2)}</span>
-                                </div>
-                                <div className="h-px bg-charcoal-800 my-4"></div>
-                                <div className="flex justify-between font-black text-2xl text-white">
-                                    <span>Total</span>
-                                    <span className="gold-text-gradient font-black">RM{total.toFixed(2)}</span>
-                                </div>
+                    <div className="col-lg-4">
+                        <div className="bg-white rounded-lg border p-4 shadow-sm" style={{ color: '#1a1a1a' }}>
+                            <h3 className="mb-4 font-bold" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>Ringkasan Bil</h3>
+                            <div className="d-flex justify-content-between mb-2">
+                                <span>Subjumlah</span>
+                                <span>RM{subtotal.toFixed(2)}</span>
                             </div>
-                            <button 
-                                onClick={handleCheckout}
-                                className="w-full gold-gradient text-charcoal-950 py-5 rounded-2xl font-black text-lg flex items-center justify-center gap-3 hover:scale-105 transition-all shadow-2xl shadow-gold-600/20 active:scale-95"
-                            >
-                                Secure Checkout <ChevronRight className="w-6 h-6" />
-                            </button>
+                            <div className="d-flex justify-content-between mb-2">
+                                <span>Kos Penghantaran</span>
+                                <span className="text-success">PERCUMA</span>
+                            </div>
+                            <div className="d-flex justify-content-between mb-3">
+                                <span>Cukai Perkhidmatan (8%)</span>
+                                <span>RM{tax.toFixed(2)}</span>
+                            </div>
+                            <hr />
+                            <div className="d-flex justify-content-between mb-4" style={{ fontSize: '18px', fontWeight: 'bold' }}>
+                                <span>Jumlah Keseluruhan</span>
+                                <span style={{ color: '#ff2020' }}>RM{total.toFixed(2)}</span>
+                            </div>
+                            <button onClick={handleCheckout} className="btn w-full py-3" style={{ backgroundColor: '#ff2020', color: 'white', fontWeight: 'bold', textTransform: 'uppercase', borderRadius: '8px' }}>Seterusnya Ke Pembayaran</button>
                         </div>
                     </div>
                 </div>
@@ -454,47 +647,154 @@ export default function App() {
         };
 
         return (
-            <div className="max-w-md mx-auto px-4 py-24 animate-in slide-in-from-top-8 duration-500">
-                <div className="bg-charcoal-900 p-10 rounded-[2.5rem] shadow-2xl border border-charcoal-800 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-gold-600/5 blur-[60px] rounded-full"></div>
-                    <div className="text-center mb-10">
-                        <div className="bg-charcoal-950 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-white/5">
-                            <ShieldCheck className="w-8 h-8 text-gold-500" />
+            <div className="container py-5 animate-in zoom-in" style={{ color: '#1a1a1a' }}>
+                <div className="row justify-content-center">
+                    <div className="col-md-6 col-lg-5">
+                        <div className="p-5 bg-white shadow-lg rounded-lg border" style={{ boxShadow: '0 5px 25px rgba(0,0,0,0.05)' }}>
+                            <div className="text-center mb-4">
+                                <div className="bg-[#ff2020]/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                    <User className="w-8 h-8 text-[#ff2020]" />
+                                </div>
+                                <h2 style={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: 700 }}>Log Masuk <span style={{ color: '#ff2020' }}>Akaun</span></h2>
+                                <p className="text-muted" style={{ fontSize: '12px' }}>Sila log masuk untuk membuat pesanan dan mengakses profil anda.</p>
+                            </div>
+                            
+                            <form onSubmit={onSubmit} className="space-y-4">
+                                <div className="form-group mb-3">
+                                    <label className="form-label text-xs font-bold text-muted uppercase tracking-wider">Alamat E-mel</label>
+                                    <input 
+                                        type="email" 
+                                        className="form-control py-3"
+                                        placeholder="nama@contoh.com"
+                                        value={email}
+                                        onChange={e => setEmail(e.target.value)}
+                                        style={{ borderRadius: '8px', fontSize: '13px' }}
+                                        required 
+                                    />
+                                </div>
+                                <div className="form-group mb-4">
+                                    <label className="form-label text-xs font-bold text-muted uppercase tracking-wider">Kata Laluan</label>
+                                    <input 
+                                        type="password" 
+                                        className="form-control py-3"
+                                        placeholder="Sila masukkan kata laluan"
+                                        value={password}
+                                        onChange={e => setPassword(e.target.value)}
+                                        style={{ borderRadius: '8px', fontSize: '13px' }}
+                                        required 
+                                    />
+                                </div>
+                                
+                                <button type="submit" className="btn w-full py-3 text-white" style={{ backgroundColor: '#ff2020', fontWeight: 'bold', textTransform: 'uppercase', borderRadius: '8px', fontSize: '14px' }}>
+                                    Masuk Akaun
+                                </button>
+                            </form>
+                            
+                            <div className="mt-4 text-center">
+                                <button 
+                                    onClick={() => setView('register')}
+                                    className="btn btn-link text-decoration-none"
+                                    style={{ fontSize: '12px', color: '#ff2020', fontWeight: 'bold' }}
+                                >
+                                    Belum ada akaun? Daftar Sekarang
+                                </button>
+                            </div>
+                            <div className="mt-4 p-3 bg-light rounded text-center" style={{ fontSize: '11px', color: '#666', border: '1px solid #ddd' }}>
+                                <p className="mb-1">Admin: <strong>admin@tarbiahsentap.com</strong></p>
+                                <p className="mb-1">Customer: <strong>customer@example.com</strong></p>
+                                <p className="mb-0">Password: <strong>password123</strong></p>
+                            </div>
                         </div>
-                        <h2 className="text-3xl font-black text-white mb-2 tracking-tight">Access the <span className="gold-text-gradient">Vault</span></h2>
-                        <p className="text-gray-500 text-sm font-bold uppercase tracking-widest text-[10px]">Secure Identity Verification</p>
                     </div>
-                    <form onSubmit={onSubmit} className="space-y-6">
-                        <div>
-                            <label className="block text-[10px] font-black text-gray-500 mb-2 ml-1 uppercase tracking-widest">Email Identity</label>
-                            <input 
-                                type="email"
-                                value={email}
-                                onChange={e => setEmail(e.target.value)}
-                                placeholder="name@archive.com"
-                                className="w-full px-5 py-4 rounded-2xl bg-charcoal-950 border border-charcoal-800 text-white focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 outline-none transition-all shadow-inner"
-                                required
-                            />
+                </div>
+            </div>
+        );
+    };
+
+    const RegisterView = () => {
+        const [email, setEmail] = useState('');
+        const [password, setPassword] = useState('');
+        const [confirmPassword, setConfirmPassword] = useState('');
+
+        const onSubmit = (e) => {
+            e.preventDefault();
+            if (password !== confirmPassword) {
+                addToast('Passwords do not match', 'error');
+                return;
+            }
+            if (password.length < 6) {
+                addToast('Password must be at least 6 characters', 'error');
+                return;
+            }
+            handleSignup(email, password);
+        };
+
+        return (
+            <div className="container py-5 animate-in zoom-in" style={{ color: '#1a1a1a' }}>
+                <div className="row justify-content-center">
+                    <div className="col-md-6 col-lg-5">
+                        <div className="p-5 bg-white shadow-lg rounded-lg border" style={{ boxShadow: '0 5px 25px rgba(0,0,0,0.05)' }}>
+                            <div className="text-center mb-4">
+                                <div className="bg-[#ff2020]/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                    <User className="w-8 h-8 text-[#ff2020]" />
+                                </div>
+                                <h2 style={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: 700 }}>Daftar <span style={{ color: '#ff2020' }}>Akaun Baru</span></h2>
+                                <p className="text-muted" style={{ fontSize: '12px' }}>Daftar akaun untuk menikmati pengalaman pembelian yang lancar.</p>
+                            </div>
+                            
+                            <form onSubmit={onSubmit} className="space-y-4">
+                                <div className="form-group mb-3">
+                                    <label className="form-label text-xs font-bold text-muted uppercase tracking-wider">Alamat E-mel</label>
+                                    <input 
+                                        type="email" 
+                                        className="form-control py-3"
+                                        placeholder="nama@contoh.com"
+                                        value={email}
+                                        onChange={e => setEmail(e.target.value)}
+                                        style={{ borderRadius: '8px', fontSize: '13px' }}
+                                        required 
+                                    />
+                                </div>
+                                <div className="form-group mb-3">
+                                    <label className="form-label text-xs font-bold text-muted uppercase tracking-wider">Kata Laluan</label>
+                                    <input 
+                                        type="password" 
+                                        className="form-control py-3"
+                                        placeholder="Minima 6 aksara"
+                                        value={password}
+                                        onChange={e => setPassword(e.target.value)}
+                                        style={{ borderRadius: '8px', fontSize: '13px' }}
+                                        required 
+                                    />
+                                </div>
+                                <div className="form-group mb-4">
+                                    <label className="form-label text-xs font-bold text-muted uppercase tracking-wider">Sahkan Kata Laluan</label>
+                                    <input 
+                                        type="password" 
+                                        className="form-control py-3"
+                                        placeholder="Sahkan kata laluan anda"
+                                        value={confirmPassword}
+                                        onChange={e => setConfirmPassword(e.target.value)}
+                                        style={{ borderRadius: '8px', fontSize: '13px' }}
+                                        required 
+                                    />
+                                </div>
+                                
+                                <button type="submit" className="btn w-full py-3 text-white" style={{ backgroundColor: '#ff2020', fontWeight: 'bold', textTransform: 'uppercase', borderRadius: '8px', fontSize: '14px' }}>
+                                    Daftar Akaun
+                                </button>
+                            </form>
+                            
+                            <div className="mt-4 text-center">
+                                <button 
+                                    onClick={() => setView('login')}
+                                    className="btn btn-link text-decoration-none"
+                                    style={{ fontSize: '12px', color: '#ff2020', fontWeight: 'bold' }}
+                                >
+                                    Sudah ada akaun? Log Masuk
+                                </button>
+                            </div>
                         </div>
-                        <div>
-                            <label className="block text-[10px] font-black text-gray-500 mb-2 ml-1 uppercase tracking-widest">Secret Key</label>
-                            <input 
-                                type="password"
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                                placeholder="••••••••"
-                                className="w-full px-5 py-4 rounded-2xl bg-charcoal-950 border border-charcoal-800 text-white focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 outline-none transition-all shadow-inner"
-                                required
-                            />
-                        </div>
-                        <button type="submit" className="w-full gold-gradient text-charcoal-950 py-4.5 rounded-2xl font-black text-lg hover:scale-105 transition-all mt-4 shadow-2xl shadow-gold-600/10 active:scale-95">
-                            Authenticate
-                        </button>
-                    </form>
-                    <div className="mt-10 p-5 bg-charcoal-950 rounded-2xl border border-charcoal-800 text-center text-[10px] text-gray-500 space-y-1 font-bold uppercase tracking-widest">
-                        <p>Admin: <span className="text-gold-500">admin@tarbiahsentap.com</span></p>
-                        <p>Customer: <span className="text-gold-500">customer@example.com</span></p>
-                        <p>Access: <span className="text-gold-500">password123</span></p>
                     </div>
                 </div>
             </div>
@@ -504,30 +804,32 @@ export default function App() {
     const TwoFAView = () => {
         const [otp, setOtp] = useState('');
         return (
-            <div className="max-w-md mx-auto px-4 py-24 animate-in zoom-in duration-300">
-                <div className="bg-charcoal-900 p-10 rounded-[2.5rem] shadow-2xl border border-charcoal-800 text-center">
-                    <div className="bg-charcoal-950 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-8 border border-white/5">
-                        <ShieldCheck className="w-8 h-8 text-gold-500 animate-pulse" />
+            <div className="container py-5 animate-in zoom-in" style={{ color: '#1a1a1a' }}>
+                <div className="row justify-content-center">
+                    <div className="col-md-5">
+                        <div className="p-5 bg-white text-center" style={{ borderRadius: '10px', border: '1px solid #eee', boxShadow: '0 5px 25px rgba(0,0,0,0.05)' }}>
+                            <div className="mb-4" style={{ fontSize: '3rem', color: '#ff2020' }}>🔒</div>
+                            <h2 className="mb-2" style={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: 700 }}>Pengesahan Vault</h2>
+                            <p className="text-muted mb-4" style={{ fontSize: '13px' }}>Akaun anda memerlukan pengesahan 2-Faktor. Sila masukkan kod OTP dari aplikasi authenticator anda.</p>
+                            <input 
+                                type="text" 
+                                className="form-control text-center py-3 mb-4 font-mono font-bold tracking-widest"
+                                placeholder="000 000"
+                                value={otp}
+                                onChange={e => setOtp(e.target.value)}
+                                style={{ fontSize: '20px', borderRadius: '8px' }}
+                                maxLength={6}
+                            />
+                            <button 
+                                onClick={() => handleVerify2FA(otp)}
+                                className="btn w-full py-3" 
+                                style={{ backgroundColor: '#ff2020', color: 'white', fontWeight: 'bold', textTransform: 'uppercase', borderRadius: '8px' }}
+                            >
+                                Sahkan Akses
+                            </button>
+                            <p className="mt-3 text-muted" style={{ fontSize: '11px' }}>Petunjuk: gunakan 123456</p>
+                        </div>
                     </div>
-                    <h2 className="text-3xl font-black text-white mb-3 tracking-tight">Vault <span className="gold-text-gradient">Verification</span></h2>
-                    <p className="text-gray-500 mb-10 text-[10px] font-black uppercase tracking-widest">Enter the 6-digit biometric token</p>
-                    <div className="flex gap-4 justify-center mb-10">
-                        <input 
-                            type="text"
-                            maxLength="6"
-                            value={otp}
-                            onChange={(e) => setOtp(e.target.value)}
-                            className="w-full text-center text-4xl font-black tracking-[0.5em] py-6 bg-charcoal-950 border-2 border-charcoal-800 focus:border-gold-500 rounded-2xl outline-none text-gold-400 transition-all shadow-inner"
-                            placeholder="000000"
-                        />
-                    </div>
-                    <button 
-                        onClick={() => handleVerify2FA(otp)}
-                        className="w-full gold-gradient text-charcoal-950 py-5 rounded-2xl font-black text-lg hover:scale-105 shadow-2xl shadow-gold-600/20 transition-all active:scale-95"
-                    >
-                        Confirm Access
-                    </button>
-                    <p className="mt-6 text-[10px] text-gray-500 font-bold uppercase tracking-widest italic">Hint: use 123456</p>
                 </div>
             </div>
         );
@@ -535,57 +837,89 @@ export default function App() {
 
     const CheckoutView = () => {
         return (
-            <div className="max-w-4xl mx-auto px-4 py-12 animate-in slide-in-from-right-8 duration-500">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <div className="bg-charcoal-900 p-10 rounded-[2.5rem] border border-charcoal-800 shadow-2xl">
-                        <h2 className="text-2xl font-black text-white mb-8 tracking-tight">Secure <span className="gold-text-gradient">Checkout</span></h2>
-                        <div className="space-y-6">
-                            <div>
-                                <label className="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">Logistics Destination</label>
-                                <input type="text" placeholder="Full Street Address" className="w-full px-5 py-4 rounded-2xl bg-charcoal-950 border border-charcoal-800 text-white focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 outline-none transition-all shadow-inner" />
+            <div className="container py-5 animate-in slide-in-from-right-8" style={{ color: '#1a1a1a' }}>
+                <div className="row">
+                    <div className="col-lg-7 mb-4">
+                        <div className="bg-white rounded-lg border p-4 shadow-sm">
+                            <h3 className="mb-4 font-bold" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>Maklumat Penghantaran</h3>
+                            <div className="form-group mb-3">
+                                <label className="form-label text-xs font-bold text-muted uppercase tracking-wider">Alamat Penuh</label>
+                                <textarea 
+                                    className="form-control py-3"
+                                    placeholder="Masukkan alamat penghantaran lengkap anda"
+                                    value={billingAddress}
+                                    onChange={e => setBillingAddress(e.target.value)}
+                                    style={{ borderRadius: '8px', fontSize: '13px' }}
+                                    rows="3"
+                                    required
+                                />
                             </div>
-                            <div className="pt-6 border-t border-charcoal-800">
-                                <label className="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-4 ml-1">Payment Protocol</label>
-                                <div className="bg-gold-500/5 p-5 rounded-2xl mb-6 flex items-center gap-4 border border-gold-500/10">
-                                    <div className="bg-charcoal-950 p-2.5 rounded-xl border border-white/5 shadow-xl">
-                                        <CreditCard className="text-gold-500" />
-                                    </div>
-                                    <div className="flex-grow">
-                                        <p className="font-black text-white text-sm">Credit/Debit Node</p>
-                                        <p className="text-[10px] text-gold-500 font-black uppercase tracking-widest">Razorpay Integrated</p>
-                                    </div>
-                                </div>
-                                <div className="space-y-4">
-                                    <input type="text" placeholder="Secure Card Number" className="w-full px-5 py-4 rounded-2xl bg-charcoal-950 border border-charcoal-800 text-white focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 outline-none transition-all shadow-inner" />
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <input type="text" placeholder="MM/YY" className="w-full px-5 py-4 rounded-2xl bg-charcoal-950 border border-charcoal-800 text-white focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 outline-none transition-all shadow-inner" />
-                                        <input type="text" placeholder="CVC" className="w-full px-5 py-4 rounded-2xl bg-charcoal-950 border border-charcoal-800 text-white focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 outline-none transition-all shadow-inner" />
-                                    </div>
+
+                            <h3 className="my-4 font-bold" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>Maklumat Pembayaran</h3>
+                            <div className="form-group mb-3">
+                                <label className="form-label text-xs font-bold text-muted uppercase tracking-wider">Nombor Kad Kredit</label>
+                                <div className="input-group">
+                                    <span className="input-group-text bg-white"><CreditCard className="w-4 h-4 text-muted" /></span>
+                                    <input 
+                                        type="text" 
+                                        className="form-control py-3"
+                                        placeholder="4111 1111 1111 1111"
+                                        value={cardNumber}
+                                        onChange={e => setCardNumber(e.target.value)}
+                                        style={{ borderRadius: '0 8px 8px 0', fontSize: '13px' }}
+                                        required
+                                    />
                                 </div>
                             </div>
+                            <div className="row">
+                                <div className="col-6 mb-3">
+                                    <label className="form-label text-xs font-bold text-muted uppercase tracking-wider">Tarikh Tamat</label>
+                                    <input 
+                                        type="text" 
+                                        className="form-control py-3"
+                                        placeholder="MM/YY"
+                                        value={cardExpiry}
+                                        onChange={e => setCardExpiry(e.target.value)}
+                                        style={{ borderRadius: '8px', fontSize: '13px' }}
+                                        required
+                                    />
+                                </div>
+                                <div className="col-6 mb-3">
+                                    <label className="form-label text-xs font-bold text-muted uppercase tracking-wider">CVC / CVV</label>
+                                    <input 
+                                        type="text" 
+                                        className="form-control py-3"
+                                        placeholder="123"
+                                        value={cardCvc}
+                                        onChange={e => setCardCvc(e.target.value)}
+                                        style={{ borderRadius: '8px', fontSize: '13px' }}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <p className="text-muted text-[11px] mb-0 mt-2">Simulasi ini menyokong sebarang data dummy untuk kelulusan kad.</p>
                         </div>
-                        <button 
-                            onClick={processPayment}
-                            className="w-full mt-10 gold-gradient text-charcoal-950 py-5 rounded-2xl font-black text-xl hover:scale-105 transition-all shadow-2xl shadow-gold-600/20 active:scale-95"
-                        >
-                            Pay Securely
-                        </button>
                     </div>
-                    <div className="py-6">
-                        <h3 className="text-xl font-black text-white mb-8 tracking-tight">Order <span className="gold-text-gradient">Manifest</span></h3>
-                        <div className="space-y-6 max-h-[400px] overflow-y-auto pr-2 hide-scrollbar">
-                            {cart.map(item => (
-                                <div key={item.book.id} className="flex gap-4 items-center group">
-                                    <div className="w-16 h-24 flex-shrink-0 bg-charcoal-950 rounded-xl overflow-hidden border border-white/5 shadow-xl">
-                                        <img src={item.book.cover} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+                    <div className="col-lg-5">
+                        <div className="bg-white rounded-lg border p-4 shadow-sm" style={{ color: '#1a1a1a' }}>
+                            <h3 className="mb-4 font-bold" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>Troli Anda</h3>
+                            <div className="mb-4 max-h-[220px] overflow-y-auto pr-2">
+                                {cart.map(item => (
+                                    <div key={item.book.id} className="d-flex gap-3 align-items-center mb-3">
+                                        <img src={item.book.cover} className="rounded border" style={{ width: '45px', height: '65px', objectFit: 'cover' }} />
+                                        <div>
+                                            <p className="mb-0 font-bold" style={{ fontSize: '13px', lineHeight: '1.2' }}>{item.book.title}</p>
+                                            <p className="text-muted mb-0" style={{ fontSize: '11px' }}>{item.quantity} unit • RM{(item.book.price * item.quantity).toFixed(2)}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p className="font-black text-white text-sm group-hover:gold-text-gradient transition-all">{item.book.title}</p>
-                                        <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">{item.quantity} unit{item.quantity > 1 ? 's' : ''}</p>
-                                        <p className="text-gold-500 font-black mt-1 text-sm tracking-tight">RM{(item.book.price * item.quantity).toFixed(2)}</p>
-                                    </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
+                            <div className="h-px bg-gray-200 my-3"></div>
+                            <div className="d-flex justify-content-between mb-4" style={{ fontSize: '18px', fontWeight: 'bold' }}>
+                                <span>Jumlah Bil</span>
+                                <span style={{ color: '#ff2020' }}>RM{(cart.reduce((sum, item) => sum + (item.book.price * item.quantity), 0) * 1.08).toFixed(2)}</span>
+                            </div>
+                            <button onClick={processPayment} className="btn w-full py-3 text-white" style={{ backgroundColor: '#ff2020', fontWeight: 'bold', textTransform: 'uppercase', borderRadius: '8px' }}>Buat Pembayaran Selamat</button>
                         </div>
                     </div>
                 </div>
@@ -593,45 +927,155 @@ export default function App() {
         );
     };
 
-    const OrdersView = () => (
-        <div className="max-w-5xl mx-auto px-4 py-12 animate-in fade-in duration-500">
-            <h1 className="text-4xl font-black text-white mb-10 tracking-tight">Purchase <span className="gold-text-gradient">History</span></h1>
-            {orders.length === 0 ? (
-                <div className="bg-charcoal-900 p-16 rounded-[2.5rem] border border-dashed border-charcoal-800 text-center">
-                    <p className="text-gray-500 font-bold uppercase tracking-widest text-[10px]">No transaction history found in the matrix.</p>
-                </div>
-            ) : (
-                <div className="space-y-8">
-                    {orders.map(order => (
-                        <div key={order.id} className="bg-charcoal-900 rounded-[2.5rem] border border-charcoal-800 overflow-hidden shadow-2xl hover:gold-border transition-all duration-500 animate-in fade-in slide-in-from-bottom-4">
-                            <div className="p-8 border-b border-charcoal-800 bg-charcoal-950/50 flex justify-between items-center">
-                                <div>
-                                    <p className="text-[10px] text-gold-500 font-black uppercase tracking-[0.3em] mb-1">Order Transaction</p>
-                                    <h3 className="text-xl font-black text-white tracking-tighter">REF-{order.id.split('-')[0].toUpperCase()}</h3>
+    const PaymentGatewayView = () => {
+        const [processing, setProcessing] = useState(false);
+        const total = cart.reduce((sum, item) => sum + (item.book.price * item.quantity), 0) * 1.08;
+
+        const handleOutcome = (status) => {
+            setProcessing(true);
+            setTimeout(() => {
+                setProcessing(false);
+                completeTransaction(status);
+            }, 2000);
+        };
+
+        const maskedCard = cardNumber ? `•••• •••• •••• ${cardNumber.slice(-4)}` : '•••• •••• •••• 1234';
+
+        return (
+            <div className="max-w-md mx-auto px-4 py-16 animate-in zoom-in duration-300" style={{ color: '#1a1a1a' }}>
+                <div className="bg-white border border-gray-200 rounded-[2rem] p-8 sm:p-10 shadow-lg relative overflow-hidden">
+                    <div className="text-center mb-8 border-b border-gray-100 pb-6">
+                        <div className="bg-[#ff2020]/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <ShieldCheck className="w-8 h-8 text-[#ff2020] animate-pulse" />
+                        </div>
+                        <h2 className="text-2xl font-black tracking-tight" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>
+                            Gerbang <span style={{ color: '#ff2020' }}>Pembayaran Selamat</span>
+                        </h2>
+                        <p className="text-[9px] text-muted font-bold uppercase tracking-widest mt-1">Simulasi Bank Authorization Gateway</p>
+                    </div>
+
+                    {processing ? (
+                        <div className="text-center py-12 flex flex-col items-center justify-center gap-4">
+                            <Loader2 className="w-12 h-12 text-[#ff2020] animate-spin" />
+                            <p className="text-sm text-gray-600 font-bold uppercase tracking-widest animate-pulse">Menghubungi Rangkaian Bank...</p>
+                            <p className="text-[10px] text-muted uppercase tracking-wide">Mengesahkan token transaksi selamat</p>
+                        </div>
+                    ) : (
+                        <div className="space-y-8">
+                            <div className="bg-gradient-to-br from-gray-900 to-black rounded-3xl p-6 shadow-inner relative overflow-hidden text-white">
+                                <div className="absolute top-4 right-6 text-white/10 font-black text-4xl italic">VISA</div>
+                                <div className="w-10 h-8 bg-white/10 rounded-lg mb-8 flex items-center justify-center shadow-inner">
+                                    <div className="w-6 h-5 bg-white/20 rounded-md"></div>
                                 </div>
-                                <div className="text-right">
-                                    <span className="bg-gold-500/10 text-gold-400 border border-gold-500/20 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest">
-                                        {order.status}
-                                    </span>
-                                    <p className="text-[10px] text-gray-500 font-bold mt-2 uppercase tracking-widest">{new Date(order.created_at).toLocaleDateString()}</p>
-                                </div>
-                            </div>
-                            <div className="p-8">
-                                <div className="flex justify-between items-end">
-                                    <div className="flex -space-x-4">
-                                        {order.items.slice(0, 3).map((item, idx) => (
-                                            <div key={idx} className="w-12 h-16 rounded-lg border-2 border-charcoal-950 shadow-xl overflow-hidden bg-charcoal-800">
-                                                <div className="w-full h-full bg-charcoal-700 flex items-center justify-center"><BookOpen className="w-4 h-4 text-gold-400"/></div>
-                                            </div>
-                                        ))}
-                                        {order.items.length > 3 && (
-                                            <div className="w-12 h-16 rounded-lg border-2 border-charcoal-950 shadow-xl bg-gold-600 flex items-center justify-center text-charcoal-950 text-xs font-black">+{order.items.length - 3}</div>
-                                        )}
+                                <div className="font-mono text-lg tracking-widest mb-6 text-white">{maskedCard}</div>
+                                <div className="flex justify-between items-center text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+                                    <div>
+                                        <p className="text-[8px] opacity-60 mb-0.5 text-gray-400">Pemilik Kad</p>
+                                        <p className="text-white mb-0">{user?.name || 'Pelanggan'}</p>
                                     </div>
                                     <div className="text-right">
-                                        <p className="text-[10px] text-gray-500 font-black uppercase tracking-widest mb-1">Total Matrix</p>
-                                        <p className="text-3xl font-black gold-text-gradient">RM{order.total_amount.toFixed(2)}</p>
+                                        <p className="text-[8px] opacity-60 mb-0.5 text-gray-400">Tamat Tempoh</p>
+                                        <p className="text-white mb-0">{cardExpiry || 'MM/YY'}</p>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div className="bg-light p-4 rounded-2xl border border-gray-200 space-y-3">
+                                <div className="flex justify-between items-center text-[11px] text-gray-600 font-bold uppercase tracking-widest">
+                                    <span>ID Merchant</span>
+                                    <span className="text-dark font-black">TS-MERCHANT-89</span>
+                                </div>
+                                <div className="flex justify-between items-center text-[11px] text-gray-600 font-bold uppercase tracking-widest">
+                                    <span>Sufiks Kad</span>
+                                    <span className="text-dark font-black">{cardNumber.slice(-4) || '1234'}</span>
+                                </div>
+                                <div className="h-px bg-gray-200 my-2"></div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-[11px] text-gray-700 font-bold uppercase tracking-widest">Jumlah Bil</span>
+                                    <span className="text-xl font-black" style={{ color: '#ff2020' }}>RM{total.toFixed(2)}</span>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4 pt-4 border-t border-gray-100">
+                                <label className="block text-center text-[9px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-4">Pilih Hasil Simulasi</label>
+                                <div className="row g-3">
+                                    <div className="col-6">
+                                        <button 
+                                            onClick={() => handleOutcome('success')}
+                                            className="btn w-full py-3"
+                                            style={{ backgroundColor: '#28a745', color: 'white', fontWeight: 'bold', fontSize: '12px', textTransform: 'uppercase', borderRadius: '8px', border: 'none' }}
+                                        >
+                                            <Check className="w-4 h-4 inline mr-1" /> Berjaya
+                                        </button>
+                                    </div>
+                                    <div className="col-6">
+                                        <button 
+                                            onClick={() => handleOutcome('fail')}
+                                            className="btn w-full py-3"
+                                            style={{ backgroundColor: '#ff2020', color: 'white', fontWeight: 'bold', fontSize: '12px', textTransform: 'uppercase', borderRadius: '8px', border: 'none' }}
+                                        >
+                                            <X className="w-4 h-4 inline mr-1" /> Gagal
+                                        </button>
+                                    </div>
+                                </div>
+                                <button 
+                                    onClick={() => setView('checkout')}
+                                    className="btn btn-link w-full text-center text-[11px] text-decoration-none mt-3"
+                                    style={{ color: '#666', fontWeight: 'bold', textTransform: 'uppercase' }}
+                                >
+                                    Batal & Kembali
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
+    };
+
+    const OrdersView = () => (
+        <div className="container py-5 animate-in fade-in duration-500" style={{ color: '#1a1a1a' }}>
+            <h1 className="mb-4" style={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: 700 }}>
+                Sejarah <span style={{ color: '#ff2020' }}>Pesanan</span>
+            </h1>
+            {orders.length === 0 ? (
+                <div className="p-5 bg-white text-center rounded-lg border" style={{ boxShadow: '0 5px 25px rgba(0,0,0,0.05)' }}>
+                    <p className="text-muted mb-0" style={{ fontSize: '13px', fontWeight: 'bold' }}>Tiada sejarah transaksi dijumpai.</p>
+                </div>
+            ) : (
+                <div className="space-y-4">
+                    {orders.map(order => (
+                        <div key={order.id} className="p-4 bg-white rounded-lg border mb-4" style={{ boxShadow: '0 5px 25px rgba(0,0,0,0.05)' }}>
+                            <div className="d-flex justify-content-between align-items-center pb-3 mb-3 border-bottom border-gray-100">
+                                <div>
+                                    <p className="text-muted mb-0" style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', trackingSpacing: '1px' }}>Transaksi Pesanan</p>
+                                    <h4 className="mb-0" style={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: 700 }}>REF-{order.id.split('-')[0].toUpperCase()}</h4>
+                                </div>
+                                <div className="text-right">
+                                    <span className="px-3 py-1 rounded-full text-[10px] font-bold" style={{ backgroundColor: order.status === 'completed' ? '#e8f5e9' : '#f8d7da', color: order.status === 'completed' ? '#28a745' : '#721c24', border: `1px solid ${order.status === 'completed' ? '#c8e6c9' : '#f5c6cb'}` }}>
+                                        {order.status === 'completed' ? 'Selesai' : order.status}
+                                    </span>
+                                    <p className="text-muted mb-0 mt-1" style={{ fontSize: '11px' }}>{new Date(order.created_at).toLocaleDateString('ms-MY')}</p>
+                                </div>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-end">
+                                <div className="d-flex align-items-center gap-2">
+                                    {order.items.slice(0, 3).map((item, idx) => (
+                                        <div key={idx} className="border rounded overflow-hidden" style={{ width: '40px', height: '55px' }}>
+                                            <div className="w-full h-full bg-light d-flex align-items-center justify-center">
+                                                <BookOpen className="w-4 h-4 text-muted"/>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    {order.items.length > 3 && (
+                                        <div className="d-flex align-items-center justify-center rounded border bg-light text-muted font-bold text-xs" style={{ width: '40px', height: '55px' }}>
+                                            +{order.items.length - 3}
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="text-right">
+                                    <p className="text-muted mb-0" style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase' }}>Jumlah Keseluruhan</p>
+                                    <p className="mb-0 font-bold" style={{ fontSize: '20px', color: '#ff2020' }}>RM{order.total_amount.toFixed(2)}</p>
                                 </div>
                             </div>
                         </div>
@@ -654,42 +1098,49 @@ export default function App() {
         }, [activeTab]);
 
         const tabs = [
-            { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-            { id: 'books', label: 'Books Catalog', icon: BookOpen },
-            { id: 'users', label: 'Users', icon: User },
-            { id: 'promotions', label: 'Promotions', icon: Sparkles },
-            { id: 'orders', label: 'All Orders', icon: Package },
+            { id: 'dashboard', label: 'Papan Pemuka', icon: LayoutDashboard },
+            { id: 'books', label: 'Katalog Buku', icon: BookOpen },
+            { id: 'users', label: 'Pengguna', icon: User },
+            { id: 'promotions', label: 'Promosi', icon: Sparkles },
+            { id: 'orders', label: 'Semua Pesanan', icon: Package },
         ];
 
         return (
-            <div className="max-w-7xl mx-auto px-4 py-8 animate-in zoom-in duration-500">
-                <div className="flex flex-col md:flex-row gap-8">
+            <div className="container py-5 animate-in zoom-in duration-500" style={{ color: '#1a1a1a' }}>
+                <div className="row">
                     {/* Sidebar Navigation */}
-                    <div className="w-full md:w-64 flex-shrink-0">
-                        <div className="bg-charcoal-900 rounded-[2.5rem] border border-charcoal-800 shadow-2xl p-6 sticky top-24">
-                            <div className="mb-10 px-2">
-                                <h1 className="text-2xl font-black text-white tracking-tight">Admin<span className="gold-text-gradient">Core</span></h1>
-                                <p className="text-[10px] text-gray-500 font-black uppercase tracking-[0.2em] mt-1">Management Hub</p>
+                    <div className="col-lg-3 mb-4">
+                        <div className="p-4 bg-white rounded-lg border shadow-sm sticky-top" style={{ top: '100px', zIndex: 10 }}>
+                            <div className="mb-4">
+                                <h3 className="mb-0 font-bold" style={{ fontFamily: 'Josefin Sans, sans-serif', color: '#1a1a1a' }}>
+                                    Urus Setia <span style={{ color: '#ff2020' }}>Tarbiah</span>
+                                </h3>
+                                <p className="text-muted mb-0" style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase' }}>Hab Pengurusan</p>
                             </div>
                             
-                            <nav className="space-y-2">
+                            <nav className="nav flex-column gap-2">
                                 {tabs.map(tab => (
                                     <button
                                         key={tab.id}
                                         onClick={() => setActiveTab(tab.id)}
-                                        className={`w-full flex items-center gap-3 px-5 py-4 rounded-2xl font-bold text-sm transition-all duration-300 ${
-                                            activeTab === tab.id 
-                                            ? 'gold-gradient text-charcoal-950 shadow-lg shadow-gold-600/20 translate-x-2' 
-                                            : 'text-gray-500 hover:text-white hover:bg-white/5'
-                                        }`}
+                                        className="btn text-start d-flex align-items-center gap-3 py-3 px-3 transition-all"
+                                        style={{ 
+                                            borderRadius: '8px',
+                                            fontWeight: 'bold',
+                                            fontSize: '14px',
+                                            backgroundColor: activeTab === tab.id ? '#ff2020' : 'transparent',
+                                            color: activeTab === tab.id ? 'white' : '#555',
+                                            border: 'none',
+                                            boxShadow: activeTab === tab.id ? '0 4px 15px rgba(255, 32, 32, 0.2)' : 'none'
+                                        }}
                                     >
-                                        <tab.icon className={`w-5 h-5 ${activeTab === tab.id ? 'text-charcoal-950' : 'text-gray-500'}`} />
-                                        {tab.label}
+                                        <tab.icon className="w-5 h-5" style={{ color: activeTab === tab.id ? 'white' : '#555' }} />
+                                        <span>{tab.label}</span>
                                     </button>
                                 ))}
                             </nav>
 
-                            <div className="mt-12 pt-8 border-t border-charcoal-800 px-2">
+                            <div className="mt-4 pt-3 border-top">
                                 <button 
                                     onClick={async () => {
                                         try {
@@ -700,66 +1151,74 @@ export default function App() {
                                             link.setAttribute('download', 'orders.csv');
                                             document.body.appendChild(link);
                                             link.click();
-                                            addToast('CSV Exported');
-                                        } catch (err) { addToast('Export failed', 'error'); }
+                                            addToast('Analisis kedai berjaya dieksport ke CSV');
+                                        } catch (err) { addToast('Eksport gagal', 'error'); }
                                     }}
-                                    className="w-full flex items-center gap-2 text-xs font-black text-gray-500 hover:text-gold-400 transition-colors uppercase tracking-widest"
+                                    className="btn btn-link text-decoration-none p-0 text-start d-flex align-items-center gap-2"
+                                    style={{ fontSize: '11px', fontWeight: 'bold', color: '#ff2020', textTransform: 'uppercase' }}
                                 >
-                                    <Edit className="w-4 h-4" /> Export Store Analytics
+                                    <Edit className="w-4 h-4" /> Eksport Data Kedai
                                 </button>
                             </div>
                         </div>
                     </div>
 
                     {/* Main Content Area */}
-                    <div className="flex-grow min-w-0">
-                        <div className="flex justify-between items-center mb-8">
-                            <h2 className="text-3xl font-black text-white tracking-tight">
+                    <div className="col-lg-9">
+                        <div className="d-flex justify-content-between align-items-center mb-4">
+                            <h2 style={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: 700, margin: 0 }}>
                                 {tabs.find(t => t.id === activeTab)?.label}
                             </h2>
                             {activeTab === 'books' && (
-                                <button className="gold-gradient text-charcoal-950 px-6 py-3 rounded-2xl font-black text-sm hover:scale-105 transition-all flex items-center gap-2 shadow-xl shadow-gold-600/10 active:scale-95">
-                                    <Plus className="w-4 h-4" /> Add New Book
+                                <button className="btn text-white" style={{ backgroundColor: '#ff2020', fontWeight: 'bold', fontSize: '13px', padding: '10px 20px', borderRadius: '8px' }}>
+                                    <Plus className="w-4 h-4 inline mr-1" /> Tambah Buku Baru
                                 </button>
                             )}
                         </div>
 
                         {/* Tab Content: Dashboard */}
                         {activeTab === 'dashboard' && (
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 animate-in fade-in duration-300">
-                                <div className="bg-charcoal-900 p-8 rounded-3xl border border-charcoal-800 shadow-sm flex flex-col justify-between hover:gold-border transition-all cursor-default group">
-                                    <p className="text-gray-500 font-black text-[10px] uppercase tracking-widest mb-4">Gross Revenue</p>
-                                    <h3 className="text-4xl font-black text-white group-hover:gold-text-gradient transition-all">RM12,450</h3>
-                                    <div className="flex items-center gap-2 mt-6">
-                                        <span className="bg-green-500/10 text-green-500 px-2 py-1 rounded-lg text-[10px] font-black">+14%</span>
-                                        <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Growth Matrix</span>
+                            <div className="animate-in fade-in duration-300">
+                                <div className="row g-3 mb-4">
+                                    <div className="col-md-4">
+                                        <div className="p-4 bg-white rounded-lg border shadow-sm">
+                                            <p className="text-muted font-bold text-[10px] uppercase tracking-widest mb-2">Jumlah Pendapatan</p>
+                                            <h3 className="mb-0 font-bold" style={{ color: '#1a1a1a' }}>RM12,450</h3>
+                                            <div className="d-flex align-items-center gap-2 mt-3">
+                                                <span className="px-2 py-0.5 rounded text-[10px] font-bold" style={{ backgroundColor: '#d4edda', color: '#155724' }}>+14%</span>
+                                                <span className="text-muted text-[10px] font-bold uppercase">Suku Ini</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="bg-charcoal-900 p-8 rounded-3xl border border-charcoal-800 shadow-sm flex flex-col justify-between hover:gold-border transition-all cursor-default group">
-                                    <p className="text-gray-500 font-black text-[10px] uppercase tracking-widest mb-4">Registered Souls</p>
-                                    <h3 className="text-4xl font-black text-white group-hover:gold-text-gradient transition-all">1,204</h3>
-                                    <div className="flex items-center gap-2 mt-6">
-                                        <span className="bg-green-500/10 text-green-500 px-2 py-1 rounded-lg text-[10px] font-black">+5%</span>
-                                        <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Active now</span>
+                                    <div className="col-md-4">
+                                        <div className="p-4 bg-white rounded-lg border shadow-sm">
+                                            <p className="text-muted font-bold text-[10px] uppercase tracking-widest mb-2">Pelanggan Berdaftar</p>
+                                            <h3 className="mb-0 font-bold" style={{ color: '#1a1a1a' }}>1,204</h3>
+                                            <div className="d-flex align-items-center gap-2 mt-3">
+                                                <span className="px-2 py-0.5 rounded text-[10px] font-bold" style={{ backgroundColor: '#d4edda', color: '#155724' }}>+5%</span>
+                                                <span className="text-muted text-[10px] font-bold uppercase">Aktif</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="bg-charcoal-900 p-8 rounded-3xl border border-charcoal-800 shadow-sm flex flex-col justify-between hover:gold-border transition-all cursor-default group">
-                                    <p className="text-gray-500 font-black text-[10px] uppercase tracking-widest mb-4">Total Matrix</p>
-                                    <h3 className="text-4xl font-black text-white group-hover:gold-text-gradient transition-all">456</h3>
-                                    <div className="flex items-center gap-2 mt-6">
-                                        <span className="bg-red-500/10 text-red-500 px-2 py-1 rounded-lg text-[10px] font-black">-2%</span>
-                                        <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">This session</span>
+                                    <div className="col-md-4">
+                                        <div className="p-4 bg-white rounded-lg border shadow-sm">
+                                            <p className="text-muted font-bold text-[10px] uppercase tracking-widest mb-2">Jumlah Transaksi</p>
+                                            <h3 className="mb-0 font-bold" style={{ color: '#1a1a1a' }}>456</h3>
+                                            <div className="d-flex align-items-center gap-2 mt-3">
+                                                <span className="px-2 py-0.5 rounded text-[10px] font-bold" style={{ backgroundColor: '#f8d7da', color: '#721c24' }}>-2%</span>
+                                                <span className="text-muted text-[10px] font-bold uppercase">Sesi Ini</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 
-                                <div className="md:col-span-3 bg-charcoal-900 p-10 rounded-[2.5rem] border border-charcoal-800 shadow-sm h-[400px] flex items-center justify-center bg-gradient-to-br from-charcoal-900 to-charcoal-950 relative overflow-hidden group">
-                                    <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px]"></div>
-                                    <div className="text-center relative z-10">
-                                        <div className="bg-charcoal-950 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-transform duration-500 border border-gold-500/20">
-                                            <LayoutDashboard className="w-10 h-10 text-gold-500" />
+                                <div className="p-5 bg-white rounded-lg border text-center shadow-sm position-relative overflow-hidden" style={{ minHeight: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <div>
+                                        <div className="bg-[#ff2020]/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                            <LayoutDashboard className="w-8 h-8 text-[#ff2020]" />
                                         </div>
-                                        <p className="text-white font-black text-2xl tracking-tight">Market Analytical Core</p>
-                                        <p className="text-sm text-gray-500 mt-4 max-w-sm mx-auto leading-relaxed uppercase tracking-widest font-bold text-[10px]">Processing global store metrics...</p>
+                                        <h4 className="font-bold mb-1">Pusat Analitis Kedai</h4>
+                                        <p className="text-muted text-xs max-w-sm mx-auto mb-0">Sedang memproses dan menyegerakkan metrik global dari sistem pangkalan data...</p>
                                     </div>
                                 </div>
                             </div>
@@ -767,46 +1226,46 @@ export default function App() {
 
                         {/* Tab Content: Books */}
                         {activeTab === 'books' && (
-                            <div className="bg-charcoal-900 rounded-[2.5rem] border border-charcoal-800 shadow-2xl overflow-hidden animate-in fade-in duration-300">
-                                <div className="overflow-x-auto">
-                                    <table className="w-full text-left">
-                                        <thead>
-                                            <tr className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] bg-charcoal-950/50">
-                                                <th className="px-8 py-6">Library Entry</th>
-                                                <th className="px-8 py-6">Genre</th>
-                                                <th className="px-8 py-6">Price</th>
-                                                <th className="px-8 py-6">Inventory</th>
-                                                <th className="px-8 py-6 text-right">Matrix Actions</th>
+                            <div className="bg-white rounded-lg border shadow-sm overflow-hidden animate-in fade-in duration-300">
+                                <div className="table-responsive">
+                                    <table className="table table-hover align-middle mb-0">
+                                        <thead className="table-light">
+                                            <tr className="text-[10px] font-bold text-muted text-uppercase tracking-wider">
+                                                <th className="px-4 py-3">Buku</th>
+                                                <th className="px-4 py-3">Genre</th>
+                                                <th className="px-4 py-3">Harga</th>
+                                                <th className="px-4 py-3">Inventori</th>
+                                                <th className="px-4 py-3 text-end">Tindakan</th>
                                             </tr>
                                         </thead>
-                                        <tbody className="divide-y divide-charcoal-800">
+                                        <tbody>
                                             {books.map(book => (
-                                                <tr key={book.id} className="hover:bg-white/5 transition-colors group">
-                                                    <td className="px-8 py-6">
-                                                        <div className="flex items-center gap-4">
-                                                            <div className="w-12 h-16 rounded-xl shadow-xl overflow-hidden bg-charcoal-950 border border-white/5">
-                                                                <img src={book.cover} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" alt="" />
+                                                <tr key={book.id}>
+                                                    <td className="px-4 py-3">
+                                                        <div className="d-flex align-items-center gap-3">
+                                                            <div className="border rounded overflow-hidden" style={{ width: '40px', height: '55px' }}>
+                                                                <img src={book.cover} className="w-full h-full object-cover" alt="" />
                                                             </div>
                                                             <div>
-                                                                <p className="font-black text-white leading-tight group-hover:gold-text-gradient transition-all">{book.title}</p>
-                                                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">{book.author}</p>
+                                                                <p className="mb-0 font-bold" style={{ fontSize: '13px', color: '#1a1a1a' }}>{book.title}</p>
+                                                                <p className="text-muted mb-0" style={{ fontSize: '10px' }}>{book.author}</p>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td className="px-8 py-6">
-                                                        <span className="text-[10px] font-black text-gold-500 bg-gold-500/10 border border-gold-500/20 px-3 py-1.5 rounded-full uppercase tracking-widest">{book.genre}</span>
+                                                    <td className="px-4 py-3">
+                                                        <span className="px-2 py-1 rounded-full text-[10px] font-bold" style={{ backgroundColor: '#f8c14620', color: '#b45309', border: '1px solid #f8c14640' }}>{book.genre}</span>
                                                     </td>
-                                                    <td className="px-8 py-6 font-black text-white">RM{book.price.toFixed(2)}</td>
-                                                    <td className="px-8 py-6">
-                                                        <div className="flex items-center gap-2">
-                                                            <div className={`w-2 h-2 rounded-full ${book.stock > 10 ? 'bg-green-500' : 'bg-red-500'} shadow-[0_0_8px_rgba(34,197,94,0.4)]`}></div>
-                                                            <span className="font-bold text-gray-400 text-sm tracking-tight">{book.stock} units</span>
+                                                    <td className="px-4 py-3 font-bold" style={{ fontSize: '13px' }}>RM{book.price.toFixed(2)}</td>
+                                                    <td className="px-4 py-3">
+                                                        <div className="d-flex align-items-center gap-2">
+                                                            <div className="rounded-full" style={{ width: '8px', height: '8px', backgroundColor: book.stock > 10 ? '#28a745' : '#dc3545' }}></div>
+                                                            <span className="text-muted text-xs">{book.stock} naskah</span>
                                                         </div>
                                                     </td>
-                                                    <td className="px-8 py-6 text-right">
-                                                        <div className="flex justify-end gap-2">
-                                                            <button className="text-gray-500 hover:text-gold-400 p-3 bg-charcoal-950 rounded-2xl transition-all border border-white/5"><Edit className="w-4 h-4" /></button>
-                                                            <button className="text-gray-500 hover:text-red-500 p-3 bg-charcoal-950 rounded-2xl transition-all border border-white/5"><Trash2 className="w-4 h-4" /></button>
+                                                    <td className="px-4 py-3 text-end">
+                                                        <div className="d-flex justify-content-end gap-2">
+                                                            <button className="btn btn-outline-secondary btn-sm p-2" style={{ borderRadius: '6px' }}><Edit className="w-4 h-4" /></button>
+                                                            <button className="btn btn-outline-danger btn-sm p-2" style={{ borderRadius: '6px' }}><Trash2 className="w-4 h-4" /></button>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -819,23 +1278,23 @@ export default function App() {
 
                         {/* Tab Content: Users */}
                         {activeTab === 'users' && (
-                            <div className="bg-charcoal-900 rounded-[2.5rem] border border-charcoal-800 shadow-2xl p-10 text-center animate-in fade-in duration-300">
-                                <div className="bg-charcoal-950 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-white/5">
-                                    <User className="w-10 h-10 text-gold-600" />
+                            <div className="bg-white rounded-lg border shadow-sm p-5 text-center animate-in fade-in duration-300">
+                                <div className="bg-[#ff2020]/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                    <User className="w-8 h-8 text-[#ff2020]" />
                                 </div>
-                                <h3 className="text-2xl font-black text-white tracking-tight">Identity Matrix</h3>
-                                <p className="text-sm text-gray-500 mt-2 mb-10 font-bold uppercase tracking-widest text-[10px]">Managing registered souls and access levels</p>
-                                <div className="space-y-3 max-w-2xl mx-auto">
+                                <h4 className="font-bold">Pengurusan Pengguna</h4>
+                                <p className="text-muted text-xs mb-4">Mengurus dan menyelia akaun pembeli berdaftar</p>
+                                <div className="d-flex flex-column gap-2 max-w-lg mx-auto">
                                      {[1,2,3].map(i => (
-                                         <div key={i} className="flex justify-between items-center p-6 bg-charcoal-950 border border-charcoal-800 rounded-[1.5rem] hover:gold-border transition-all group">
-                                             <div className="flex items-center gap-4">
-                                                 <div className="w-12 h-12 bg-charcoal-900 rounded-2xl flex items-center justify-center text-gold-500 font-black group-hover:gold-gradient group-hover:text-charcoal-950 transition-all border border-white/5">U{i}</div>
-                                                 <div className="text-left">
-                                                     <p className="font-black text-white">Mock User {i}</p>
-                                                     <p className="text-[10px] text-gray-500 font-black uppercase tracking-widest mt-1">user{i}@example.com</p>
+                                         <div key={i} className="d-flex justify-content-between align-items-center p-3 bg-light rounded border">
+                                             <div className="d-flex align-items-center gap-3">
+                                                 <div className="bg-[#ff2020] text-white rounded-full font-bold d-flex align-items-center justify-center text-xs" style={{ width: '35px', height: '35px' }}>U{i}</div>
+                                                 <div className="text-start">
+                                                     <p className="mb-0 font-bold" style={{ fontSize: '13px' }}>Pengguna Contoh {i}</p>
+                                                     <p className="text-muted mb-0" style={{ fontSize: '10px' }}>user{i}@example.com</p>
                                                  </div>
                                              </div>
-                                             <span className="text-[10px] font-black text-gold-400 bg-gold-400/10 px-4 py-2 rounded-full uppercase tracking-widest border border-gold-400/20">Customer</span>
+                                             <span className="px-2 py-0.5 rounded text-[10px] font-bold" style={{ backgroundColor: '#e2e3e5', color: '#383d41' }}>Pelanggan</span>
                                          </div>
                                      ))}
                                 </div>
@@ -844,54 +1303,54 @@ export default function App() {
 
                         {/* Tab Content: Promotions */}
                         {activeTab === 'promotions' && (
-                            <div className="bg-charcoal-900 rounded-[2.5rem] border border-charcoal-800 shadow-2xl p-10 text-center animate-in fade-in duration-300">
-                                <div className="bg-charcoal-950 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-white/5">
-                                    <Sparkles className="w-10 h-10 text-gold-500" />
+                            <div className="bg-white rounded-lg border shadow-sm p-5 text-center animate-in fade-in duration-300">
+                                <div className="bg-[#ff2020]/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                    <Sparkles className="w-8 h-8 text-[#ff2020]" />
                                 </div>
-                                <h3 className="text-2xl font-black text-white tracking-tight">Campaign Matrix</h3>
-                                <p className="text-sm text-gray-500 mt-2 max-w-sm mx-auto leading-relaxed font-bold uppercase tracking-widest text-[10px]">Orchestrate flash sales and exclusive spiritual offerings</p>
-                                <button className="mt-10 gold-gradient text-charcoal-950 px-10 py-5 rounded-[2rem] font-black text-sm hover:scale-105 shadow-2xl shadow-gold-600/20 active:scale-95 transition-all">
-                                    Initialize New Campaign
+                                <h4 className="font-bold">Kempen Promosi</h4>
+                                <p className="text-muted text-xs mb-4">Uruskan kod kupon, diskaun bermusim, dan kempen jualan kilat</p>
+                                <button className="btn text-white" style={{ backgroundColor: '#ff2020', fontWeight: 'bold', fontSize: '13px', padding: '10px 20px', borderRadius: '8px' }}>
+                                    Lancarkan Kempen Baru
                                 </button>
                             </div>
                         )}
 
                         {/* Tab Content: Orders */}
                         {activeTab === 'orders' && (
-                            <div className="bg-charcoal-900 rounded-[2.5rem] border border-charcoal-800 shadow-2xl p-10 animate-in fade-in duration-300">
-                                <div className="text-center mb-12">
-                                    <div className="bg-charcoal-950 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-white/5">
-                                        <Package className="w-10 h-10 text-gold-600" />
+                            <div className="bg-white rounded-lg border shadow-sm p-5 animate-in fade-in duration-300">
+                                <div className="text-center mb-4">
+                                    <div className="bg-[#ff2020]/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                        <Package className="w-8 h-8 text-[#ff2020]" />
                                     </div>
-                                    <h3 className="text-2xl font-black text-white tracking-tight">Global Transaction Matrix</h3>
-                                    <p className="text-sm text-gray-500 mt-2 font-bold uppercase tracking-widest text-[10px]">Real-time logistics and fulfillment oversight</p>
+                                    <h4 className="font-bold">Semua Rekod Pesanan</h4>
+                                    <p className="text-muted text-xs">Pemantauan logistik dan pemenuhan pesanan dalam masa nyata</p>
                                 </div>
                                 {allOrders.length > 0 ? (
-                                    <div className="grid grid-cols-1 gap-4">
+                                    <div className="d-flex flex-column gap-3">
                                         {allOrders.map(order => (
-                                            <div key={order.id} className="p-6 bg-charcoal-950 border border-charcoal-800 rounded-[2rem] flex justify-between items-center hover:gold-border transition-all group">
-                                                 <div className="flex items-center gap-6">
-                                                    <div className="bg-charcoal-900 p-4 rounded-2xl group-hover:gold-gradient transition-all border border-white/5">
-                                                        <Package className="w-6 h-6 text-gold-500 group-hover:text-charcoal-950" />
+                                            <div key={order.id} className="p-3 bg-light rounded border d-flex justify-content-between align-items-center">
+                                                 <div className="d-flex align-items-center gap-3">
+                                                    <div className="bg-[#ff2020] p-2 rounded text-white">
+                                                        <Package className="w-5 h-5" />
                                                     </div>
                                                     <div>
-                                                        <p className="font-black text-white font-mono text-sm tracking-tighter">REF-{order.id.split('-')[0].toUpperCase()}</p>
-                                                        <p className="text-[10px] text-gray-500 font-black uppercase tracking-[0.2em] mt-1">{new Date(order.created_at).toLocaleDateString('en-MY', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+                                                        <p className="mb-0 font-bold font-mono text-sm">REF-{order.id.split('-')[0].toUpperCase()}</p>
+                                                        <p className="text-muted mb-0" style={{ fontSize: '10px' }}>{new Date(order.created_at).toLocaleDateString('ms-MY', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
                                                     </div>
                                                  </div>
-                                                 <div className="text-right">
-                                                    <p className="font-black gold-text-gradient text-xl tracking-tight mb-1">RM{order.total_amount.toFixed(2)}</p>
-                                                    <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${order.status === 'completed' ? 'bg-green-500/10 text-green-400 border border-green-500/20' : 'bg-gold-500/10 text-gold-400 border border-gold-500/20'}`}>
-                                                        {order.status}
+                                                 <div className="text-end">
+                                                    <p className="mb-0 font-bold text-md" style={{ color: '#ff2020' }}>RM{order.total_amount.toFixed(2)}</p>
+                                                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${order.status === 'completed' ? 'bg-[#d4edda] text-[#155724]' : 'bg-[#fff3cd] text-[#856404]'}`}>
+                                                        {order.status === 'completed' ? 'Selesai' : order.status}
                                                     </span>
                                                  </div>
                                             </div>
                                         ))}
                                     </div>
                                 ) : (
-                                    <div className="text-center py-10">
-                                        <Loader2 className="w-10 h-10 text-gold-600 animate-spin mx-auto mb-4" />
-                                        <p className="text-sm text-gray-500 font-black uppercase tracking-widest">Synchronizing Matrix...</p>
+                                    <div className="text-center py-5">
+                                        <Loader2 className="w-8 h-8 text-muted animate-spin mx-auto mb-2" />
+                                        <p className="text-muted text-xs mb-0">Sedang menyegerakkan senarai pesanan...</p>
                                     </div>
                                 )}
                             </div>
@@ -903,7 +1362,7 @@ export default function App() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-charcoal-950 selection:bg-gold-500/30">
+        <div className="min-h-screen flex flex-col bg-[#fbfbfb] selection:bg-[#ff2020]/10" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>
             <Header />
 
             <main className="flex-grow">
@@ -911,7 +1370,9 @@ export default function App() {
                 {view === 'cart' && <CartView />}
                 {view === 'checkout' && <CheckoutView />}
                 {view === 'login' && <LoginView />}
+                {view === 'register' && <RegisterView />}
                 {view === '2fa' && <TwoFAView />}
+                {view === 'payment-gateway' && <PaymentGatewayView />}
                 {view === 'orders' && <OrdersView />}
                 {view === 'admin' && <AdminView />}
             </main>
@@ -919,9 +1380,7 @@ export default function App() {
             {/* Floating Cart Summary FAB (Sticky Bottom Bar) */}
             {cart.length > 0 && view === 'catalog' && (
                 <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[60] w-[92%] max-w-md animate-in slide-in-from-bottom-12 fade-in duration-500 ease-out">
-                    <div className="glass rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] border border-white/40 p-2 pl-5 flex items-center justify-between ring-1 ring-black/5 overflow-hidden group">
-                        {/* Shimmer Effect */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_3s_infinite] pointer-events-none" />
+                    <div className="bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100 p-2 pl-5 flex items-center justify-between ring-1 ring-black/5 overflow-hidden group">
                         
                         <div className="flex items-center gap-4 relative z-10">
                             <div className="relative">
@@ -932,108 +1391,169 @@ export default function App() {
                                         <Package className="w-7 h-7 text-white" />
                                     )}
                                 </div>
-                                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[11px] font-black w-6 h-6 rounded-full flex items-center justify-center border-2 border-white shadow-md">
+                                <span className="absolute -top-2 -right-2 bg-[#ff2020] text-white text-[11px] font-black w-6 h-6 rounded-full flex items-center justify-center border-2 border-white shadow-md">
                                     {cart.reduce((sum, item) => sum + item.quantity, 0)}
                                 </span>
                             </div>
                             
-                            <div>
-                                <p className="text-[10px] font-black text-primary-600 uppercase tracking-widest mb-0.5">Total Balance</p>
-                                <p className="text-2xl font-black text-gray-900 tracking-tight">
-                                    RM{cart.reduce((sum, item) => sum + (item.book.price * item.quantity), 0).toFixed(2)}
+                            <div className="text-start">
+                                <p className="text-muted mb-0 font-bold text-[9px] uppercase tracking-widest">Troli Anda</p>
+                                <p className="mb-0 font-black text-sm" style={{ color: '#ff2020' }}>
+                                    RM{(cart.reduce((sum, item) => sum + (item.book.price * item.quantity), 0) * 1.08).toFixed(2)}
                                 </p>
                             </div>
                         </div>
 
                         <button 
                             onClick={() => setView('cart')}
-                            className="relative z-10 bg-gray-900 text-white px-8 py-4 rounded-[1.5rem] font-black text-sm hover:bg-primary-600 transition-all shadow-xl active:scale-95 flex items-center gap-2 group/btn"
+                            className="btn px-4 py-3.5 text-white d-flex align-items-center gap-2 group-hover:bg-[#d91414] transition-all"
+                            style={{ backgroundColor: '#ff2020', borderRadius: '1.6rem', border: 'none', fontWeight: 'bold', fontSize: '13px' }}
                         >
-                            Checkout
-                            <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                            <span>Troli Detail</span>
+                            <ChevronRight className="w-4 h-4 translate-x-0 group-hover:translate-x-1 transition-transform" />
                         </button>
                     </div>
                 </div>
             )}
 
-            {/* AI Chatbot System */}
-            <div className={`fixed right-4 sm:right-8 z-50 flex flex-col items-end transition-all duration-500 ${cart.length > 0 && view === 'catalog' ? 'bottom-32' : 'bottom-8'}`}>
-                {aiChatOpen && (
-                    <div className="absolute bottom-20 right-0 w-[350px] sm:w-[450px] h-[550px] sm:h-[650px] bg-charcoal-900 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-charcoal-800 animate-in slide-in-from-bottom-10 duration-500">
-                        {/* Header */}
-                        <div className="gold-gradient p-6 flex justify-between items-center shadow-lg">
-                            <div className="flex items-center gap-4 text-charcoal-950">
-                                <div className="bg-charcoal-950 p-2.5 rounded-xl shadow-xl">
-                                    <Bot className="w-6 h-6 text-gold-500" />
+            {/* AI Chatbot Float Button and Chatbox */}
+            <div className="fixed bottom-8 right-8 z-[70]">
+                {aiChatOpen ? (
+                    <div className="bg-white border border-gray-200 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] flex flex-col overflow-hidden animate-in slide-in-from-bottom-8 duration-300" 
+                         style={{ width: '360px', height: '500px', color: '#1a1a1a' }}>
+                        
+                        {/* Chat Header */}
+                        <div className="p-4 bg-dark text-white d-flex align-items-center justify-between" style={{ backgroundColor: 'black' }}>
+                            <div className="d-flex align-items-center gap-2.5">
+                                <div className="bg-[#ff2020] p-2 rounded-xl text-white">
+                                    <Bot className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <p className="font-black text-sm uppercase tracking-widest">AI Librarian</p>
-                                    <p className="text-[10px] font-black opacity-60 uppercase tracking-widest">System Online • Matrix v4.0</p>
+                                    <h5 className="mb-0 font-black text-sm" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>Tarbiah Sentap AI</h5>
+                                    <span className="text-[9px] text-[#f8c146] font-bold uppercase tracking-wider">Pembantu Rohani Peribadi</span>
                                 </div>
                             </div>
-                            <button onClick={() => setAiChatOpen(false)} className="hover:bg-black/10 p-2 rounded-full transition-colors text-charcoal-950">
-                                <X className="w-5 h-5" />
-                            </button>
+                            <button onClick={() => setAiChatOpen(false)} className="btn p-1 text-white opacity-80 hover:opacity-100"><X className="w-5 h-5" /></button>
                         </div>
 
-                        {/* Messages Area */}
-                        <div className="flex-grow p-6 overflow-y-auto bg-charcoal-950 space-y-4 hide-scrollbar">
-                            {aiMessages.map((msg, idx) => (
-                                <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2 duration-300`}>
-                                    <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed shadow-xl border ${
-                                        msg.role === 'user' 
-                                        ? 'gold-gradient text-charcoal-950 rounded-br-sm border-white/10 font-bold' 
-                                        : 'bg-charcoal-900 border-charcoal-800 text-gray-200 rounded-bl-sm'
-                                    }`}>
+                        {/* Chat Messages */}
+                        <div className="flex-grow p-4 overflow-y-auto space-y-3 bg-light">
+                            {aiMessages.map((msg, i) => (
+                                <div key={i} className={`d-flex ${msg.role === 'user' ? 'justify-content-end' : 'justify-content-start'}`}>
+                                    <div className={`p-3 max-w-[80%] rounded-[1.2rem] text-xs leading-relaxed ${msg.role === 'user' ? 'bg-[#ff2020] text-white font-bold' : 'bg-white border text-dark shadow-sm'}`}
+                                         style={{ 
+                                             borderRadius: msg.role === 'user' ? '1.2rem 1.2rem 0 1.2rem' : '1.2rem 1.2rem 1.2rem 0'
+                                         }}>
                                         {msg.text}
                                     </div>
                                 </div>
                             ))}
                             {aiChatLoading && (
-                                <div className="flex justify-start">
-                                    <div className="bg-charcoal-900 border border-charcoal-800 p-4 rounded-2xl rounded-bl-sm shadow-xl flex gap-1.5">
-                                        <div className="w-2 h-2 bg-gold-600 rounded-full animate-bounce"></div>
-                                        <div className="w-2 h-2 bg-gold-600 rounded-full animate-bounce delay-100"></div>
-                                        <div className="w-2 h-2 bg-gold-600 rounded-full animate-bounce delay-200"></div>
+                                <div className="d-flex justify-content-start">
+                                    <div className="p-3 bg-white border rounded-[1.2rem] shadow-sm d-flex align-items-center gap-2">
+                                        <Loader2 className="w-4 h-4 text-muted animate-spin" />
+                                        <span className="text-[10px] text-muted font-bold uppercase tracking-wider">Menjawab...</span>
                                     </div>
                                 </div>
                             )}
                         </div>
 
-                        {/* Input Area */}
-                        <form onSubmit={(e) => { e.preventDefault(); handleSendAIMessage(e); }} className="p-5 bg-charcoal-900 border-t border-charcoal-800 flex gap-3 items-center">
+                        {/* Chat Input */}
+                        <form onSubmit={(e) => { e.preventDefault(); handleSendAIMessage(); }} className="p-3 bg-white border-t border-gray-100 d-flex gap-2">
                             <input 
                                 type="text"
+                                className="form-control py-2.5 text-xs"
+                                placeholder="Tanya tentang cadangan buku..."
                                 value={aiChatInput}
-                                onChange={(e) => setAiChatInput(e.target.value)}
-                                placeholder="Consult the AI Librarian..."
-                                className="flex-grow px-6 py-4 bg-charcoal-950 border border-charcoal-800 rounded-2xl text-sm text-white outline-none focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 transition-all shadow-inner"
+                                onChange={e => setAiChatInput(e.target.value)}
+                                style={{ borderRadius: '12px' }}
                             />
-                            <button 
-                                type="submit"
-                                disabled={aiChatLoading || !aiChatInput.trim()}
-                                className="gold-gradient text-charcoal-950 p-4 rounded-2xl hover:scale-110 disabled:opacity-50 transition-all shadow-xl shadow-gold-600/20 active:scale-90"
-                            >
-                                <Send className="w-5 h-5" />
+                            <button type="submit" className="btn text-white px-3 d-flex align-items-center justify-center" style={{ backgroundColor: '#ff2020', borderRadius: '12px', border: 'none' }}>
+                                <Send className="w-4 h-4" />
                             </button>
                         </form>
                     </div>
+                ) : (
+                    <button 
+                        onClick={() => setAiChatOpen(true)}
+                        className="btn rounded-circle p-3 shadow-lg text-white d-flex align-items-center justify-center hover:scale-105 active:scale-95 transition-all"
+                        style={{ backgroundColor: '#ff2020', width: '56px', height: '56px', border: 'none' }}
+                    >
+                        <MessageSquare className="w-6 h-6 animate-bounce" />
+                    </button>
                 )}
-
-                <button 
-                    onClick={() => setAiChatOpen(!aiChatOpen)}
-                    className="w-14 h-14 sm:w-16 sm:h-16 gold-gradient text-charcoal-950 rounded-2xl shadow-[0_15px_40px_rgba(212,175,55,0.3)] hover:scale-110 active:scale-95 transition-all flex items-center justify-center border border-white/20"
-                >
-                    {aiChatOpen ? <X className="w-6 h-6 sm:w-8 sm:h-8" /> : <MessageSquare className="w-6 h-6 sm:w-8 sm:h-8" />}
-                </button>
             </div>
+
+            {/* Book Detail / Summary Modal */}
+            {summaryModal.isOpen && summaryModal.book && (
+                <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
+                    <div className="bg-white border border-gray-200 rounded-[2rem] w-full max-w-2xl overflow-hidden shadow-2xl animate-in zoom-in duration-300 relative" style={{ color: '#1a1a1a' }}>
+                        <button 
+                            onClick={() => setSummaryModal({ isOpen: false, book: null, summary: '', loading: false })}
+                            className="btn rounded-circle p-2 position-absolute"
+                            style={{ top: '20px', right: '20px', backgroundColor: '#f1f1f1', border: 'none', color: '#1a1a1a', zIndex: 10 }}
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+                        
+                        <div className="flex flex-col md:flex-row h-full">
+                            {/* Left Side: Cover Image */}
+                            <div className="w-full md:w-2/5 aspect-[3/4] md:aspect-auto md:h-auto bg-light relative overflow-hidden flex-shrink-0">
+                                <img 
+                                    src={summaryModal.book.cover} 
+                                    alt={summaryModal.book.title} 
+                                    className="w-full h-full object-cover" 
+                                />
+                            </div>
+                            
+                            {/* Right Side: Details & Summary */}
+                            <div className="p-8 md:p-10 flex flex-col justify-between flex-grow">
+                                <div>
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.25em] block mb-2" style={{ color: '#ff2020' }}>{summaryModal.book.genre}</span>
+                                    <h2 className="text-2xl font-black leading-tight mb-2 tracking-tight" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>{summaryModal.book.title}</h2>
+                                    <p className="text-xs text-muted font-bold uppercase tracking-widest mb-4">Penulis: {summaryModal.book.author}</p>
+                                    
+                                    <div className="h-px bg-gray-200 my-3"></div>
+                                    
+                                    <h4 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Sinopsis / Ringkasan</h4>
+                                    <p className="text-gray-600 text-sm leading-relaxed mb-4 italic">
+                                        "{summaryModal.summary}"
+                                    </p>
+                                </div>
+                                
+                                <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
+                                    <div className="flex flex-col">
+                                        <span className="text-[9px] font-bold text-gray-500 uppercase tracking-widest mb-0.5">Harga</span>
+                                        <span className="font-bold text-2xl" style={{ color: '#ff2020' }}>RM{summaryModal.book.price.toFixed(2)}</span>
+                                    </div>
+                                    <button 
+                                        onClick={() => {
+                                            addToCart(summaryModal.book);
+                                            setSummaryModal({ isOpen: false, book: null, summary: '', loading: false });
+                                        }}
+                                        className="btn px-4 py-3 text-white"
+                                        style={{ backgroundColor: '#ff2020', fontWeight: 'bold', fontSize: '13px', borderRadius: '8px' }}
+                                    >
+                                        <ShoppingCart className="w-4 h-4 inline mr-1" /> Masuk Troli
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Toast System */}
             <div className="fixed top-24 right-6 z-[100] space-y-4 pointer-events-none">
                 {toasts.map(t => (
-                    <div key={t.id} className={`pointer-events-auto flex items-center gap-4 px-8 py-5 rounded-[1.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] animate-in slide-in-from-right-10 duration-300 border ${t.type === 'error' ? 'bg-red-600/90 text-white border-red-500 backdrop-blur-lg' : 'bg-charcoal-900/90 text-white border-gold-500/20 backdrop-blur-lg'}`}>
-                        {t.type === 'error' ? <X className="w-5 h-5" /> : <Check className="w-5 h-5 text-gold-400" />}
-                        <p className="font-black text-sm tracking-tight uppercase tracking-widest">{t.message}</p>
+                    <div key={t.id} className="pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg border"
+                         style={{
+                             backgroundColor: t.type === 'error' ? '#f8d7da' : '#d4edda',
+                             color: t.type === 'error' ? '#721c24' : '#155724',
+                             borderColor: t.type === 'error' ? '#f5c6cb' : '#c3e6cb',
+                         }}>
+                        {t.type === 'error' ? <X className="w-5 h-5" /> : <Check className="w-5 h-5 text-success" />}
+                        <p className="mb-0 font-bold text-xs uppercase tracking-wider">{t.message}</p>
                     </div>
                 ))}
             </div>
