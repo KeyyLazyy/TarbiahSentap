@@ -31,17 +31,7 @@ export default function App() {
     const [cardExpiry, setCardExpiry] = useState('');
     const [cardCvc, setCardCvc] = useState('');
 
-    const getPopupPlacementClasses = (index) => {
-        const isLeftMobile = index % 2 === 0;
-        const isLeftTablet = index % 3 < 2;
-        const isLeftDesktop = index % 4 < 2;
-        
-        return [
-            isLeftMobile ? 'left-full ml-3 right-auto mr-0' : 'right-full mr-3 left-auto ml-0',
-            isLeftTablet ? 'md:left-full md:ml-3 md:right-auto md:mr-0' : 'md:right-full md:mr-3 md:left-auto md:ml-0',
-            isLeftDesktop ? 'lg:left-full lg:ml-4 lg:right-auto lg:mr-0' : 'lg:right-full lg:mr-4 lg:left-auto lg:ml-0'
-        ].join(' ');
-    };
+    const [popupPlacements, setPopupPlacements] = useState({});
 
     const getBookSummary = (book) => {
         const summaries = {
@@ -639,7 +629,18 @@ export default function App() {
                         ) : (
                             <div className="row g-4 px-2">
                                 {filteredBooks.map((book, index) => (
-                                     <div key={book.id} className="col-6 col-md-4 col-lg-3 mb-4 sm:mb-5 animate-in fade-in" style={{ animationDelay: `${index * 35}ms` }}>
+                                     <div 
+                                         key={book.id} 
+                                         className="col-6 col-md-4 col-lg-3 mb-4 sm:mb-5 animate-in fade-in" 
+                                         style={{ animationDelay: `${index * 35}ms` }}
+                                         onMouseEnter={(e) => {
+                                             const rect = e.currentTarget.getBoundingClientRect();
+                                             const screenWidth = window.innerWidth;
+                                             const cardCenter = rect.left + rect.width / 2;
+                                             const side = cardCenter > screenWidth / 2 ? 'left' : 'right';
+                                             setPopupPlacements(prev => ({ ...prev, [book.id]: side }));
+                                         }}
+                                     >
                                          <div className="group relative bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-[0_25px_50px_rgba(255,32,32,0.08)] p-3 border border-gray-100/50 hover:border-[#ff2020]/15 transition-all duration-500 hover:-translate-y-2 overflow-visible flex flex-col h-full">
                                              {/* Book Cover Container */}
                                              <div className="popular-img relative h-56 sm:h-72 overflow-hidden rounded-xl bg-gradient-to-b from-[#fbfbfb] to-[#f5f5f7] border border-gray-100 flex items-center justify-center p-3 group-hover:shadow-[inset_0_0_20px_rgba(0,0,0,0.015)] transition-all duration-500">
@@ -696,8 +697,12 @@ export default function App() {
                                                  </div>
                                              </div>
 
-                                             {/* Hover Detail Popover (Displays on the side: left or right depending on grid placement) */}
-                                             <div className={`absolute top-0 hidden md:flex flex-col w-72 bg-white/98 dark:bg-zinc-950/98 backdrop-blur-md border border-gray-200 dark:border-zinc-800 p-5 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] z-50 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 transform scale-95 group-hover:scale-100 ${getPopupPlacementClasses(index)}`}>
+                                             {/* Hover Detail Popover (Displays on the side: left or right depending on viewport center calculation) */}
+                                             <div className={`absolute top-0 hidden md:flex flex-col w-72 bg-white/98 dark:bg-zinc-950/98 backdrop-blur-md border border-gray-200 dark:border-zinc-800 p-5 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] z-50 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 transform scale-95 group-hover:scale-100 ${
+                                                 (popupPlacements[book.id] || (index % 2 === 0 ? 'right' : 'left')) === 'right' 
+                                                     ? 'left-full ml-4 right-auto mr-0' 
+                                                     : 'right-full mr-4 left-auto ml-0'
+                                             }`}>
                                                  <span className="text-[9px] font-black uppercase text-[#ff2020] tracking-widest block mb-1">{book.genre}</span>
                                                  <h4 className="text-sm font-bold text-gray-900 dark:text-white leading-tight mb-1.5" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>{book.title}</h4>
                                                  <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-3 leading-none">Penulis: {book.author}</p>
