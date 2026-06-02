@@ -329,41 +329,41 @@ export default function App() {
 
     const Header = () => {
         const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
         return (
             <header className="sticky top-0 z-50">
-                <div className="header-area bg-black shadow-lg border-b border-white/5">
+                <div className="header-area bg-white dark:bg-zinc-950 shadow-sm border-b border-gray-100 dark:border-zinc-900">
                     <div className="main-header py-3" style={{ padding: '12px 0' }}>
                         <div className="container-fluid px-4">
                             <div className="menu-wrapper d-flex align-items-center justify-content-between">
                                 {/* Logo */}
                                 <div className="logo flex-shrink-0 cursor-pointer transition-transform hover:scale-105" onClick={() => setView('catalog')}>
-                                    <img src="/assets/img/logo/tarbiah-sentap-logo.png" width="90" height="auto" alt="Tarbiah Sentap" />
+                                    <img src="/assets/img/logo/tarbiah-sentap-logo.png" width="90" height="auto" alt="Tarbiah Sentap" className="dark:brightness-200" />
                                 </div>
+
                                 {/* Main Menu Nav */}
                                 <div className="main-menu d-none d-lg-block">
                                     <nav>
-                                        <ul id="navigation" className="d-flex align-items-center gap-2" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+                                        <ul id="navigation" className="d-flex align-items-center gap-4" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
                                             <li>
                                                 <button 
                                                     onClick={() => setView('catalog')}
-                                                    className={`px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 d-flex align-items-center gap-1.5 ${
+                                                    className={`px-1 py-1 text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 d-flex align-items-center gap-1.5 border-0 ${
                                                         view === 'catalog' 
-                                                        ? 'bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white shadow-[0_6px_20px_rgba(255,32,32,0.3)] border border-transparent' 
-                                                        : 'text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10'
+                                                        ? 'text-gray-900 dark:text-white font-extrabold border-b-2 border-[#f27830]' 
+                                                        : 'text-gray-400 hover:text-gray-900 dark:hover:text-white'
                                                     }`}
-                                                    style={{ outline: 'none' }}
+                                                    style={{ outline: 'none', background: 'transparent' }}
                                                 >
-                                                    <BookOpen className="w-3.5 h-3.5" />
                                                     Home
                                                 </button>
                                             </li>
                                             <li>
                                                 <button 
                                                     onClick={() => setView('catalog')}
-                                                    className="px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10 transition-all duration-300 hover:scale-105 d-flex align-items-center gap-1.5"
+                                                    className="px-1 py-1 text-[11px] font-black uppercase tracking-widest text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all duration-300 hover:scale-105 d-flex align-items-center gap-1.5 border-0"
                                                     style={{ outline: 'none', background: 'transparent' }}
                                                 >
-                                                    <Sparkles className="w-3.5 h-3.5" />
                                                     Shop
                                                 </button>
                                             </li>
@@ -371,14 +371,13 @@ export default function App() {
                                                 <li>
                                                     <button 
                                                         onClick={() => setView('orders')}
-                                                        className={`px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 d-flex align-items-center gap-1.5 ${
+                                                        className={`px-1 py-1 text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 d-flex align-items-center gap-1.5 border-0 ${
                                                             view === 'orders' 
-                                                            ? 'bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white shadow-[0_6px_20px_rgba(255,32,32,0.3)] border border-transparent' 
-                                                            : 'text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10'
+                                                            ? 'text-gray-900 dark:text-white font-extrabold border-b-2 border-[#f27830]' 
+                                                            : 'text-gray-400 hover:text-gray-900 dark:hover:text-white'
                                                         }`}
-                                                        style={{ outline: 'none' }}
+                                                        style={{ outline: 'none', background: 'transparent' }}
                                                     >
-                                                        <Package className="w-3.5 h-3.5" />
                                                         Orders
                                                     </button>
                                                 </li>
@@ -387,14 +386,13 @@ export default function App() {
                                                 <li>
                                                     <button 
                                                         onClick={() => setView('admin')}
-                                                        className={`px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 d-flex align-items-center gap-1.5 ${
+                                                        className={`px-1 py-1 text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 d-flex align-items-center gap-1.5 border-0 ${
                                                             view === 'admin' 
-                                                            ? 'bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white shadow-[0_6px_20px_rgba(255,32,32,0.3)] border border-transparent' 
-                                                            : 'text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10'
+                                                            ? 'text-gray-900 dark:text-white font-extrabold border-b-2 border-[#f27830]' 
+                                                            : 'text-gray-400 hover:text-gray-900 dark:hover:text-white'
                                                         }`}
-                                                        style={{ outline: 'none' }}
+                                                        style={{ outline: 'none', background: 'transparent' }}
                                                     >
-                                                        <LayoutDashboard className="w-3.5 h-3.5" />
                                                         Admin Core
                                                     </button>
                                                 </li>
@@ -408,15 +406,15 @@ export default function App() {
                                     {user ? (
                                         <>
                                             <div className="d-none d-sm-flex flex-column text-end mr-2">
-                                                <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Akaun</span>
-                                                <span className="text-white text-xs font-bold font-mono tracking-tight">{user.name.split(' ')[0]}</span>
+                                                <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Akaun</span>
+                                                <span className="text-gray-800 dark:text-zinc-100 text-xs font-bold font-mono tracking-tight">{user.name.split(' ')[0]}</span>
                                             </div>
                                             <button 
                                                 onClick={() => setView('orders')}
-                                                className={`w-10 h-10 rounded-xl d-flex align-items-center justify-content-center border transition-all duration-300 ${
+                                                className={`w-10 h-10 rounded-full d-flex align-items-center justify-content-center border transition-all duration-300 ${
                                                     view === 'orders' 
-                                                    ? 'bg-[#ff2020] border-[#ff2020] text-white' 
-                                                    : 'border-white/10 text-gray-400 hover:border-white/30 hover:text-white bg-white/5'
+                                                    ? 'bg-black border-black text-white dark:bg-zinc-800 dark:border-zinc-800' 
+                                                    : 'border-gray-200 dark:border-zinc-800 text-gray-500 hover:border-gray-400 dark:text-zinc-400 hover:text-black dark:hover:text-white bg-transparent'
                                                 }`}
                                                 style={{ outline: 'none' }}
                                                 title="Pesanan Saya"
@@ -425,7 +423,7 @@ export default function App() {
                                             </button>
                                             <button 
                                                 onClick={handleLogout}
-                                                className="w-10 h-10 rounded-xl d-flex align-items-center justify-content-center border border-white/10 text-gray-400 hover:border-[#ff2020]/30 hover:bg-[#ff2020]/10 hover:text-[#ff2020] bg-white/5 transition-all duration-300"
+                                                className="w-10 h-10 rounded-full border border-gray-200 dark:border-zinc-800 text-gray-400 hover:border-[#ff2020]/30 hover:bg-[#ff2020]/10 hover:text-[#ff2020] bg-transparent transition-all duration-300"
                                                 style={{ outline: 'none' }}
                                                 title="Log Keluar"
                                             >
@@ -435,32 +433,27 @@ export default function App() {
                                     ) : (
                                         <button 
                                             onClick={() => setView('login')}
-                                            className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 d-flex align-items-center gap-2 ${
-                                                view === 'login' 
-                                                ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
-                                                : 'border border-white/10 text-gray-400 hover:border-white/30 hover:text-white bg-white/5'
-                                            }`}
+                                            className="bg-black text-white hover:bg-[#f27830] hover:text-white text-xs font-black uppercase tracking-widest px-6 py-2.5 rounded-full transition-all duration-300 shadow-sm border-0 outline-none cursor-pointer"
                                             style={{ outline: 'none' }}
                                         >
-                                            <User className="w-3.5 h-3.5" />
-                                            Sign In
+                                            Log In
                                         </button>
                                     )}
 
                                     {/* Cart Icon Link */}
                                     <button 
                                         onClick={() => setView('cart')}
-                                        className={`w-10 h-10 rounded-xl d-flex align-items-center justify-content-center border relative transition-all duration-300 ${
+                                        className={`w-10 h-10 rounded-full d-flex align-items-center justify-content-center border relative transition-all duration-300 ${
                                             view === 'cart' 
-                                            ? 'bg-[#ff2020] border-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
-                                            : 'border-white/10 text-gray-400 hover:border-white/30 hover:text-white bg-white/5'
+                                            ? 'bg-black border-black text-white dark:bg-zinc-800 dark:border-zinc-800' 
+                                            : 'border-gray-200 dark:border-zinc-800 text-gray-500 hover:border-gray-400 dark:text-zinc-400 hover:text-black dark:hover:text-white bg-transparent'
                                         }`}
                                         style={{ outline: 'none' }}
                                         title="Troli"
                                     >
                                         <ShoppingCart className="w-4 h-4" />
                                         {cartCount > 0 && (
-                                            <span className="absolute -top-1.5 -right-1.5 bg-[#ff2020] text-white text-[9px] font-black w-5 h-5 rounded-full d-flex align-items-center justify-center border border-black shadow-lg">
+                                            <span className="absolute -top-1.5 -right-1.5 bg-[#f27830] text-white text-[9px] font-black w-5 h-5 rounded-full d-flex align-items-center justify-content-center border border-white shadow-md">
                                                 {cartCount}
                                             </span>
                                         )}
@@ -469,77 +462,73 @@ export default function App() {
                                     {/* Mobile Hamburger Toggle */}
                                     <button 
                                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                                        className="w-10 h-10 rounded-xl d-flex d-lg-none align-items-center justify-content-center border border-white/10 text-gray-400 hover:border-white/30 hover:text-white bg-white/5 transition-all duration-300"
+                                        className="w-10 h-10 rounded-full d-flex d-lg-none align-items-center justify-content-center border border-gray-200 dark:border-zinc-800 text-gray-500 hover:text-black dark:hover:text-white bg-transparent transition-all duration-300"
                                         style={{ outline: 'none' }}
                                         title="Menu"
                                     >
-                                        {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                                        {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                {/* Mobile Navigation Drawer */}
-                {mobileMenuOpen && (
-                    <div className="d-lg-none bg-black border-t border-white/5 px-4 py-3 animate-in slide-in-from-top duration-300">
-                        <ul className="d-flex flex-column gap-2" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-                            <li>
-                                <button 
-                                    onClick={() => { setView('catalog'); setMobileMenuOpen(false); }}
-                                    className={`w-full text-start px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
-                                        view === 'catalog' 
-                                        ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
-                                        : 'text-gray-400 hover:text-white hover:bg-white/10'
-                                    }`}
-                                    style={{ border: 'none', outline: 'none', background: view === 'catalog' ? '#ff2020' : 'transparent' }}
-                                >
-                                    Home
-                                </button>
-                            </li>
-                            <li>
-                                <button 
-                                    onClick={() => { setView('catalog'); setMobileMenuOpen(false); }}
-                                    className="w-full text-start px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/10 transition-all duration-300"
-                                    style={{ border: 'none', outline: 'none', background: 'transparent' }}
-                                >
-                                    Shop
-                                </button>
-                            </li>
-                            {user && (
+                    {/* Mobile Navigation Drawer */}
+                    {mobileMenuOpen && (
+                        <div className="d-lg-none bg-white dark:bg-zinc-950 border-t border-gray-100 dark:border-zinc-900 px-4 py-3 animate-in slide-in-from-top duration-300">
+                            <ul className="d-flex flex-column gap-2" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
                                 <li>
                                     <button 
-                                        onClick={() => { setView('orders'); setMobileMenuOpen(false); }}
-                                        className={`w-full text-start px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
-                                            view === 'orders' 
-                                            ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
-                                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                        onClick={() => { setView('catalog'); setMobileMenuOpen(false); }}
+                                        className={`w-full text-start px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 border-0 ${
+                                            view === 'catalog' 
+                                            ? 'bg-[#f27830] text-white' 
+                                            : 'text-gray-600 hover:text-black dark:text-zinc-400 dark:hover:text-white bg-transparent'
                                         }`}
-                                        style={{ border: 'none', outline: 'none', background: view === 'orders' ? '#ff2020' : 'transparent' }}
                                     >
-                                        Orders
+                                        Home
                                     </button>
                                 </li>
-                            )}
-                            {user && user.role === 'admin' && (
                                 <li>
                                     <button 
-                                        onClick={() => { setView('admin'); setMobileMenuOpen(false); }}
-                                        className={`w-full text-start px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
-                                            view === 'admin' 
-                                            ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
-                                            : 'text-gray-400 hover:text-white hover:bg-white/10'
-                                        }`}
-                                        style={{ border: 'none', outline: 'none', background: view === 'admin' ? '#ff2020' : 'transparent' }}
+                                        onClick={() => { setView('catalog'); setMobileMenuOpen(false); }}
+                                        className="w-full text-start px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest text-gray-600 hover:text-black dark:text-zinc-400 dark:hover:text-white bg-transparent border-0"
                                     >
-                                        Admin Core
+                                        Shop
                                     </button>
                                 </li>
-                            )}
-                        </ul>
-                    </div>
-                )}
+                                {user && (
+                                    <li>
+                                        <button 
+                                            onClick={() => { setView('orders'); setMobileMenuOpen(false); }}
+                                            className={`w-full text-start px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 border-0 ${
+                                                view === 'orders' 
+                                                ? 'bg-[#f27830] text-white' 
+                                                : 'text-gray-600 hover:text-black dark:text-zinc-400 dark:hover:text-white bg-transparent'
+                                            }`}
+                                        >
+                                            Orders
+                                        </button>
+                                    </li>
+                                )}
+                                {user && user.role === 'admin' && (
+                                    <li>
+                                        <button 
+                                            onClick={() => { setView('admin'); setMobileMenuOpen(false); }}
+                                            className={`w-full text-start px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 border-0 ${
+                                                view === 'admin' 
+                                                ? 'bg-[#f27830] text-white' 
+                                                : 'text-gray-600 hover:text-black dark:text-zinc-400 dark:hover:text-white bg-transparent'
+                                            }`}
+                                        >
+                                            Admin Core
+                                        </button>
+                                    </li>
+                                )}
+                            </ul>
+                        </div>
+                    )}
+                </div>
             </header>
         );
     };
@@ -572,33 +561,58 @@ export default function App() {
 
         return (
             <div className="animate-in fade-in bg-[#fafafa]">
-                {/* Improvised Dark Premium Hero Slider */}
-                <div className="relative overflow-hidden bg-[#0d0d0d] text-white py-16 sm:py-24 border-b border-white/5">
-                    {/* Glowing highlight accents */}
-                    <div className="absolute top-1/4 left-1/3 w-[300px] h-[300px] bg-[#ff2020]/15 rounded-full filter blur-[100px] pointer-events-none"></div>
-                    <div className="absolute bottom-1/4 right-1/4 w-[250px] h-[250px] bg-[#f8c146]/10 rounded-full filter blur-[80px] pointer-events-none"></div>
-
-                    <div className="container position-relative">
-                        <div className="row align-items-center justify-content-between">
-                            <div className="col-xl-7 col-lg-7 col-md-8 col-sm-12">
-                                <div className="hero__caption relative z-10 text-center text-sm-start">
-                                    <span className="text-[#ff2020] text-xs font-black tracking-[0.25em] uppercase mb-3 block">Buku Tarbiah & Dakwah Kreatif</span>
-                                    <h1 className="text-4xl sm:text-6xl font-black tracking-tight leading-none mb-4 text-white">
-                                        TARBIAH SENTAP
+                {/* Dribbble Style Light Premium Hero Section */}
+                <div className="relative overflow-hidden bg-[#fcfbf9] dark:bg-zinc-900 text-gray-900 dark:text-white py-16 sm:py-24 border-b border-gray-150 dark:border-zinc-850">
+                    <div className="container relative z-10">
+                        <div className="row align-items-center justify-content-between g-5">
+                            <div className="col-lg-6 col-md-12">
+                                <div className="hero__caption text-start">
+                                    <span className="text-[#f27830] text-[10px] font-black tracking-[0.25em] uppercase mb-4 d-flex align-items-center gap-1.5">
+                                        <BookOpen className="w-3.5 h-3.5" /> Utama / Kedai
+                                    </span>
+                                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.08] mb-4 text-gray-900 dark:text-white" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>
+                                        Temui, Terokai & Miliki Koleksi Tarbiah Sentap Terbaik
                                     </h1>
-                                    <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-4 max-w-xl">
+                                    <p className="text-gray-500 dark:text-zinc-400 text-sm sm:text-base leading-relaxed mb-5 max-w-xl">
                                         Membina pemikiran rohani kontemporari menerusi naskhah berkualiti tinggi, novel islamik, motivasi, dan persediaan akhir zaman demi melahirkan jati diri Muslim unggul.
                                     </p>
-                                    <div className="hero__btn mt-4">
-                                        <a href="#shop-section" className="inline-block bg-[#ff2020] text-white px-8 py-3.5 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg shadow-[#ff2020]/30 hover:bg-white hover:text-black hover:-translate-y-1 transition-all duration-300 no-underline">
+                                    <div className="hero__btn">
+                                        <a href="#shop-section" className="inline-block bg-[#f27830] hover:bg-black text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-widest shadow-md transition-all duration-300 no-underline cursor-pointer">
                                             Beli Sekarang
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 d-none d-md-block text-center">
-                                <div className="relative inline-block p-2 bg-gradient-to-tr from-[#ff2020] to-[#f8c146] rounded-3xl shadow-[0_25px_50px_rgba(255,32,32,0.15)] overflow-hidden transition-all duration-500 hover:scale-105">
-                                    <img src="/assets/img/hero/adn.jpg" alt="Ustaz Adnin Roslan" style={{ width: '100%', maxHeight: '380px', objectFit: 'cover', borderRadius: '20px' }} />
+                            <div className="col-lg-6 col-md-12">
+                                <div className="d-flex gap-4 h-[350px] sm:h-[400px]">
+                                    {/* Large left image */}
+                                    <div className="w-2/3 h-full relative overflow-hidden rounded-tl-[40px] rounded-tr-[40px] rounded-bl-[40px] rounded-br-none shadow-md group">
+                                        <img 
+                                            src="/assets/img/hero/category.jpg" 
+                                            alt="Koleksi Buku" 
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end p-6">
+                                            <span className="text-white text-xs font-black uppercase tracking-widest bg-[#ff2020]/90 px-3 py-1.5 rounded-md">Dakwah Kreatif</span>
+                                        </div>
+                                    </div>
+                                    {/* Stacked right column */}
+                                    <div className="w-1/3 flex flex-col gap-4 h-full">
+                                        <div className="h-[calc(50%-8px)] relative overflow-hidden rounded-tl-[24px] rounded-tr-[24px] rounded-bl-[24px] rounded-br-none shadow-md group">
+                                            <img 
+                                                src="/assets/img/hero/gallery_hero.jpg" 
+                                                alt="Tarbiah Sentap" 
+                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                            />
+                                        </div>
+                                        <div className="h-[calc(50%-8px)] relative overflow-hidden rounded-tl-[24px] rounded-tr-[24px] rounded-bl-[24px] rounded-br-none shadow-md group">
+                                            <img 
+                                                src="/assets/img/hero/adn.jpg" 
+                                                alt="Ustaz Adnin" 
+                                                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -608,64 +622,76 @@ export default function App() {
                 {/* Shop Section */}
                 <section id="shop-section" className="popular-items py-16" style={{ padding: '80px 0 50px 0' }}>
                     <div className="container">
-                        {/* Elegant Dribbble Serif Brand Banner */}
-                        <div className="row mb-12 px-2">
-                            <div className="col-12">
-                                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-8 px-8 sm:px-12 bg-[#eae6e1] dark:bg-zinc-900/60 border-y border-gray-200/60 dark:border-zinc-800 text-[#3e3a35] dark:text-zinc-100 font-serif text-4xl sm:text-6xl select-none rounded-3xl w-full">
-                                    <span className="font-extrabold tracking-tight">Tarbiah</span>
-                                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-[#3e3a35]/25 dark:border-zinc-100/25 flex items-center justify-center relative animate-[spin_12s_linear_infinite] shrink-0 my-2 sm:my-0">
-                                        <svg viewBox="0 0 100 100" className="w-full h-full absolute">
-                                            <path id="circlePath" d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
-                                            <text className="fill-[#3e3a35] dark:fill-zinc-100 text-[8.5px] uppercase font-sans tracking-[0.2em] font-black">
-                                                <textPath href="#circlePath" startOffset="0%">koleksi pilihan • tarbiah sentap • </textPath>
-                                            </text>
-                                        </svg>
-                                        <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-[#3e3a35] dark:text-zinc-100" />
-                                    </div>
-                                    <span className="font-extrabold tracking-tight">Sentap</span>
-                                </div>
+                        {/* Elegant Dribbble Section Header (Mockup Style) */}
+                        <div className="row align-items-end mb-8 px-2 g-4">
+                            <div className="col-lg-7 col-md-8 col-sm-12 text-left">
+                                <span className="text-[#ff2020] text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-1.5 mb-2.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#ff2020] inline-block animate-ping"></span>
+                                    Koleksi Pilihan
+                                </span>
+                                <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-tight" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>
+                                    Terokai Buku Tarbiah Sentap Pilihan
+                                </h2>
+                            </div>
+                            <div className="col-lg-5 col-md-4 col-sm-12 text-left text-md-end">
+                                <p className="text-gray-500 dark:text-zinc-400 text-xs sm:text-sm leading-relaxed max-w-md ml-auto text-start">
+                                    Di Tarbiah Sentap, kami menawarkan barisan naskhah dakwah kreatif, novel islamik, motivasi, dan persediaan akhir zaman terbaik untuk membimbing pemikiran Muslim kontemporari.
+                                </p>
                             </div>
                         </div>
 
-                        {/* Search & Filter Bar */}
-                        <div className="row mb-5 align-items-center justify-content-between g-3 px-2">
-                            <div className="col-lg-4 col-md-6 col-sm-12">
+                        {/* Search, Sort & Category Filter Controls (Mason Style) */}
+                        <div className="row g-3 align-items-center justify-content-between mb-4 px-2">
+                            <div className="col-lg-4 col-md-5 col-sm-12">
                                 <div className="relative">
                                     <input 
                                         type="text"
                                         placeholder="Cari buku atau penulis..."
                                         value={search}
                                         onChange={(e) => setSearch(e.target.value)}
-                                        className="w-full pl-5 pr-10 py-3 rounded-xl border border-gray-200 focus:border-[#ff2020] focus:ring-1 focus:ring-[#ff2020] outline-none transition-all duration-300 text-sm bg-white shadow-sm"
+                                        className="w-full pl-5 pr-10 py-2.5 rounded-xl border border-gray-200 focus:border-[#ff2020] focus:ring-1 focus:ring-[#ff2020] outline-none transition-all duration-300 text-xs bg-white dark:bg-zinc-900 shadow-sm"
                                     />
+                                    <Search className="absolute right-3.5 top-3 w-4 h-4 text-gray-400" />
                                 </div>
                             </div>
-                            <div className="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start justify-content-md-end gap-2 flex-wrap">
-                                <select 
-                                    value={genre}
-                                    onChange={(e) => setGenre(e.target.value)}
-                                    className="px-4 py-3 rounded-xl border border-gray-200 outline-none cursor-pointer bg-white text-sm shadow-sm transition-all focus:border-[#ff2020]"
-                                >
-                                    {genres.map(g => <option key={g} value={g}>{g}</option>)}
-                                </select>
+                            <div className="col-lg-4 col-md-5 col-sm-12 text-md-end flex justify-end items-center gap-2">
+                                <span className="text-xs text-gray-400 font-bold uppercase tracking-wider">Susun:</span>
                                 <select 
                                     value={sortBy}
                                     onChange={(e) => setSortBy(e.target.value)}
-                                    className="px-4 py-3 rounded-xl border border-gray-200 outline-none cursor-pointer bg-white text-sm shadow-sm transition-all focus:border-[#ff2020]"
+                                    className="px-4 py-2 rounded-xl border border-gray-200 dark:border-zinc-800 outline-none cursor-pointer bg-white dark:bg-zinc-900 text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-zinc-200 shadow-sm transition-all focus:border-[#ff2020]"
                                 >
-                                    <option value="featured">Pilihan Utama (Featured)</option>
+                                    <option value="featured">Featured</option>
                                     <option value="price-asc">Harga: Rendah ke Tinggi</option>
                                     <option value="price-desc">Harga: Tinggi ke Rendah</option>
-                                    <option value="rating">Penilaian Tertinggi</option>
+                                    <option value="rating">Rating Tertinggi</option>
                                 </select>
                             </div>
+                        </div>
+
+                        {/* Category Tag Pills Row */}
+                        <div className="flex gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none px-2 flex-wrap">
+                            {genres.map(g => (
+                                <button
+                                    key={g}
+                                    onClick={() => setGenre(g)}
+                                    className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 border-0 outline-none ${
+                                        genre === g 
+                                            ? 'bg-[#ff2020] text-white shadow-md shadow-[#ff2020]/25' 
+                                            : 'bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-black dark:bg-zinc-850 dark:text-zinc-300 dark:hover:bg-zinc-800'
+                                    }`}
+                                >
+                                    {g}
+                                </button>
+                            ))}
                         </div>
 
                         {/* Books Grid */}
                         {filteredBooks.length === 0 ? (
                             <div className="text-center py-5 text-gray-400 font-bold">Tiada buku ditemui padanan carian anda.</div>
                         ) : (
-                            <div className="row g-4 px-2">                                 {filteredBooks.map((book, index) => (
+                            <div className="row g-4 px-2">
+                                {filteredBooks.map((book, index) => (
                                      <div 
                                          key={book.id} 
                                          className="col-6 col-md-4 col-lg-3 mb-4 sm:mb-5 animate-in fade-in" 
@@ -678,54 +704,68 @@ export default function App() {
                                              setPopupPlacements(prev => ({ ...prev, [book.id]: side }));
                                          }}
                                      >
-                                         <div className="group relative bg-[#eae6e1]/40 dark:bg-zinc-900/35 rounded-3xl p-3 border border-gray-200/40 dark:border-zinc-800/40 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] overflow-visible flex flex-col h-[340px] sm:h-[420px]">
-                                             {/* Book Cover Container */}
-                                             <div className="relative flex-grow flex items-center justify-center p-3 pb-24 overflow-hidden">
+                                         <div className="group relative bg-transparent overflow-visible flex flex-col h-full text-start cursor-pointer">
+                                             {/* Book Cover Image Container with Asymmetrical Corners (Mason style) */}
+                                             <div className="relative aspect-[4/3] w-full bg-[#f4f3f0] dark:bg-zinc-800/40 rounded-tl-3xl rounded-tr-3xl rounded-bl-3xl rounded-br-none flex items-center justify-center p-5 overflow-hidden transition-all duration-300 group-hover:shadow-[0_15px_30px_rgba(0,0,0,0.03)] border border-gray-200/40 dark:border-zinc-800/20"
+                                                  onClick={() => addToCart(book)}>
                                                  <img 
                                                      src={book.cover} 
                                                      alt={book.title} 
-                                                     className="max-h-[85%] w-auto object-contain transition-transform duration-700 ease-out group-hover:scale-105" 
-                                                     style={{ filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.12))' }}
+                                                     className="max-h-[85%] w-auto object-contain transition-transform duration-500 group-hover:scale-105" 
+                                                     style={{ filter: 'drop-shadow(0 12px 18px rgba(0,0,0,0.12))' }}
                                                  />
                                                  
                                                  {/* Glassmorphic Bestseller Badge */}
                                                  {book.rating >= 4.8 && (
-                                                     <span className="absolute top-2 right-2 bg-[#f8c146] text-black font-black uppercase text-[8px] tracking-widest px-2.5 py-1 rounded-full shadow-md z-10">
+                                                     <span className="absolute top-3 right-3 bg-[#ff2020] text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md shadow-sm z-10">
                                                          Terlaris
                                                      </span>
                                                  )}
 
-                                                 {/* Glassmorphic Rating Badge */}
-                                                 <div className="absolute bottom-24 left-2 bg-black/60 backdrop-blur-md border border-white/10 text-[#f8c146] px-2 py-0.5 rounded-lg text-[8px] font-black tracking-wider flex items-center gap-0.5 shadow-md z-10">
-                                                     ★ {book.rating}
-                                                 </div>
-
                                                  {/* Stock Badge */}
-                                                 <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-md border border-white/10 text-white px-2 py-0.5 rounded-lg text-[8px] font-black tracking-wider shadow-md z-10">
+                                                 <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md border border-white/10 text-white px-2 py-0.5 rounded-lg text-[8px] font-black tracking-wider shadow-md z-10">
                                                      STOK: {book.stock}
                                                  </div>
-
-                                                 {/* Clean Quick Add on Cover Click */}
-                                                 <div className="absolute inset-0 bg-transparent cursor-pointer z-0"
-                                                      onClick={() => addToCart(book)} />
                                              </div>
 
-                                             {/* Floating Info & Meta Details (Dribbble Style) */}
-                                             <div className="absolute bottom-4 left-4 right-4 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md p-3.5 rounded-2xl flex justify-between items-center shadow-lg border border-white/20 dark:border-zinc-800/30 z-10 transition-transform duration-500 group-hover:translate-y-[-4px]">
-                                                 <div className="flex-grow pr-3 text-left min-w-0">
-                                                     <h4 className="text-[11px] sm:text-xs font-black text-gray-900 dark:text-white leading-tight mb-1 truncate" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>
-                                                         <a href="#" onClick={(e) => { e.preventDefault(); setView('catalog'); setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false }); }} className="no-underline text-gray-900 dark:text-white hover:text-[#ff2020] dark:hover:text-[#ff2020]">{book.title}</a>
-                                                     </h4>
-                                                     <p className="text-[9px] sm:text-[10px] text-gray-400 font-bold truncate">Penulis: {book.author}</p>
-                                                 </div>
+                                             {/* Product Meta Details (Below Image) */}
+                                             <div className="flex flex-col flex-grow pt-3 pb-2">
+                                                 {/* Book Title */}
+                                                 <h3 className="text-xs sm:text-sm font-black text-gray-800 dark:text-zinc-100 hover:text-[#ff2020] dark:hover:text-[#ff2020] transition-colors line-clamp-1 mb-1" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>
+                                                     <a href="#" onClick={(e) => { e.preventDefault(); setView('catalog'); setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false }); }} className="no-underline text-gray-800 dark:text-zinc-100 hover:text-[#ff2020]">{book.title}</a>
+                                                 </h3>
                                                  
-                                                 <button 
-                                                     onClick={(e) => { e.stopPropagation(); addToCart(book); }}
-                                                     className="flex items-center gap-1.5 bg-black dark:bg-zinc-800 hover:bg-[#ff2020] dark:hover:bg-[#ff2020] text-white hover:text-white transition-all py-2 px-2.5 sm:px-3 rounded-xl border-0 shadow-md hover:scale-105 shrink-0"
-                                                 >
-                                                     <ShoppingCart className="w-3.5 h-3.5" />
-                                                     <span className="text-[10px] sm:text-xs font-black font-mono">RM{book.price.toFixed(2)}</span>
-                                                 </button>
+                                                 {/* Stars Rating & Price Row */}
+                                                 <div className="flex justify-between items-center mt-1">
+                                                     <div className="flex items-center gap-0.5 text-[#ff2020] text-[10px]">
+                                                         {Array.from({ length: 5 }).map((_, i) => (
+                                                             <span key={i}>{i < Math.floor(book.rating) ? '★' : '☆'}</span>
+                                                         ))}
+                                                         <span className="text-[9px] text-gray-400 font-bold ml-1 font-mono">({book.rating})</span>
+                                                     </div>
+                                                     <span className="font-extrabold text-xs sm:text-sm text-gray-900 dark:text-white font-mono">RM{book.price.toFixed(2)}</span>
+                                                 </div>
+
+                                                 {/* Thin Accent Line Divider */}
+                                                 <div className="border-t border-gray-100 dark:border-zinc-800/80 my-2.5"></div>
+
+                                                 {/* Actions Row: Beli Sekarang & Synopsis modal trigger */}
+                                                 <div className="flex justify-between items-center mt-auto">
+                                                     <button 
+                                                         onClick={(e) => { e.stopPropagation(); addToCart(book); }}
+                                                         className="flex items-center gap-1.5 text-[9px] sm:text-[10px] font-black text-[#ff2020] hover:text-black dark:hover:text-white uppercase tracking-wider transition-colors bg-transparent border-0 outline-none p-0 cursor-pointer"
+                                                     >
+                                                         <ShoppingCart className="w-3.5 h-3.5" /> Beli Sekarang
+                                                     </button>
+
+                                                     <button 
+                                                         onClick={(e) => { e.stopPropagation(); setView('catalog'); setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false }); }}
+                                                         className="w-7 h-7 rounded-full border border-gray-200 dark:border-zinc-800 flex items-center justify-center text-gray-400 hover:text-[#ff2020] hover:border-[#ff2020] transition-all bg-white dark:bg-zinc-900 cursor-pointer outline-none"
+                                                         title="Lihat Sinopsis"
+                                                     >
+                                                         <BookOpen className="w-3.5 h-3.5" />
+                                                     </button>
+                                                 </div>
                                              </div>
 
                                              {/* Hover Detail Popover */}
