@@ -314,22 +314,24 @@ export default function App() {
                                             <li>
                                                 <button 
                                                     onClick={() => setView('catalog')}
-                                                    className={`px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 ${
+                                                    className={`px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 d-flex align-items-center gap-1.5 ${
                                                         view === 'catalog' 
                                                         ? 'bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white shadow-[0_6px_20px_rgba(255,32,32,0.3)] border border-transparent' 
                                                         : 'text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10'
                                                     }`}
                                                     style={{ outline: 'none' }}
                                                 >
+                                                    <BookOpen className="w-3.5 h-3.5" />
                                                     Home
                                                 </button>
                                             </li>
                                             <li>
                                                 <button 
                                                     onClick={() => setView('catalog')}
-                                                    className="px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10 transition-all duration-300 hover:scale-105"
+                                                    className="px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10 transition-all duration-300 hover:scale-105 d-flex align-items-center gap-1.5"
                                                     style={{ outline: 'none', background: 'transparent' }}
                                                 >
+                                                    <Sparkles className="w-3.5 h-3.5" />
                                                     Shop
                                                 </button>
                                             </li>
@@ -337,13 +339,14 @@ export default function App() {
                                                 <li>
                                                     <button 
                                                         onClick={() => setView('orders')}
-                                                        className={`px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 ${
+                                                        className={`px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 d-flex align-items-center gap-1.5 ${
                                                             view === 'orders' 
                                                             ? 'bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white shadow-[0_6px_20px_rgba(255,32,32,0.3)] border border-transparent' 
                                                             : 'text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10'
                                                         }`}
                                                         style={{ outline: 'none' }}
                                                     >
+                                                        <Package className="w-3.5 h-3.5" />
                                                         Orders
                                                     </button>
                                                 </li>
@@ -352,13 +355,14 @@ export default function App() {
                                                 <li>
                                                     <button 
                                                         onClick={() => setView('admin')}
-                                                        className={`px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 ${
+                                                        className={`px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 d-flex align-items-center gap-1.5 ${
                                                             view === 'admin' 
                                                             ? 'bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white shadow-[0_6px_20px_rgba(255,32,32,0.3)] border border-transparent' 
                                                             : 'text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10'
                                                         }`}
                                                         style={{ outline: 'none' }}
                                                     >
+                                                        <LayoutDashboard className="w-3.5 h-3.5" />
                                                         Admin Core
                                                     </button>
                                                 </li>
@@ -624,25 +628,39 @@ export default function App() {
                             <div className="row g-4 px-2">
                                 {filteredBooks.map((book, index) => (
                                     <div key={book.id} className="col-6 col-md-4 col-lg-3 mb-4 sm:mb-5 animate-in fade-in" style={{ animationDelay: `${index * 35}ms` }}>
-                                        <div className="group relative bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(255,32,32,0.08)] p-3 border border-gray-100/50 hover:border-[#ff2020]/10 transition-all duration-500 overflow-hidden flex flex-col h-full">
+                                        <div className="group relative bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-[0_25px_50px_rgba(255,32,32,0.08)] p-3 border border-gray-100/50 hover:border-[#ff2020]/15 transition-all duration-500 hover:-translate-y-2 overflow-hidden flex flex-col h-full">
                                             {/* Book Cover Container */}
-                                            <div className="popular-img relative h-48 sm:h-72 overflow-hidden rounded-xl bg-[#fafafa]">
-                                                <img src={book.cover} alt={book.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                            <div className="popular-img relative h-56 sm:h-72 overflow-hidden rounded-xl bg-gradient-to-b from-[#fbfbfb] to-[#f5f5f7] border border-gray-100 flex items-center justify-center p-3 group-hover:shadow-[inset_0_0_20px_rgba(0,0,0,0.015)] transition-all duration-500">
+                                                <img 
+                                                    src={book.cover} 
+                                                    alt={book.title} 
+                                                    className="max-h-[85%] w-auto object-contain transition-transform duration-700 ease-out group-hover:scale-105" 
+                                                    style={{ filter: 'drop-shadow(0 12px 18px rgba(0,0,0,0.12))' }}
+                                                />
                                                 
+                                                {/* Glassmorphic Bestseller Badge */}
+                                                {book.rating >= 4.8 && (
+                                                    <span className="absolute top-2.5 right-2.5 bg-[#f8c146] text-black font-black uppercase text-[8px] tracking-widest px-2.5 py-1 rounded-full shadow-md z-10">
+                                                        Terlaris
+                                                    </span>
+                                                )}
+
                                                 {/* Glassmorphic Rating Badge */}
-                                                <div className="absolute top-2.5 left-2.5 bg-black/60 backdrop-blur-md border border-white/10 text-[#f8c146] px-2 py-1 rounded-lg text-[10px] font-black tracking-wider flex items-center gap-1 shadow-md">
+                                                <div className="absolute bottom-2.5 left-2.5 bg-black/60 backdrop-blur-md border border-white/10 text-[#f8c146] px-2.5 py-1 rounded-lg text-[9px] font-black tracking-wider flex items-center gap-1 shadow-md z-10">
                                                     ★ {book.rating}
                                                 </div>
 
-                                                {/* Stock Warning Badge */}
-                                                <div className="absolute top-2.5 right-2.5 bg-black/60 backdrop-blur-md border border-white/10 text-white px-2 py-1 rounded-lg text-[8px] font-black tracking-wider shadow-md">
+                                                {/* Stock Badge */}
+                                                <div className="absolute top-2.5 left-2.5 bg-black/60 backdrop-blur-md border border-white/10 text-white px-2.5 py-1 rounded-lg text-[8px] font-black tracking-wider shadow-md z-10">
                                                     STOK: {book.stock}
                                                 </div>
 
                                                 {/* Quick Add overlay */}
-                                                <div className="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm text-white text-center py-2.5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 cursor-pointer"
+                                                <div className="absolute inset-0 bg-black/45 backdrop-blur-[1.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer z-20"
                                                      onClick={() => addToCart(book)}>
-                                                    <span className="font-black text-[10px] uppercase tracking-widest text-[#ff2020] hover:text-white transition-colors">+ Masuk Troli</span>
+                                                    <button className="bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white px-3.5 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg shadow-[#ff2020]/25 transform translate-y-3 group-hover:translate-y-0 transition-all duration-300 hover:scale-105 border-0 outline-none">
+                                                        + Masuk Troli
+                                                    </button>
                                                 </div>
                                             </div>
 
@@ -659,7 +677,7 @@ export default function App() {
                                                     <div className="d-flex gap-1.5">
                                                         <button 
                                                             onClick={() => setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false })}
-                                                            className="px-2 py-1.5 border border-[#f8c146] hover:bg-[#f8c146] text-[#f8c146] hover:text-black rounded-lg text-[9px] font-black uppercase tracking-wider transition-all duration-300"
+                                                            className="px-2.5 py-1.5 border border-[#f8c146] hover:bg-[#f8c146] text-[#f8c146] hover:text-black rounded-lg text-[9px] font-black uppercase tracking-wider transition-all duration-300"
                                                             style={{ outline: 'none' }}
                                                         >
                                                             Info
