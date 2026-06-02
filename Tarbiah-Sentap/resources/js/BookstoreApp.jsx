@@ -608,12 +608,21 @@ export default function App() {
                 {/* Shop Section */}
                 <section id="shop-section" className="popular-items py-16" style={{ padding: '80px 0 50px 0' }}>
                     <div className="container">
-                        {/* Section Header Title */}
-                        <div className="row justify-content-center">
-                            <div className="col-xl-8 col-lg-8 col-md-10">
-                                <div className="section-tittle mb-5 text-center">
-                                    <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight mb-2">Koleksi Buku Utama</h2>
-                                    <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto">Terokai barisan buku tarbiah sentap terbaik dari novel inspiratif hingga buku panduan rohani harian.</p>
+                        {/* Elegant Dribbble Serif Brand Banner */}
+                        <div className="row mb-12 px-2">
+                            <div className="col-12">
+                                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-8 px-8 sm:px-12 bg-[#eae6e1] dark:bg-zinc-900/60 border-y border-gray-200/60 dark:border-zinc-800 text-[#3e3a35] dark:text-zinc-100 font-serif text-4xl sm:text-6xl select-none rounded-3xl w-full">
+                                    <span className="font-extrabold tracking-tight">Tarbiah</span>
+                                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-[#3e3a35]/25 dark:border-zinc-100/25 flex items-center justify-center relative animate-[spin_12s_linear_infinite] shrink-0 my-2 sm:my-0">
+                                        <svg viewBox="0 0 100 100" className="w-full h-full absolute">
+                                            <path id="circlePath" d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
+                                            <text className="fill-[#3e3a35] dark:fill-zinc-100 text-[8.5px] uppercase font-sans tracking-[0.2em] font-black">
+                                                <textPath href="#circlePath" startOffset="0%">koleksi pilihan • tarbiah sentap • </textPath>
+                                            </text>
+                                        </svg>
+                                        <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-[#3e3a35] dark:text-zinc-100" />
+                                    </div>
+                                    <span className="font-extrabold tracking-tight">Sentap</span>
                                 </div>
                             </div>
                         </div>
@@ -669,63 +678,57 @@ export default function App() {
                                              setPopupPlacements(prev => ({ ...prev, [book.id]: side }));
                                          }}
                                      >
-                                         <div className="group relative bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-[0_25px_50px_rgba(255,32,32,0.08)] p-3 border border-gray-100/50 hover:border-[#ff2020]/15 transition-all duration-500 hover:-translate-y-2 overflow-visible flex flex-col h-full">
+                                         <div className="group relative bg-[#eae6e1]/40 dark:bg-zinc-900/35 rounded-3xl p-3 border border-gray-200/40 dark:border-zinc-800/40 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] overflow-visible flex flex-col h-[340px] sm:h-[420px]">
                                              {/* Book Cover Container */}
-                                             <div className="popular-img relative h-56 sm:h-72 overflow-hidden rounded-xl bg-gradient-to-b from-[#fbfbfb] to-[#f5f5f7] border border-gray-100 flex items-center justify-center p-3 group-hover:shadow-[inset_0_0_20px_rgba(0,0,0,0.015)] transition-all duration-500">
+                                             <div className="relative flex-grow flex items-center justify-center p-3 pb-24 overflow-hidden">
                                                  <img 
                                                      src={book.cover} 
                                                      alt={book.title} 
                                                      className="max-h-[85%] w-auto object-contain transition-transform duration-700 ease-out group-hover:scale-105" 
-                                                     style={{ filter: 'drop-shadow(0 12px 18px rgba(0,0,0,0.12))' }}
+                                                     style={{ filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.12))' }}
                                                  />
                                                  
                                                  {/* Glassmorphic Bestseller Badge */}
                                                  {book.rating >= 4.8 && (
-                                                     <span className="absolute top-2.5 right-2.5 bg-[#f8c146] text-black font-black uppercase text-[8px] tracking-widest px-2.5 py-1 rounded-full shadow-md z-10">
+                                                     <span className="absolute top-2 right-2 bg-[#f8c146] text-black font-black uppercase text-[8px] tracking-widest px-2.5 py-1 rounded-full shadow-md z-10">
                                                          Terlaris
                                                      </span>
                                                  )}
 
                                                  {/* Glassmorphic Rating Badge */}
-                                                 <div className="absolute bottom-2.5 left-2.5 bg-black/60 backdrop-blur-md border border-white/10 text-[#f8c146] px-2.5 py-1 rounded-lg text-[9px] font-black tracking-wider flex items-center gap-1 shadow-md z-10">
+                                                 <div className="absolute bottom-24 left-2 bg-black/60 backdrop-blur-md border border-white/10 text-[#f8c146] px-2 py-0.5 rounded-lg text-[8px] font-black tracking-wider flex items-center gap-0.5 shadow-md z-10">
                                                      ★ {book.rating}
                                                  </div>
 
                                                  {/* Stock Badge */}
-                                                 <div className="absolute top-2.5 left-2.5 bg-black/60 backdrop-blur-md border border-white/10 text-white px-2.5 py-1 rounded-lg text-[8px] font-black tracking-wider shadow-md z-10">
+                                                 <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-md border border-white/10 text-white px-2 py-0.5 rounded-lg text-[8px] font-black tracking-wider shadow-md z-10">
                                                      STOK: {book.stock}
                                                  </div>
 
-                                                 {/* Quick Add overlay */}
-                                                 <div className="absolute inset-0 bg-black/45 backdrop-blur-[1.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer z-20"
-                                                      onClick={() => addToCart(book)}>
-                                                     <button className="bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white px-3.5 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg shadow-[#ff2020]/25 transform translate-y-3 group-hover:translate-y-0 transition-all duration-300 hover:scale-105 border-0 outline-none">
-                                                         + Masuk Troli
-                                                     </button>
-                                                 </div>
+                                                 {/* Clean Quick Add on Cover Click */}
+                                                 <div className="absolute inset-0 bg-transparent cursor-pointer z-0"
+                                                      onClick={() => addToCart(book)} />
                                              </div>
 
-                                             {/* Info & Meta Details */}
-                                             <div className="popular-caption flex flex-col flex-grow pt-4">
-                                                 <span className="text-[9px] font-black uppercase text-[#ff2020] tracking-widest block mb-1">{book.genre}</span>
-                                                 <h3 className="text-xs sm:text-sm font-bold text-[#ff2020] line-clamp-2 min-h-[36px] sm:min-h-[40px] mb-2 leading-snug hover:text-[#b30000] transition-colors" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>
-                                                     <a href="#" onClick={(e) => { e.preventDefault(); setView('catalog'); setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false }); }} className="no-underline text-[#ff2020] hover:text-[#b30000]">{book.title}</a>
-                                                 </h3>
-                                                 <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-3 leading-none truncate">Penulis: {book.author}</p>
+                                             {/* Floating Info & Meta Details (Dribbble Style) */}
+                                             <div className="absolute bottom-4 left-4 right-4 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md p-3.5 rounded-2xl flex justify-between items-center shadow-lg border border-white/20 dark:border-zinc-800/30 z-10 transition-transform duration-500 group-hover:translate-y-[-4px]">
+                                                 <div className="flex-grow pr-3 text-left min-w-0">
+                                                     <h4 className="text-[11px] sm:text-xs font-black text-gray-900 dark:text-white leading-tight mb-1 truncate" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>
+                                                         <a href="#" onClick={(e) => { e.preventDefault(); setView('catalog'); setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false }); }} className="no-underline text-gray-900 dark:text-white hover:text-[#ff2020] dark:hover:text-[#ff2020]">{book.title}</a>
+                                                     </h4>
+                                                     <p className="text-[9px] sm:text-[10px] text-gray-400 font-bold truncate">Penulis: {book.author}</p>
+                                                 </div>
                                                  
-                                                 <div className="d-flex justify-content-between align-items-center mt-auto pt-2 border-t border-gray-50/50">
-                                                     <span className="font-extrabold text-sm sm:text-base text-gray-900 font-mono">RM{book.price.toFixed(2)}</span>
-                                                     <button 
-                                                         onClick={() => addToCart(book)}
-                                                         className="px-3 py-1.5 bg-[#ff2020] text-white hover:bg-black hover:text-[#ff2020] border border-transparent hover:border-[#ff2020] rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300"
-                                                         style={{ outline: 'none' }}
-                                                     >
-                                                         + Troli
-                                                     </button>
-                                                 </div>
+                                                 <button 
+                                                     onClick={(e) => { e.stopPropagation(); addToCart(book); }}
+                                                     className="flex items-center gap-1.5 bg-black dark:bg-zinc-800 hover:bg-[#ff2020] dark:hover:bg-[#ff2020] text-white hover:text-white transition-all py-2 px-2.5 sm:px-3 rounded-xl border-0 shadow-md hover:scale-105 shrink-0"
+                                                 >
+                                                     <ShoppingCart className="w-3.5 h-3.5" />
+                                                     <span className="text-[10px] sm:text-xs font-black font-mono">RM{book.price.toFixed(2)}</span>
+                                                 </button>
                                              </div>
 
-                                             {/* Hover Detail Popover (Displays on the side: left or right depending on viewport center calculation) */}
+                                             {/* Hover Detail Popover */}
                                              <div className={`absolute top-0 hidden md:flex flex-col w-72 bg-white/98 dark:bg-zinc-950/98 backdrop-blur-md border border-gray-200 dark:border-zinc-800 p-5 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] z-50 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 transform scale-95 group-hover:scale-100 ${
                                                  (popupPlacements[book.id] || (index % 2 === 0 ? 'right' : 'left')) === 'right' 
                                                      ? 'left-full ml-4 right-auto mr-0' 
