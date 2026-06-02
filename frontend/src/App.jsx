@@ -867,11 +867,6 @@ export default function App() {
                                     Belum ada akaun? Daftar Sekarang
                                 </button>
                             </div>
-                            <div className="mt-4 p-3 bg-light rounded text-center" style={{ fontSize: '11px', color: '#666', border: '1px solid #ddd' }}>
-                                <p className="mb-1">Admin: <strong>admin@tarbiahsentap.com</strong></p>
-                                <p className="mb-1">Customer: <strong>customer@example.com</strong></p>
-                                <p className="mb-0">Password: <strong>password123</strong></p>
-                            </div>
                         </div>
                     </div>
                 </div>
