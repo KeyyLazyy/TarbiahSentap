@@ -684,41 +684,46 @@ export default function App() {
                                                     STOK: {book.stock}
                                                 </div>
 
-                                                {/* Quick Add overlay */}
-                                                <div className="absolute inset-0 bg-black/45 backdrop-blur-[1.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer z-20"
+                                                {/* Hover Detail Overlay (displaying details + synopsis + trolley button) */}
+                                                <div className="absolute inset-0 bg-black/95 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-between p-4 z-20 pointer-events-none group-hover:pointer-events-auto cursor-pointer"
                                                      onClick={() => addToCart(book)}>
-                                                    <button className="bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white px-3.5 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg shadow-[#ff2020]/25 transform translate-y-3 group-hover:translate-y-0 transition-all duration-300 hover:scale-105 border-0 outline-none">
-                                                        + Masuk Troli
-                                                    </button>
+                                                    <div className="text-start">
+                                                        <span className="text-[8px] font-black uppercase text-[#ff2020] tracking-widest block mb-1">{book.genre}</span>
+                                                        <h4 className="text-xs font-bold text-white leading-tight mb-1" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>{book.title}</h4>
+                                                        <p className="text-[9px] text-gray-400 font-bold uppercase tracking-wider mb-2">Penulis: {book.author}</p>
+                                                        <p className="text-[10px] text-gray-300 leading-relaxed line-clamp-5 font-medium" style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '6px' }}>
+                                                            {getBookSummary(book)}
+                                                        </p>
+                                                    </div>
+                                                    
+                                                    <div className="pt-2">
+                                                        <button 
+                                                            onClick={(e) => { e.stopPropagation(); addToCart(book); }}
+                                                            className="w-full bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white py-2 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg shadow-[#ff2020]/25 hover:scale-105 transition-all border-0 outline-none"
+                                                        >
+                                                            + Masuk Troli
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             {/* Info & Meta Details */}
                                             <div className="popular-caption flex flex-col flex-grow pt-4">
                                                 <span className="text-[9px] font-black uppercase text-[#ff2020] tracking-widest block mb-1">{book.genre}</span>
-                                                <h3 className="text-xs sm:text-sm font-bold text-gray-800 line-clamp-2 min-h-[36px] sm:min-h-[40px] mb-2 leading-snug hover:text-[#ff2020] transition-colors" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>
-                                                    <a href="#" onClick={(e) => { e.preventDefault(); setView('catalog'); setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false }); }} className="no-underline text-gray-800 hover:text-[#ff2020]">{book.title}</a>
+                                                <h3 className="text-xs sm:text-sm font-bold text-[#ff2020] line-clamp-2 min-h-[36px] sm:min-h-[40px] mb-2 leading-snug hover:text-[#b30000] transition-colors" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>
+                                                    <a href="#" onClick={(e) => { e.preventDefault(); setView('catalog'); setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false }); }} className="no-underline text-[#ff2020] hover:text-[#b30000]">{book.title}</a>
                                                 </h3>
                                                 <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-3 leading-none truncate">Penulis: {book.author}</p>
                                                 
                                                 <div className="d-flex justify-content-between align-items-center mt-auto pt-2 border-t border-gray-50/50">
                                                     <span className="font-extrabold text-sm sm:text-base text-gray-900 font-mono">RM{book.price.toFixed(2)}</span>
-                                                    <div className="d-flex gap-1.5">
-                                                        <button 
-                                                            onClick={() => { setView('catalog'); setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false }); }}
-                                                            className="px-2.5 py-1.5 border border-[#f8c146] hover:bg-[#f8c146] text-[#f8c146] hover:text-black rounded-lg text-[9px] font-black uppercase tracking-wider transition-all duration-300"
-                                                            style={{ outline: 'none' }}
-                                                        >
-                                                            Sinopsis
-                                                        </button>
-                                                        <button 
-                                                            onClick={() => addToCart(book)}
-                                                            className="px-2.5 py-1.5 bg-[#ff2020] text-white hover:bg-black hover:text-[#ff2020] border border-transparent hover:border-[#ff2020] rounded-lg text-[9px] font-black uppercase tracking-wider transition-all duration-300"
-                                                            style={{ outline: 'none' }}
-                                                        >
-                                                            + Troli
-                                                        </button>
-                                                    </div>
+                                                    <button 
+                                                        onClick={() => addToCart(book)}
+                                                        className="px-3 py-1.5 bg-[#ff2020] text-white hover:bg-black hover:text-[#ff2020] border border-transparent hover:border-[#ff2020] rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300"
+                                                        style={{ outline: 'none' }}
+                                                    >
+                                                        + Troli
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
