@@ -296,77 +296,138 @@ export default function App() {
         const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
         return (
-            <header>
-                <div className="header-area" style={{ backgroundColor: 'black' }}>
-                    <div className="main-header header-sticky" style={{ backgroundColor: 'black', padding: '15px 0' }}>
-                        <div className="container-fluid">
+            <header className="sticky top-0 z-50">
+                <div className="header-area bg-black shadow-lg border-b border-white/5">
+                    <div className="main-header py-3" style={{ padding: '12px 0' }}>
+                        <div className="container-fluid px-4">
                             <div className="menu-wrapper d-flex align-items-center justify-content-between">
-                                <div className="logo" onClick={() => setView('catalog')} style={{ cursor: 'pointer' }}>
+                                {/* Logo */}
+                                <div className="logo flex-shrink-0 cursor-pointer transition-transform hover:scale-105" onClick={() => setView('catalog')}>
                                     <img src="/assets/img/logo/tarbiah-sentap-logo.png" width="90" height="auto" alt="Tarbiah Sentap" />
                                 </div>
+
+                                {/* Main Menu Nav */}
                                 <div className="main-menu d-none d-lg-block">
                                     <nav>
-                                        <ul id="navigation" className="d-flex align-items-center gap-4" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-                                            <li className={view === 'catalog' ? 'active' : ''}>
-                                                <a href="#" onClick={(e) => { e.preventDefault(); setView('catalog'); }} style={{ color: 'white', fontWeight: 'bold', textDecoration: 'none' }}>Home</a>
+                                        <ul id="navigation" className="d-flex align-items-center gap-2" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+                                            <li>
+                                                <button 
+                                                    onClick={() => setView('catalog')}
+                                                    className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                                                        view === 'catalog' 
+                                                        ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
+                                                        : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                                    }`}
+                                                    style={{ border: 'none', outline: 'none' }}
+                                                >
+                                                    Home
+                                                </button>
                                             </li>
-                                            <li className={view === 'catalog' ? 'active' : ''}>
-                                                <a href="#" onClick={(e) => { e.preventDefault(); setView('catalog'); }} style={{ color: 'white', fontWeight: 'bold', textDecoration: 'none' }}>Shop</a>
+                                            <li>
+                                                <button 
+                                                    onClick={() => setView('catalog')}
+                                                    className="px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/10 transition-all duration-300"
+                                                    style={{ border: 'none', outline: 'none', background: 'transparent' }}
+                                                >
+                                                    Shop
+                                                </button>
                                             </li>
                                             {user && (
-                                                <li className={view === 'orders' ? 'active' : ''}>
-                                                    <a href="#" onClick={(e) => { e.preventDefault(); setView('orders'); }} style={{ color: 'white', fontWeight: 'bold', textDecoration: 'none' }}>Orders</a>
+                                                <li>
+                                                    <button 
+                                                        onClick={() => setView('orders')}
+                                                        className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                                                            view === 'orders' 
+                                                            ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
+                                                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                                        }`}
+                                                        style={{ border: 'none', outline: 'none' }}
+                                                    >
+                                                        Orders
+                                                    </button>
                                                 </li>
                                             )}
                                             {user && user.role === 'admin' && (
-                                                <li className={view === 'admin' ? 'active' : ''}>
-                                                    <a href="#" onClick={(e) => { e.preventDefault(); setView('admin'); }} style={{ color: 'white', fontWeight: 'bold', textDecoration: 'none' }}>Admin Core</a>
+                                                <li>
+                                                    <button 
+                                                        onClick={() => setView('admin')}
+                                                        className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                                                            view === 'admin' 
+                                                            ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
+                                                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                                        }`}
+                                                        style={{ border: 'none', outline: 'none' }}
+                                                    >
+                                                        Admin Core
+                                                    </button>
                                                 </li>
                                             )}
                                         </ul>
                                     </nav>
                                 </div>
-                                <div className="header-right">
-                                    <ul id="navigation" className="d-flex align-items-center gap-4" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-                                        {user ? (
-                                            <>
-                                                <li style={{ color: 'white', fontWeight: 'bold', fontSize: '14px' }}>
-                                                    {user.email.split('@')[0]}
-                                                </li>
-                                                <li>
-                                                    <a href="#" onClick={(e) => { e.preventDefault(); handleLogout(); }} title="Sign Out">
-                                                        <span className="flaticon-user" style={{ color: '#ff2020' }}></span>
-                                                    </a>
-                                                </li>
-                                            </>
-                                        ) : (
-                                            <li>
-                                                <a href="#" onClick={(e) => { e.preventDefault(); setView('login'); }} title="Sign In">
-                                                    <span className="flaticon-user" style={{ color: 'white' }}></span>
-                                                </a>
-                                            </li>
+
+                                {/* Right Side Actions */}
+                                <div className="header-right d-flex align-items-center gap-3">
+                                    {user ? (
+                                        <>
+                                            <div className="d-none d-sm-flex flex-column text-end mr-2">
+                                                <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Akaun</span>
+                                                <span className="text-white text-xs font-bold font-mono tracking-tight">{user.email.split('@')[0]}</span>
+                                            </div>
+                                            <button 
+                                                onClick={() => setView('orders')}
+                                                className={`w-10 h-10 rounded-xl d-flex align-items-center justify-content-center border transition-all duration-300 ${
+                                                    view === 'orders' 
+                                                    ? 'bg-[#ff2020] border-[#ff2020] text-white' 
+                                                    : 'border-white/10 text-gray-400 hover:border-white/30 hover:text-white bg-white/5'
+                                                }`}
+                                                style={{ outline: 'none' }}
+                                                title="Pesanan Saya"
+                                            >
+                                                <User className="w-4 h-4" />
+                                            </button>
+                                            <button 
+                                                onClick={handleLogout}
+                                                className="w-10 h-10 rounded-xl d-flex align-items-center justify-content-center border border-white/10 text-gray-400 hover:border-[#ff2020]/30 hover:bg-[#ff2020]/10 hover:text-[#ff2020] bg-white/5 transition-all duration-300"
+                                                style={{ outline: 'none' }}
+                                                title="Log Keluar"
+                                            >
+                                                <LogOut className="w-4 h-4" />
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <button 
+                                            onClick={() => setView('login')}
+                                            className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 d-flex align-items-center gap-2 ${
+                                                view === 'login' 
+                                                ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
+                                                : 'border border-white/10 text-gray-400 hover:border-white/30 hover:text-white bg-white/5'
+                                            }`}
+                                            style={{ outline: 'none' }}
+                                        >
+                                            <User className="w-3.5 h-3.5" />
+                                            Sign In
+                                        </button>
+                                    )}
+
+                                    {/* Cart Icon Link */}
+                                    <button 
+                                        onClick={() => setView('cart')}
+                                        className={`w-10 h-10 rounded-xl d-flex align-items-center justify-content-center border relative transition-all duration-300 ${
+                                            view === 'cart' 
+                                            ? 'bg-[#ff2020] border-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
+                                            : 'border-white/10 text-gray-400 hover:border-white/30 hover:text-white bg-white/5'
+                                        }`}
+                                        style={{ outline: 'none' }}
+                                        title="Troli"
+                                    >
+                                        <ShoppingCart className="w-4 h-4" />
+                                        {cartCount > 0 && (
+                                            <span className="absolute -top-1.5 -right-1.5 bg-[#ff2020] text-white text-[9px] font-black w-5 h-5 rounded-full d-flex align-items-center justify-center border border-black shadow-lg">
+                                                {cartCount}
+                                            </span>
                                         )}
-                                        <li style={{ position: 'relative' }}>
-                                            <a href="#" onClick={(e) => { e.preventDefault(); setView('cart'); }}>
-                                                <span className="flaticon-shopping-cart" style={{ color: 'white' }}></span>
-                                                {cartCount > 0 && (
-                                                    <span style={{
-                                                        position: 'absolute',
-                                                        top: '-10px',
-                                                        right: '-10px',
-                                                        background: '#ff2020',
-                                                        color: 'white',
-                                                        borderRadius: '50%',
-                                                        padding: '2px 6px',
-                                                        fontSize: '11px',
-                                                        fontWeight: 'bold'
-                                                    }}>
-                                                        {cartCount}
-                                                    </span>
-                                                )}
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    </button>
                                 </div>
                             </div>
                         </div>
