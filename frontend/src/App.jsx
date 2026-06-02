@@ -3,12 +3,13 @@ import {
     ShoppingCart, BookOpen, User, Star, Trash2, Plus,
     Search, LogOut, Package, ChevronRight, X, Check,
     CreditCard, ShieldCheck, LayoutDashboard, Edit,
-    Sparkles, MessageSquare, Bot, Send, Loader2
+    Sparkles, MessageSquare, Bot, Send, Loader2, Menu
 } from 'lucide-react';
 import { authApi, bookApi, orderApi, adminApi } from './services/api';
 
 export default function App() {
     const [view, setView] = useState('catalog'); // 'catalog', 'cart', 'checkout', 'login', 'admin', 'orders', '2fa'
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [user, setUser] = useState(null);
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -428,10 +429,80 @@ export default function App() {
                                             </span>
                                         )}
                                     </button>
+
+                                    {/* Mobile Hamburger Toggle */}
+                                    <button 
+                                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                                        className="w-10 h-10 rounded-xl d-flex d-lg-none align-items-center justify-content-center border border-white/10 text-gray-400 hover:border-white/30 hover:text-white bg-white/5 transition-all duration-300"
+                                        style={{ outline: 'none' }}
+                                        title="Menu"
+                                    >
+                                        {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    {/* Mobile Navigation Drawer */}
+                    {mobileMenuOpen && (
+                        <div className="d-lg-none bg-black border-t border-white/5 px-4 py-3 animate-in slide-in-from-top duration-300">
+                            <ul className="d-flex flex-column gap-2" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+                                <li>
+                                    <button 
+                                        onClick={() => { setView('catalog'); setMobileMenuOpen(false); }}
+                                        className={`w-full text-start px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                                            view === 'catalog' 
+                                            ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
+                                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                        }`}
+                                        style={{ border: 'none', outline: 'none', background: view === 'catalog' ? '#ff2020' : 'transparent' }}
+                                    >
+                                        Home
+                                    </button>
+                                </li>
+                                <li>
+                                    <button 
+                                        onClick={() => { setView('catalog'); setMobileMenuOpen(false); }}
+                                        className="w-full text-start px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/10 transition-all duration-300"
+                                        style={{ border: 'none', outline: 'none', background: 'transparent' }}
+                                    >
+                                        Shop
+                                    </button>
+                                </li>
+                                {user && (
+                                    <li>
+                                        <button 
+                                            onClick={() => { setView('orders'); setMobileMenuOpen(false); }}
+                                            className={`w-full text-start px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                                                view === 'orders' 
+                                                ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
+                                                : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                            }`}
+                                            style={{ border: 'none', outline: 'none', background: view === 'orders' ? '#ff2020' : 'transparent' }}
+                                        >
+                                            Orders
+                                        </button>
+                                    </li>
+                                )}
+                                {user && user.role === 'admin' && (
+                                    <li>
+                                        <button 
+                                            onClick={() => { setView('admin'); setMobileMenuOpen(false); }}
+                                            className={`w-full text-start px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                                                view === 'admin' 
+                                                ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
+                                                : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                            }`}
+                                            style={{ border: 'none', outline: 'none', background: view === 'admin' ? '#ff2020' : 'transparent' }}
+                                        >
+                                            Admin Core
+                                        </button>
+                                    </li>
+                                )}
+                            </ul>
+                        </div>
+                    )}
                 </div>
             </header>
         );
@@ -527,8 +598,8 @@ export default function App() {
                 {/* Book Grid */}
                 <div className="row g-4">
                     {filteredBooks.map(book => (
-                        <div key={book.id} className="col-sm-6 col-md-4 col-lg-3">
-                            <div className="card h-100 border-0 p-3 shadow-sm book-card position-relative" style={{ borderRadius: '15px', backgroundColor: '#ffffff', transition: 'all 0.3s ease' }}>
+                        <div key={book.id} className="col-6 col-md-4 col-lg-3">
+                            <div className="card h-100 border-0 p-2 sm:p-3 shadow-sm book-card position-relative" style={{ borderRadius: '15px', backgroundColor: '#ffffff', transition: 'all 0.3s ease' }}>
                                 {/* Hover Stock Indicator */}
                                 <div className="stock-indicator position-absolute" style={{ top: '15px', right: '15px', zIndex: 10 }}>
                                     <span className="badge font-bold px-2.5 py-1.5" style={{ backgroundColor: book.stock > 10 ? '#28a74520' : '#dc354520', color: book.stock > 10 ? '#28a745' : '#dc3545', fontSize: '9px' }}>

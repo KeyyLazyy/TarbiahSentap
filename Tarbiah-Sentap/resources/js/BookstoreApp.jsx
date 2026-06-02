@@ -3,12 +3,13 @@ import {
     ShoppingCart, BookOpen, User, Star, Trash2, Plus,
     Search, LogOut, Package, ChevronRight, X, Check,
     CreditCard, ShieldCheck, LayoutDashboard, Edit,
-    Sparkles, MessageSquare, Bot, Send, Loader2
+    Sparkles, MessageSquare, Bot, Send, Loader2, Menu
 } from 'lucide-react';
 import { authApi, bookApi, orderApi, adminApi } from './services/api';
 
 export default function App() {
     const [view, setView] = useState('catalog'); // 'catalog', 'cart', 'checkout', 'login', 'admin', 'orders', '2fa'
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [user, setUser] = useState(null);
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -324,10 +325,8 @@ export default function App() {
         }, 1000);
     };
 
-    // UI Components (Refined)
     const Header = () => {
         const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-
         return (
             <header className="sticky top-0 z-50">
                 <div className="header-area bg-black shadow-lg border-b border-white/5">
@@ -461,12 +460,82 @@ export default function App() {
                                             </span>
                                         )}
                                     </button>
+
+                                    {/* Mobile Hamburger Toggle */}
+                                    <button 
+                                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                                        className="w-10 h-10 rounded-xl d-flex d-lg-none align-items-center justify-content-center border border-white/10 text-gray-400 hover:border-white/30 hover:text-white bg-white/5 transition-all duration-300"
+                                        style={{ outline: 'none' }}
+                                        title="Menu"
+                                    >
+                                        {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                                    </button>
                                 </div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</header>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Mobile Navigation Drawer */}
+                {mobileMenuOpen && (
+                    <div className="d-lg-none bg-black border-t border-white/5 px-4 py-3 animate-in slide-in-from-top duration-300">
+                        <ul className="d-flex flex-column gap-2" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+                            <li>
+                                <button 
+                                    onClick={() => { setView('catalog'); setMobileMenuOpen(false); }}
+                                    className={`w-full text-start px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                                        view === 'catalog' 
+                                        ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
+                                        : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                    }`}
+                                    style={{ border: 'none', outline: 'none', background: view === 'catalog' ? '#ff2020' : 'transparent' }}
+                                >
+                                    Home
+                                </button>
+                            </li>
+                            <li>
+                                <button 
+                                    onClick={() => { setView('catalog'); setMobileMenuOpen(false); }}
+                                    className="w-full text-start px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/10 transition-all duration-300"
+                                    style={{ border: 'none', outline: 'none', background: 'transparent' }}
+                                >
+                                    Shop
+                                </button>
+                            </li>
+                            {user && (
+                                <li>
+                                    <button 
+                                        onClick={() => { setView('orders'); setMobileMenuOpen(false); }}
+                                        className={`w-full text-start px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                                            view === 'orders' 
+                                            ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
+                                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                        }`}
+                                        style={{ border: 'none', outline: 'none', background: view === 'orders' ? '#ff2020' : 'transparent' }}
+                                    >
+                                        Orders
+                                    </button>
+                                </li>
+                            )}
+                            {user && user.role === 'admin' && (
+                                <li>
+                                    <button 
+                                        onClick={() => { setView('admin'); setMobileMenuOpen(false); }}
+                                        className={`w-full text-start px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                                            view === 'admin' 
+                                            ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
+                                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                        }`}
+                                        style={{ border: 'none', outline: 'none', background: view === 'admin' ? '#ff2020' : 'transparent' }}
+                                    >
+                                        Admin Core
+                                    </button>
+                                </li>
+                            )}
+                        </ul>
+                    </div>
+                )}
+            </header>
         );
     };
 
@@ -576,9 +645,9 @@ export default function App() {
                         ) : (
                             <div className="row">
                                 {filteredBooks.map((book, index) => (
-                                    <div key={book.id} className="col-xl-3 col-lg-3 col-md-6 col-sm-6 mb-5 animate-in fade-in" style={{ animationDelay: `${index * 30}ms` }}>
-                                        <div className="single-popular-items text-center" style={{ background: 'white', borderRadius: '10px', boxShadow: '0 5px 15px rgba(0,0,0,0.05)', padding: '20px', border: '1px solid #eee', position: 'relative', overflow: 'hidden' }}>
-                                            <div className="popular-img" style={{ position: 'relative', height: '280px', overflow: 'hidden', borderRadius: '5px' }}>
+                                    <div key={book.id} className="col-6 col-md-4 col-lg-3 mb-4 sm:mb-5 animate-in fade-in" style={{ animationDelay: `${index * 30}ms` }}>
+                                        <div className="single-popular-items text-center" style={{ background: 'white', borderRadius: '10px', boxShadow: '0 5px 15px rgba(0,0,0,0.05)', padding: '12px sm:20px', border: '1px solid #eee', position: 'relative', overflow: 'hidden' }}>
+                                            <div className="popular-img relative h-44 sm:h-72 overflow-hidden rounded-md" style={{ position: 'relative', overflow: 'hidden', borderRadius: '5px' }}>
                                                 <img src={book.cover} alt={book.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                                 
                                                 <div style={{ position: 'absolute', top: '10px', left: '10px', background: 'rgba(0,0,0,0.7)', color: '#fbbf24', padding: '4px 8px', borderRadius: '5px', fontSize: '10px', fontWeight: 'bold' }}>
@@ -661,7 +730,7 @@ export default function App() {
                 <div className="row">
                     <div className="col-lg-8">
                         {cart.map(item => (
-                            <div key={item.book.id} className="d-flex align-items-center justify-content-between p-3 mb-3 bg-white" style={{ borderRadius: '10px', boxShadow: '0 3px 10px rgba(0,0,0,0.03)', border: '1px solid #eee' }}>
+                            <div key={item.book.id} className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between p-3 mb-3 bg-white gap-3" style={{ borderRadius: '10px', boxShadow: '0 3px 10px rgba(0,0,0,0.03)', border: '1px solid #eee' }}>
                                 <div className="d-flex align-items-center gap-3">
                                     <img src={item.book.cover} alt={item.book.title} style={{ width: '60px', height: '90px', objectFit: 'cover', borderRadius: '4px' }} />
                                     <div>
