@@ -31,6 +31,18 @@ export default function App() {
     const [cardExpiry, setCardExpiry] = useState('');
     const [cardCvc, setCardCvc] = useState('');
 
+    const getPopupPlacementClasses = (index) => {
+        const isLeftMobile = index % 2 === 0;
+        const isLeftTablet = index % 3 < 2;
+        const isLeftDesktop = index % 4 < 2;
+        
+        return [
+            isLeftMobile ? 'left-full ml-3 right-auto mr-0' : 'right-full mr-3 left-auto ml-0',
+            isLeftTablet ? 'md:left-full md:ml-3 md:right-auto md:mr-0' : 'md:right-full md:mr-3 md:left-auto md:ml-0',
+            isLeftDesktop ? 'lg:left-full lg:ml-4 lg:right-auto lg:mr-0' : 'lg:right-full lg:mr-4 lg:left-auto lg:ml-0'
+        ].join(' ');
+    };
+
     const getBookSummary = (book) => {
         const summaries = {
             '1': 'Sebuah coretan rohani yang membimbing jiwa untuk meletakkan cinta tertinggi hanya kepada Allah SWT sebelum mencintai makhluk-Nya.',
@@ -627,78 +639,85 @@ export default function App() {
                         ) : (
                             <div className="row g-4 px-2">
                                 {filteredBooks.map((book, index) => (
-                                    <div key={book.id} className="col-6 col-md-4 col-lg-3 mb-4 sm:mb-5 animate-in fade-in" style={{ animationDelay: `${index * 35}ms` }}>
-                                        <div className="group relative bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-[0_25px_50px_rgba(255,32,32,0.08)] p-3 border border-gray-100/50 hover:border-[#ff2020]/15 transition-all duration-500 hover:-translate-y-2 overflow-hidden flex flex-col h-full">
-                                            {/* Book Cover Container */}
-                                            <div className="popular-img relative h-56 sm:h-72 overflow-hidden rounded-xl bg-gradient-to-b from-[#fbfbfb] to-[#f5f5f7] border border-gray-100 flex items-center justify-center p-3 group-hover:shadow-[inset_0_0_20px_rgba(0,0,0,0.015)] transition-all duration-500">
-                                                <img 
-                                                    src={book.cover} 
-                                                    alt={book.title} 
-                                                    className="max-h-[85%] w-auto object-contain transition-transform duration-700 ease-out group-hover:scale-105" 
-                                                    style={{ filter: 'drop-shadow(0 12px 18px rgba(0,0,0,0.12))' }}
-                                                />
-                                                
-                                                {/* Glassmorphic Bestseller Badge */}
-                                                {book.rating >= 4.8 && (
-                                                    <span className="absolute top-2.5 right-2.5 bg-[#f8c146] text-black font-black uppercase text-[8px] tracking-widest px-2.5 py-1 rounded-full shadow-md z-10">
-                                                        Terlaris
-                                                    </span>
-                                                )}
+                                     <div key={book.id} className="col-6 col-md-4 col-lg-3 mb-4 sm:mb-5 animate-in fade-in" style={{ animationDelay: `${index * 35}ms` }}>
+                                         <div className="group relative bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-[0_25px_50px_rgba(255,32,32,0.08)] p-3 border border-gray-100/50 hover:border-[#ff2020]/15 transition-all duration-500 hover:-translate-y-2 overflow-visible flex flex-col h-full">
+                                             {/* Book Cover Container */}
+                                             <div className="popular-img relative h-56 sm:h-72 overflow-hidden rounded-xl bg-gradient-to-b from-[#fbfbfb] to-[#f5f5f7] border border-gray-100 flex items-center justify-center p-3 group-hover:shadow-[inset_0_0_20px_rgba(0,0,0,0.015)] transition-all duration-500">
+                                                 <img 
+                                                     src={book.cover} 
+                                                     alt={book.title} 
+                                                     className="max-h-[85%] w-auto object-contain transition-transform duration-700 ease-out group-hover:scale-105" 
+                                                     style={{ filter: 'drop-shadow(0 12px 18px rgba(0,0,0,0.12))' }}
+                                                 />
+                                                 
+                                                 {/* Glassmorphic Bestseller Badge */}
+                                                 {book.rating >= 4.8 && (
+                                                     <span className="absolute top-2.5 right-2.5 bg-[#f8c146] text-black font-black uppercase text-[8px] tracking-widest px-2.5 py-1 rounded-full shadow-md z-10">
+                                                         Terlaris
+                                                     </span>
+                                                 )}
 
-                                                {/* Glassmorphic Rating Badge */}
-                                                <div className="absolute bottom-2.5 left-2.5 bg-black/60 backdrop-blur-md border border-white/10 text-[#f8c146] px-2.5 py-1 rounded-lg text-[9px] font-black tracking-wider flex items-center gap-1 shadow-md z-10">
-                                                    ★ {book.rating}
-                                                </div>
+                                                 {/* Glassmorphic Rating Badge */}
+                                                 <div className="absolute bottom-2.5 left-2.5 bg-black/60 backdrop-blur-md border border-white/10 text-[#f8c146] px-2.5 py-1 rounded-lg text-[9px] font-black tracking-wider flex items-center gap-1 shadow-md z-10">
+                                                     ★ {book.rating}
+                                                 </div>
 
-                                                {/* Stock Badge */}
-                                                <div className="absolute top-2.5 left-2.5 bg-black/60 backdrop-blur-md border border-white/10 text-white px-2.5 py-1 rounded-lg text-[8px] font-black tracking-wider shadow-md z-10">
-                                                    STOK: {book.stock}
-                                                </div>
+                                                 {/* Stock Badge */}
+                                                 <div className="absolute top-2.5 left-2.5 bg-black/60 backdrop-blur-md border border-white/10 text-white px-2.5 py-1 rounded-lg text-[8px] font-black tracking-wider shadow-md z-10">
+                                                     STOK: {book.stock}
+                                                 </div>
 
-                                                {/* Hover Detail Overlay (displaying details + synopsis + trolley button) */}
-                                                <div className="absolute inset-0 bg-black/95 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-between p-4 z-20 pointer-events-none group-hover:pointer-events-auto cursor-pointer"
-                                                     onClick={() => addToCart(book)}>
-                                                    <div className="text-start">
-                                                        <span className="text-[8px] font-black uppercase text-[#ff2020] tracking-widest block mb-1">{book.genre}</span>
-                                                        <h4 className="text-xs font-bold text-white leading-tight mb-1" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>{book.title}</h4>
-                                                        <p className="text-[9px] text-gray-400 font-bold uppercase tracking-wider mb-2">Penulis: {book.author}</p>
-                                                        <p className="text-[10px] text-gray-300 leading-relaxed line-clamp-5 font-medium" style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '6px' }}>
-                                                            {getBookSummary(book)}
-                                                        </p>
-                                                    </div>
-                                                    
-                                                    <div className="pt-2">
-                                                        <button 
-                                                            onClick={(e) => { e.stopPropagation(); addToCart(book); }}
-                                                            className="w-full bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white py-2 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg shadow-[#ff2020]/25 hover:scale-105 transition-all border-0 outline-none"
-                                                        >
-                                                            + Masuk Troli
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                 {/* Quick Add overlay */}
+                                                 <div className="absolute inset-0 bg-black/45 backdrop-blur-[1.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer z-20"
+                                                      onClick={() => addToCart(book)}>
+                                                     <button className="bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white px-3.5 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg shadow-[#ff2020]/25 transform translate-y-3 group-hover:translate-y-0 transition-all duration-300 hover:scale-105 border-0 outline-none">
+                                                         + Masuk Troli
+                                                     </button>
+                                                 </div>
+                                             </div>
 
-                                            {/* Info & Meta Details */}
-                                            <div className="popular-caption flex flex-col flex-grow pt-4">
-                                                <span className="text-[9px] font-black uppercase text-[#ff2020] tracking-widest block mb-1">{book.genre}</span>
-                                                <h3 className="text-xs sm:text-sm font-bold text-[#ff2020] line-clamp-2 min-h-[36px] sm:min-h-[40px] mb-2 leading-snug hover:text-[#b30000] transition-colors" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>
-                                                    <a href="#" onClick={(e) => { e.preventDefault(); setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false }); }} className="no-underline text-[#ff2020] hover:text-[#b30000]">{book.title}</a>
-                                                </h3>
-                                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-3 leading-none truncate">Penulis: {book.author}</p>
-                                                
-                                                <div className="d-flex justify-content-between align-items-center mt-auto pt-2 border-t border-gray-50/50">
-                                                    <span className="font-extrabold text-sm sm:text-base text-gray-900 font-mono">RM{book.price.toFixed(2)}</span>
-                                                    <button 
-                                                        onClick={() => addToCart(book)}
-                                                        className="px-3 py-1.5 bg-[#ff2020] text-white hover:bg-black hover:text-[#ff2020] border border-transparent hover:border-[#ff2020] rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300"
-                                                        style={{ outline: 'none' }}
-                                                    >
-                                                        + Troli
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                             {/* Info & Meta Details */}
+                                             <div className="popular-caption flex flex-col flex-grow pt-4">
+                                                 <span className="text-[9px] font-black uppercase text-[#ff2020] tracking-widest block mb-1">{book.genre}</span>
+                                                 <h3 className="text-xs sm:text-sm font-bold text-[#ff2020] line-clamp-2 min-h-[36px] sm:min-h-[40px] mb-2 leading-snug hover:text-[#b30000] transition-colors" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>
+                                                     <a href="#" onClick={(e) => { e.preventDefault(); setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false }); }} className="no-underline text-[#ff2020] hover:text-[#b30000]">{book.title}</a>
+                                                 </h3>
+                                                 <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-3 leading-none truncate">Penulis: {book.author}</p>
+                                                 
+                                                 <div className="d-flex justify-content-between align-items-center mt-auto pt-2 border-t border-gray-50/50">
+                                                     <span className="font-extrabold text-sm sm:text-base text-gray-900 font-mono">RM{book.price.toFixed(2)}</span>
+                                                     <button 
+                                                         onClick={() => addToCart(book)}
+                                                         className="px-3 py-1.5 bg-[#ff2020] text-white hover:bg-black hover:text-[#ff2020] border border-transparent hover:border-[#ff2020] rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300"
+                                                         style={{ outline: 'none' }}
+                                                     >
+                                                         + Troli
+                                                     </button>
+                                                 </div>
+                                             </div>
+
+                                             {/* Hover Detail Popover (Displays on the side: left or right depending on grid placement) */}
+                                             <div className={`absolute top-0 hidden md:flex flex-col w-72 bg-white/98 dark:bg-zinc-950/98 backdrop-blur-md border border-gray-200 dark:border-zinc-800 p-5 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] z-50 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 transform scale-95 group-hover:scale-100 ${getPopupPlacementClasses(index)}`}>
+                                                 <span className="text-[9px] font-black uppercase text-[#ff2020] tracking-widest block mb-1">{book.genre}</span>
+                                                 <h4 className="text-sm font-bold text-gray-900 dark:text-white leading-tight mb-1.5" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>{book.title}</h4>
+                                                 <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-3 leading-none">Penulis: {book.author}</p>
+                                                 
+                                                 <div className="border-t border-gray-100 dark:border-zinc-800 pt-3 mt-1">
+                                                     <h5 className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-2">Sinopsis</h5>
+                                                     <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed font-medium line-clamp-[8]">
+                                                         {getBookSummary(book)}
+                                                     </p>
+                                                 </div>
+
+                                                 <div className="mt-4 pt-3 border-t border-gray-100 dark:border-zinc-800 flex justify-between items-center">
+                                                     <span className="font-extrabold text-sm text-gray-900 dark:text-white font-mono">RM{book.price.toFixed(2)}</span>
+                                                     <span className="text-[9px] font-bold text-[#ff2020] uppercase tracking-wider bg-[#ff2020]/10 px-2 py-0.5 rounded-md">
+                                                         STOK: {book.stock}
+                                                     </span>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
                                 ))}
                             </div>
                         )}
