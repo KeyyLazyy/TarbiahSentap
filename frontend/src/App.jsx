@@ -314,12 +314,12 @@ export default function App() {
                                             <li>
                                                 <button 
                                                     onClick={() => setView('catalog')}
-                                                    className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                                                    className={`px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 ${
                                                         view === 'catalog' 
-                                                        ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
-                                                        : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                                        ? 'bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white shadow-[0_6px_20px_rgba(255,32,32,0.3)] border border-transparent' 
+                                                        : 'text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10'
                                                     }`}
-                                                    style={{ border: 'none', outline: 'none' }}
+                                                    style={{ outline: 'none' }}
                                                 >
                                                     Home
                                                 </button>
@@ -327,8 +327,8 @@ export default function App() {
                                             <li>
                                                 <button 
                                                     onClick={() => setView('catalog')}
-                                                    className="px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/10 transition-all duration-300"
-                                                    style={{ border: 'none', outline: 'none', background: 'transparent' }}
+                                                    className="px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10 transition-all duration-300 hover:scale-105"
+                                                    style={{ outline: 'none', background: 'transparent' }}
                                                 >
                                                     Shop
                                                 </button>
@@ -337,12 +337,12 @@ export default function App() {
                                                 <li>
                                                     <button 
                                                         onClick={() => setView('orders')}
-                                                        className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                                                        className={`px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 ${
                                                             view === 'orders' 
-                                                            ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
-                                                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                                            ? 'bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white shadow-[0_6px_20px_rgba(255,32,32,0.3)] border border-transparent' 
+                                                            : 'text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10'
                                                         }`}
-                                                        style={{ border: 'none', outline: 'none' }}
+                                                        style={{ outline: 'none' }}
                                                     >
                                                         Orders
                                                     </button>
@@ -352,12 +352,12 @@ export default function App() {
                                                 <li>
                                                     <button 
                                                         onClick={() => setView('admin')}
-                                                        className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                                                        className={`px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 ${
                                                             view === 'admin' 
-                                                            ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
-                                                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                                            ? 'bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white shadow-[0_6px_20px_rgba(255,32,32,0.3)] border border-transparent' 
+                                                            : 'text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10'
                                                         }`}
-                                                        style={{ border: 'none', outline: 'none' }}
+                                                        style={{ outline: 'none' }}
                                                     >
                                                         Admin Core
                                                     </button>
@@ -529,142 +529,178 @@ export default function App() {
         }, [books, search, genre, sortBy]);
 
         if (loading) return (
-            <div className="text-center py-5">
-                <Loader2 className="w-12 h-12 text-[#ff2020] animate-spin mx-auto mb-3" />
-                <p className="text-muted font-bold">Curating your library...</p>
+            <div className="text-center py-5 animate-in fade-in" style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <Loader2 className="w-12 h-12 text-[#ff2020] animate-spin" />
+                <p className="mt-3 text-muted font-bold tracking-widest text-xs uppercase">Menyusun koleksi perpustakaan...</p>
             </div>
         );
 
         return (
-            <div className="container py-5 animate-in fade-in duration-500" style={{ color: '#1a1a1a' }}>
-                {/* Hero Banner (Vibrant Design matching timezone) */}
-                <div className="row align-items-center mb-5 p-5" style={{ background: '#f0f0f2', borderRadius: '20px', minHeight: '350px' }}>
-                    <div className="col-lg-7">
-                        <span className="badge text-white mb-3 px-3 py-2 uppercase tracking-wider" style={{ backgroundColor: '#ff2020', fontSize: '10px', fontWeight: 'bold' }}>PILIHAN UTAMA 2026</span>
-                        <h1 className="display-4 font-black mb-3" style={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: 800 }}>Tarbiah Sentap</h1>
-                        <p className="text-muted leading-relaxed mb-4" style={{ fontSize: '15px' }}>
-                            Membina jiwa dan minda Muslim berkualiti menerusi karya-karya motivasi, novel islamik, tarbiah rohani, dan panduan Al-Quran bertaraf dunia.
-                        </p>
-                        <div className="d-flex gap-3">
-                            <button className="btn text-white px-4 py-3" style={{ backgroundColor: '#ff2020', fontWeight: 'bold', fontSize: '13px', borderRadius: '8px' }}>Mula Meneroka</button>
-                            <button className="btn btn-outline-dark px-4 py-3" style={{ fontWeight: 'bold', fontSize: '13px', borderRadius: '8px' }}>Cerita Kami</button>
-                        </div>
-                    </div>
-                    <div className="col-lg-5 d-none d-lg-block text-center">
-                        <img src="/assets/img/gallery/popular3.png" alt="Hero Book" className="img-fluid" style={{ maxHeight: '280px', filter: 'drop-shadow(0 15px 30px rgba(0,0,0,0.15))' }} />
-                    </div>
-                </div>
+            <div className="animate-in fade-in bg-[#fafafa]">
+                {/* Improvised Dark Premium Hero Slider */}
+                <div className="relative overflow-hidden bg-[#0d0d0d] text-white py-16 sm:py-24 border-b border-white/5">
+                    {/* Glowing highlight accents */}
+                    <div className="absolute top-1/4 left-1/3 w-[300px] h-[300px] bg-[#ff2020]/15 rounded-full filter blur-[100px] pointer-events-none"></div>
+                    <div className="absolute bottom-1/4 right-1/4 w-[250px] h-[250px] bg-[#f8c146]/10 rounded-full filter blur-[80px] pointer-events-none"></div>
 
-                {/* Filter and Search Bar */}
-                <div className="row g-3 justify-content-between align-items-center mb-5">
-                    <div className="col-md-4">
-                        <div className="input-group">
-                            <span className="input-group-text bg-white border-end-0 py-3"><Search className="w-4 h-4 text-muted" /></span>
-                            <input 
-                                type="text"
-                                className="form-control border-start-0 py-3"
-                                placeholder="Cari tajuk buku atau penulis..."
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                                style={{ borderRadius: '0 8px 8px 0', fontSize: '13px' }}
-                            />
-                        </div>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="d-flex gap-3 justify-content-md-end">
-                            <select 
-                                value={genre}
-                                onChange={(e) => setGenre(e.target.value)}
-                                className="form-select py-3"
-                                style={{ borderRadius: '8px', fontSize: '13px', maxWidth: '180px', cursor: 'pointer' }}
-                            >
-                                {genres.map(g => <option key={g} value={g}>{g}</option>)}
-                            </select>
-                            <select 
-                                value={sortBy}
-                                onChange={(e) => setSortBy(e.target.value)}
-                                className="form-select py-3"
-                                style={{ borderRadius: '8px', fontSize: '13px', maxWidth: '180px', cursor: 'pointer' }}
-                            >
-                                <option value="featured">Paling Popular</option>
-                                <option value="price-asc">Harga: Rendah ke Tinggi</option>
-                                <option value="price-desc">Harga: Tinggi ke Rendah</option>
-                                <option value="rating">Penilaian Tertinggi</option>
-                            </select>
+                    <div className="container position-relative">
+                        <div className="row align-items-center justify-content-between">
+                            <div className="col-xl-7 col-lg-7 col-md-8 col-sm-12">
+                                <div className="hero__caption relative z-10 text-center text-sm-start">
+                                    <span className="text-[#ff2020] text-xs font-black tracking-[0.25em] uppercase mb-3 block">Buku Tarbiah & Dakwah Kreatif</span>
+                                    <h1 className="text-4xl sm:text-6xl font-black tracking-tight leading-none mb-4 text-white" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>
+                                        TARBIAH SENTAP
+                                    </h1>
+                                    <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-4 max-w-xl">
+                                        Membina pemikiran rohani kontemporari menerusi naskhah berkualiti tinggi, novel islamik, motivasi, dan persediaan akhir zaman demi melahirkan jati diri Muslim unggul.
+                                    </p>
+                                    <div className="hero__btn mt-4">
+                                        <a href="#shop-section" className="inline-block bg-[#ff2020] text-white px-8 py-3.5 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg shadow-[#ff2020]/30 hover:bg-white hover:text-black hover:-translate-y-1 transition-all duration-300 no-underline">
+                                            Beli Sekarang
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 d-none d-md-block text-center">
+                                <div className="relative inline-block p-2 bg-gradient-to-tr from-[#ff2020] to-[#f8c146] rounded-3xl shadow-[0_25px_50px_rgba(255,32,32,0.15)] overflow-hidden transition-all duration-500 hover:scale-105">
+                                    <img src="/assets/img/hero/adn.jpg" alt="Ustaz Adnin Roslan" style={{ width: '100%', maxHeight: '380px', objectFit: 'cover', borderRadius: '20px' }} />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Book Grid */}
-                <div className="row g-4">
-                    {filteredBooks.map(book => (
-                        <div key={book.id} className="col-6 col-md-4 col-lg-3">
-                            <div className="card h-100 border-0 p-2 sm:p-3 shadow-sm book-card position-relative" style={{ borderRadius: '15px', backgroundColor: '#ffffff', transition: 'all 0.3s ease' }}>
-                                {/* Hover Stock Indicator */}
-                                <div className="stock-indicator position-absolute" style={{ top: '15px', right: '15px', zIndex: 10 }}>
-                                    <span className="badge font-bold px-2.5 py-1.5" style={{ backgroundColor: book.stock > 10 ? '#28a74520' : '#dc354520', color: book.stock > 10 ? '#28a745' : '#dc3545', fontSize: '9px' }}>
-                                        Stok: {book.stock}
-                                    </span>
+                {/* Shop Section */}
+                <section id="shop-section" className="popular-items py-16" style={{ padding: '80px 0 50px 0' }}>
+                    <div className="container">
+                        {/* Section Header Title */}
+                        <div className="row justify-content-center">
+                            <div className="col-xl-8 col-lg-8 col-md-10">
+                                <div className="section-tittle mb-5 text-center">
+                                    <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight mb-2" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>Koleksi Buku Utama</h2>
+                                    <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto">Terokai barisan buku tarbiah sentap terbaik dari novel inspiratif hingga buku panduan rohani harian.</p>
                                 </div>
+                            </div>
+                        </div>
 
-                                <div className="text-center bg-light p-4 mb-3" style={{ borderRadius: '12px', minHeight: '220px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
-                                     onClick={async () => {
-                                         setSummaryModal({ isOpen: true, book, summary: '', loading: true });
-                                         try {
-                                             const summary = getBookSummary(book);
-                                             setSummaryModal(prev => ({ ...prev, summary, loading: false }));
-                                         } catch (err) {
-                                             setSummaryModal(prev => ({ ...prev, summary: 'Sinopsis tidak tersedia.', loading: false }));
-                                         }
-                                     }}>
-                                    <img src={book.cover} alt={book.title} className="img-fluid" style={{ maxHeight: '180px', filter: 'drop-shadow(0 8px 12px rgba(0,0,0,0.1))' }} />
+                        {/* Search & Filter Bar */}
+                        <div className="row mb-5 align-items-center justify-content-between g-3 px-2">
+                            <div className="col-lg-4 col-md-6 col-sm-12">
+                                <div className="relative">
+                                    <input 
+                                        type="text"
+                                        placeholder="Cari buku atau penulis..."
+                                        value={search}
+                                        onChange={(e) => setSearch(e.target.value)}
+                                        className="w-full pl-5 pr-10 py-3 rounded-xl border border-gray-200 focus:border-[#ff2020] focus:ring-1 focus:ring-[#ff2020] outline-none transition-all duration-300 text-sm bg-white shadow-sm"
+                                    />
                                 </div>
-                                <div className="card-body p-0 d-flex flex-col justify-between">
-                                    <div>
-                                        <span className="text-[10px] font-bold text-muted uppercase tracking-wider block mb-1">{book.genre}</span>
-                                        <h5 className="card-title font-bold text-sm mb-1" style={{ color: '#1a1a1a', cursor: 'pointer', fontFamily: 'Josefin Sans, sans-serif' }}
-                                            onClick={() => setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false })}>
-                                            {book.title}
-                                        </h5>
-                                        <p className="card-text text-muted text-xs mb-2">Penulis: {book.author}</p>
-                                        <div className="d-flex align-items-center gap-1 mb-3">
-                                            {[...Array(5)].map((_, i) => (
-                                                <Star key={i} className={`w-3.5 h-3.5 ${i < Math.floor(book.rating) ? 'text-[#f8c146] fill-[#f8c146]' : 'text-gray-200'}`} />
-                                            ))}
-                                            <span className="text-[11px] text-muted font-bold ml-1">{book.rating}</span>
+                            </div>
+                            <div className="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start justify-content-md-end gap-2 flex-wrap">
+                                <select 
+                                    value={genre}
+                                    onChange={(e) => setGenre(e.target.value)}
+                                    className="px-4 py-3 rounded-xl border border-gray-200 outline-none cursor-pointer bg-white text-sm shadow-sm transition-all focus:border-[#ff2020]"
+                                >
+                                    {genres.map(g => <option key={g} value={g}>{g}</option>)}
+                                </select>
+                                <select 
+                                    value={sortBy}
+                                    onChange={(e) => setSortBy(e.target.value)}
+                                    className="px-4 py-3 rounded-xl border border-gray-200 outline-none cursor-pointer bg-white text-sm shadow-sm transition-all focus:border-[#ff2020]"
+                                >
+                                    <option value="featured">Pilihan Utama (Featured)</option>
+                                    <option value="price-asc">Harga: Rendah ke Tinggi</option>
+                                    <option value="price-desc">Harga: Tinggi ke Rendah</option>
+                                    <option value="rating">Penilaian Tertinggi</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {/* Books Grid */}
+                        {filteredBooks.length === 0 ? (
+                            <div className="text-center py-5 text-gray-400 font-bold">Tiada buku ditemui padanan carian anda.</div>
+                        ) : (
+                            <div className="row g-4 px-2">
+                                {filteredBooks.map((book, index) => (
+                                    <div key={book.id} className="col-6 col-md-4 col-lg-3 mb-4 sm:mb-5 animate-in fade-in" style={{ animationDelay: `${index * 35}ms` }}>
+                                        <div className="group relative bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(255,32,32,0.08)] p-3 border border-gray-100/50 hover:border-[#ff2020]/10 transition-all duration-500 overflow-hidden flex flex-col h-full">
+                                            {/* Book Cover Container */}
+                                            <div className="popular-img relative h-48 sm:h-72 overflow-hidden rounded-xl bg-[#fafafa]">
+                                                <img src={book.cover} alt={book.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                                
+                                                {/* Glassmorphic Rating Badge */}
+                                                <div className="absolute top-2.5 left-2.5 bg-black/60 backdrop-blur-md border border-white/10 text-[#f8c146] px-2 py-1 rounded-lg text-[10px] font-black tracking-wider flex items-center gap-1 shadow-md">
+                                                    ★ {book.rating}
+                                                </div>
+
+                                                {/* Stock Warning Badge */}
+                                                <div className="absolute top-2.5 right-2.5 bg-black/60 backdrop-blur-md border border-white/10 text-white px-2 py-1 rounded-lg text-[8px] font-black tracking-wider shadow-md">
+                                                    STOK: {book.stock}
+                                                </div>
+
+                                                {/* Quick Add overlay */}
+                                                <div className="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm text-white text-center py-2.5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 cursor-pointer"
+                                                     onClick={() => addToCart(book)}>
+                                                    <span className="font-black text-[10px] uppercase tracking-widest text-[#ff2020] hover:text-white transition-colors">+ Masuk Troli</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Info & Meta Details */}
+                                            <div className="popular-caption flex flex-col flex-grow pt-4">
+                                                <span className="text-[9px] font-black uppercase text-[#ff2020] tracking-widest block mb-1">{book.genre}</span>
+                                                <h3 className="text-xs sm:text-sm font-bold text-gray-800 line-clamp-2 min-h-[36px] sm:min-h-[40px] mb-2 leading-snug hover:text-[#ff2020] transition-colors" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>
+                                                    <a href="#" onClick={(e) => { e.preventDefault(); setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false }); }} className="no-underline text-gray-800 hover:text-[#ff2020]">{book.title}</a>
+                                                </h3>
+                                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-3 leading-none truncate">Penulis: {book.author}</p>
+                                                
+                                                <div className="d-flex justify-content-between align-items-center mt-auto pt-2 border-t border-gray-50/50">
+                                                    <span className="font-extrabold text-sm sm:text-base text-gray-900 font-mono">RM{book.price.toFixed(2)}</span>
+                                                    <div className="d-flex gap-1.5">
+                                                        <button 
+                                                            onClick={() => setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false })}
+                                                            className="px-2 py-1.5 border border-[#f8c146] hover:bg-[#f8c146] text-[#f8c146] hover:text-black rounded-lg text-[9px] font-black uppercase tracking-wider transition-all duration-300"
+                                                            style={{ outline: 'none' }}
+                                                        >
+                                                            Info
+                                                        </button>
+                                                        <button 
+                                                            onClick={() => addToCart(book)}
+                                                            className="px-2.5 py-1.5 bg-[#ff2020] text-white hover:bg-black hover:text-[#ff2020] border border-transparent hover:border-[#ff2020] rounded-lg text-[9px] font-black uppercase tracking-wider transition-all duration-300"
+                                                            style={{ outline: 'none' }}
+                                                        >
+                                                            + Troli
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="d-flex justify-content-between align-items-center pt-2 border-t border-gray-100">
-                                        <span className="font-bold text-lg" style={{ color: '#ff2020' }}>RM{book.price.toFixed(2)}</span>
-                                        <button 
-                                            onClick={() => addToCart(book)}
-                                            className="btn p-2.5 rounded-circle d-flex align-items-center justify-center text-white" 
-                                            style={{ backgroundColor: '#ff2020', width: '38px', height: '38px', border: 'none' }}
-                                        >
-                                            <ShoppingCart className="w-4 h-4" />
-                                        </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </section>
+
+                {/* Gallery Area */}
+                <div className="gallery-area" style={{ padding: '50px 0' }}>
+                    <div className="container-fluid p-0 fix">
+                        <div className="row">
+                            <div className="col-xl-6 col-lg-4 col-md-6 col-sm-6">
+                                <div className="single-gallery mb-30" style={{ height: '350px', backgroundImage: 'url(/assets/img/books/17-Tuhan-Aku-Ingin-Jumpa-Nabi.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
+                            </div>
+                            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                                <div className="single-gallery mb-30" style={{ height: '350px', backgroundImage: 'url(/assets/img/books/17-Tuhan-Aku-Ingin-Jumpa-Nabi.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
+                            </div>
+                            <div className="col-xl-3 col-lg-4 col-md-12">
+                                <div className="row">
+                                    <div className="col-xl-12 col-lg-12 col-md-6 col-sm-6">
+                                        <div className="single-gallery mb-30" style={{ height: '165px', backgroundImage: 'url(/assets/img/books/26-Novel-Ajari-Aku-Tentang-Cinta.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
+                                    </div>
+                                    <div className="col-xl-12 col-lg-12 col-md-6 col-sm-6">
+                                        <div className="single-gallery mb-30" style={{ height: '165px', backgroundImage: 'url(/assets/img/books/42-Ajari-Aku-Tentang-Rindu.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Lower Showcase Gallery (timezone inspired) */}
-                <div className="row g-4 mt-5">
-                    <div className="col-xl-6 col-lg-8 col-md-6 col-sm-6">
-                        <div className="single-gallery mb-30" style={{ height: '350px', backgroundImage: 'url(/assets/img/gallery/gallery1.png)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                        <div className="single-gallery mb-30" style={{ height: '350px', backgroundImage: 'url(/assets/img/gallery/gallery2.png)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-12">
-                        <div className="row">
-                            <div className="col-xl-12 col-lg-12 col-md-6 col-sm-6">
-                                <div className="single-gallery mb-30" style={{ height: '165px', backgroundImage: 'url(/assets/img/gallery/gallery3.png)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
-                            </div>
-                            <div className="col-xl-12 col-lg-12 col-md-6 col-sm-6">
-                                <div className="single-gallery mb-30" style={{ height: '165px', backgroundImage: 'url(/assets/img/gallery/gallery4.png)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
                             </div>
                         </div>
                     </div>

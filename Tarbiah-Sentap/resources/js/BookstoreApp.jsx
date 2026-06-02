@@ -337,7 +337,6 @@ export default function App() {
                                 <div className="logo flex-shrink-0 cursor-pointer transition-transform hover:scale-105" onClick={() => setView('catalog')}>
                                     <img src="/assets/img/logo/tarbiah-sentap-logo.png" width="90" height="auto" alt="Tarbiah Sentap" />
                                 </div>
-
                                 {/* Main Menu Nav */}
                                 <div className="main-menu d-none d-lg-block">
                                     <nav>
@@ -345,12 +344,12 @@ export default function App() {
                                             <li>
                                                 <button 
                                                     onClick={() => setView('catalog')}
-                                                    className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                                                    className={`px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 ${
                                                         view === 'catalog' 
-                                                        ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
-                                                        : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                                        ? 'bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white shadow-[0_6px_20px_rgba(255,32,32,0.3)] border border-transparent' 
+                                                        : 'text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10'
                                                     }`}
-                                                    style={{ border: 'none', outline: 'none' }}
+                                                    style={{ outline: 'none' }}
                                                 >
                                                     Home
                                                 </button>
@@ -358,8 +357,8 @@ export default function App() {
                                             <li>
                                                 <button 
                                                     onClick={() => setView('catalog')}
-                                                    className="px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/10 transition-all duration-300"
-                                                    style={{ border: 'none', outline: 'none', background: 'transparent' }}
+                                                    className="px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10 transition-all duration-300 hover:scale-105"
+                                                    style={{ outline: 'none', background: 'transparent' }}
                                                 >
                                                     Shop
                                                 </button>
@@ -368,12 +367,12 @@ export default function App() {
                                                 <li>
                                                     <button 
                                                         onClick={() => setView('orders')}
-                                                        className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                                                        className={`px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 ${
                                                             view === 'orders' 
-                                                            ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
-                                                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                                            ? 'bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white shadow-[0_6px_20px_rgba(255,32,32,0.3)] border border-transparent' 
+                                                            : 'text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10'
                                                         }`}
-                                                        style={{ border: 'none', outline: 'none' }}
+                                                        style={{ outline: 'none' }}
                                                     >
                                                         Orders
                                                     </button>
@@ -383,12 +382,12 @@ export default function App() {
                                                 <li>
                                                     <button 
                                                         onClick={() => setView('admin')}
-                                                        className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                                                        className={`px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-105 ${
                                                             view === 'admin' 
-                                                            ? 'bg-[#ff2020] text-white shadow-[0_4px_15px_rgba(255,32,32,0.4)]' 
-                                                            : 'text-gray-400 hover:text-white hover:bg-white/10'
+                                                            ? 'bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white shadow-[0_6px_20px_rgba(255,32,32,0.3)] border border-transparent' 
+                                                            : 'text-gray-400 hover:text-white hover:bg-white/5 border border-white/5 hover:border-white/10'
                                                         }`}
-                                                        style={{ border: 'none', outline: 'none' }}
+                                                        style={{ outline: 'none' }}
                                                     >
                                                         Admin Core
                                                     </button>
@@ -538,7 +537,6 @@ export default function App() {
             </header>
         );
     };
-
     const CatalogView = () => {
         const [search, setSearch] = useState('');
         const [genre, setGenre] = useState('All');
@@ -562,30 +560,39 @@ export default function App() {
         if (loading) return (
             <div className="text-center py-5 animate-in fade-in" style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Loader2 className="w-12 h-12 text-danger animate-spin" />
-                <p className="mt-3 text-muted" style={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: 'bold' }}>Curating your library...</p>
+                <p className="mt-3 text-muted font-bold tracking-widest text-xs uppercase">Menyusun koleksi perpustakaan...</p>
             </div>
         );
 
         return (
-            <div className="animate-in fade-in" style={{ backgroundColor: '#fcfcfc', color: '#1a1a1a' }}>
-                {/* Hero Slider Area */}
-                <div className="slider-area" style={{ background: '#f0f0f2', padding: '60px 0' }}>
-                    <div className="container">
+            <div className="animate-in fade-in bg-[#fafafa]">
+                {/* Improvised Dark Premium Hero Slider */}
+                <div className="relative overflow-hidden bg-[#0d0d0d] text-white py-16 sm:py-24 border-b border-white/5">
+                    {/* Glowing highlight accents */}
+                    <div className="absolute top-1/4 left-1/3 w-[300px] h-[300px] bg-[#ff2020]/15 rounded-full filter blur-[100px] pointer-events-none"></div>
+                    <div className="absolute bottom-1/4 right-1/4 w-[250px] h-[250px] bg-[#f8c146]/10 rounded-full filter blur-[80px] pointer-events-none"></div>
+
+                    <div className="container position-relative">
                         <div className="row align-items-center justify-content-between">
-                            <div className="col-xl-7 col-lg-7 col-md-8 col-sm-8">
-                                <div className="hero__caption">
-                                    <h1 style={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: 900, color: '#f8c146', fontSize: '3rem', textTransform: 'uppercase', marginBottom: '20px' }}>TARBIAH SENTAP</h1>
-                                    <p style={{ fontSize: '15px', color: '#555', lineHeight: '1.8', marginBottom: '40px' }}>
-                                        Membina pemikiran islamik kontemporari melalui karya rohani, novel, motivasi, dan tarbiah bermutu untuk membimbing generasi muda.
+                            <div className="col-xl-7 col-lg-7 col-md-8 col-sm-12">
+                                <div className="hero__caption relative z-10 text-center text-sm-start">
+                                    <span className="text-[#ff2020] text-xs font-black tracking-[0.25em] uppercase mb-3 block">Buku Tarbiah & Dakwah Kreatif</span>
+                                    <h1 className="text-4xl sm:text-6xl font-black tracking-tight leading-none mb-4 text-white">
+                                        TARBIAH SENTAP
+                                    </h1>
+                                    <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-4 max-w-xl">
+                                        Membina pemikiran rohani kontemporari menerusi naskhah berkualiti tinggi, novel islamik, motivasi, dan persediaan akhir zaman demi melahirkan jati diri Muslim unggul.
                                     </p>
-                                    <div className="hero__btn">
-                                        <a href="#shop-section" className="btn hero-btn" style={{ backgroundColor: '#ff2020', color: 'white', padding: '18px 40px', borderRadius: '5px', textTransform: 'uppercase', fontWeight: 'bold', textDecoration: 'none' }}>Shop Now</a>
+                                    <div className="hero__btn mt-4">
+                                        <a href="#shop-section" className="inline-block bg-[#ff2020] text-white px-8 py-3.5 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg shadow-[#ff2020]/30 hover:bg-white hover:text-black hover:-translate-y-1 transition-all duration-300 no-underline">
+                                            Beli Sekarang
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4 d-none d-sm-block">
-                                <div className="hero__img">
-                                    <img src="/assets/img/hero/adn.jpg" alt="Ustaz Adnin Roslan" className="heartbeat" style={{ width: '100%', borderRadius: '15px', boxShadow: '0 15px 30px rgba(0,0,0,0.1)' }} />
+                            <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 d-none d-md-block text-center">
+                                <div className="relative inline-block p-2 bg-gradient-to-tr from-[#ff2020] to-[#f8c146] rounded-3xl shadow-[0_25px_50px_rgba(255,32,32,0.15)] overflow-hidden transition-all duration-500 hover:scale-105">
+                                    <img src="/assets/img/hero/adn.jpg" alt="Ustaz Adnin Roslan" style={{ width: '100%', maxHeight: '380px', objectFit: 'cover', borderRadius: '20px' }} />
                                 </div>
                             </div>
                         </div>
@@ -593,81 +600,90 @@ export default function App() {
                 </div>
 
                 {/* Shop Section */}
-                <section id="shop-section" className="popular-items section-padding30" style={{ padding: '80px 0 50px 0' }}>
+                <section id="shop-section" className="popular-items py-16" style={{ padding: '80px 0 50px 0' }}>
                     <div className="container">
-                        {/* Header Title */}
+                        {/* Section Header Title */}
                         <div className="row justify-content-center">
-                           <div className="col-xl-8 col-lg-8 col-md-10">
-                               <div className="section-tittle mb-70 text-center">
-                                   <h2 style={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: 700, fontSize: '2.5rem', color: '#000a2d', marginBottom: '15px' }}>Buku Tarbiah Sentap</h2>
-                                   <p style={{ color: '#777', fontSize: '15px' }}>Terokai koleksi penuh buku-buku dakwah, novel dakwah kreatif, motivasi dan kesedaran akhir zaman.</p>
-                               </div>
-                           </div>
+                            <div className="col-xl-8 col-lg-8 col-md-10">
+                                <div className="section-tittle mb-5 text-center">
+                                    <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight mb-2">Koleksi Buku Utama</h2>
+                                    <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto">Terokai barisan buku tarbiah sentap terbaik dari novel inspiratif hingga buku panduan rohani harian.</p>
+                                </div>
+                            </div>
                         </div>
 
                         {/* Search & Filter Bar */}
-                        <div className="row mb-5 align-items-center justify-content-between" style={{ gap: '20px' }}>
-                            <div className="col-lg-4 col-md-6">
-                                <div style={{ position: 'relative' }}>
+                        <div className="row mb-5 align-items-center justify-content-between g-3 px-2">
+                            <div className="col-lg-4 col-md-6 col-sm-12">
+                                <div className="relative">
                                     <input 
                                         type="text"
                                         placeholder="Cari buku atau penulis..."
                                         value={search}
                                         onChange={(e) => setSearch(e.target.value)}
-                                        style={{ width: '100%', padding: '12px 20px', borderRadius: '30px', border: '1px solid #ddd', outline: 'none', transition: 'border 0.3s' }}
+                                        className="w-full pl-5 pr-10 py-3 rounded-xl border border-gray-200 focus:border-[#ff2020] focus:ring-1 focus:ring-[#ff2020] outline-none transition-all duration-300 text-sm bg-white shadow-sm"
                                     />
                                 </div>
                             </div>
-                            <div className="col-lg-6 col-md-6 d-flex justify-content-md-end gap-3 flex-wrap">
+                            <div className="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start justify-content-md-end gap-2 flex-wrap">
                                 <select 
                                     value={genre}
                                     onChange={(e) => setGenre(e.target.value)}
-                                    style={{ padding: '12px 20px', borderRadius: '30px', border: '1px solid #ddd', outline: 'none', cursor: 'pointer', background: 'white' }}
+                                    className="px-4 py-3 rounded-xl border border-gray-200 outline-none cursor-pointer bg-white text-sm shadow-sm transition-all focus:border-[#ff2020]"
                                 >
                                     {genres.map(g => <option key={g} value={g}>{g}</option>)}
                                 </select>
                                 <select 
                                     value={sortBy}
                                     onChange={(e) => setSortBy(e.target.value)}
-                                    style={{ padding: '12px 20px', borderRadius: '30px', border: '1px solid #ddd', outline: 'none', cursor: 'pointer', background: 'white' }}
+                                    className="px-4 py-3 rounded-xl border border-gray-200 outline-none cursor-pointer bg-white text-sm shadow-sm transition-all focus:border-[#ff2020]"
                                 >
-                                    <option value="featured">Featured Picks</option>
-                                    <option value="price-asc">Price: Low to High</option>
-                                    <option value="price-desc">Price: High to Low</option>
-                                    <option value="rating">Top Rated</option>
+                                    <option value="featured">Pilihan Utama (Featured)</option>
+                                    <option value="price-asc">Harga: Rendah ke Tinggi</option>
+                                    <option value="price-desc">Harga: Tinggi ke Rendah</option>
+                                    <option value="rating">Penilaian Tertinggi</option>
                                 </select>
                             </div>
                         </div>
 
                         {/* Books Grid */}
                         {filteredBooks.length === 0 ? (
-                            <div className="text-center py-5 text-muted">Tiada buku ditemui padanan carian anda.</div>
+                            <div className="text-center py-5 text-gray-400 font-bold">Tiada buku ditemui padanan carian anda.</div>
                         ) : (
-                            <div className="row">
+                            <div className="row g-4 px-2">
                                 {filteredBooks.map((book, index) => (
-                                    <div key={book.id} className="col-6 col-md-4 col-lg-3 mb-4 sm:mb-5 animate-in fade-in" style={{ animationDelay: `${index * 30}ms` }}>
-                                        <div className="single-popular-items text-center" style={{ background: 'white', borderRadius: '10px', boxShadow: '0 5px 15px rgba(0,0,0,0.05)', padding: '12px sm:20px', border: '1px solid #eee', position: 'relative', overflow: 'hidden' }}>
-                                            <div className="popular-img relative h-44 sm:h-72 overflow-hidden rounded-md" style={{ position: 'relative', overflow: 'hidden', borderRadius: '5px' }}>
-                                                <img src={book.cover} alt={book.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    <div key={book.id} className="col-6 col-md-4 col-lg-3 mb-4 sm:mb-5 animate-in fade-in" style={{ animationDelay: `${index * 35}ms` }}>
+                                        <div className="group relative bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(255,32,32,0.08)] p-3 border border-gray-100/50 hover:border-[#ff2020]/10 transition-all duration-500 overflow-hidden flex flex-col h-full">
+                                            {/* Book Cover Container */}
+                                            <div className="popular-img relative h-48 sm:h-72 overflow-hidden rounded-xl bg-[#fafafa]">
+                                                <img src={book.cover} alt={book.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                                                 
-                                                <div style={{ position: 'absolute', top: '10px', left: '10px', background: 'rgba(0,0,0,0.7)', color: '#fbbf24', padding: '4px 8px', borderRadius: '5px', fontSize: '10px', fontWeight: 'bold' }}>
+                                                {/* Glassmorphic Rating Badge */}
+                                                <div className="absolute top-2.5 left-2.5 bg-black/60 backdrop-blur-md border border-white/10 text-[#f8c146] px-2 py-1 rounded-lg text-[10px] font-black tracking-wider flex items-center gap-1 shadow-md">
                                                     ★ {book.rating}
                                                 </div>
 
-                                                <div className="img-cap" style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: '15px 0', background: 'rgba(255, 32, 32, 0.9)', color: 'white', transform: 'translateY(100%)', transition: 'transform 0.3s ease', cursor: 'pointer' }}>
-                                                    <span onClick={() => addToCart(book)} style={{ fontWeight: 'bold', textTransform: 'uppercase', fontSize: '12px' }}>🛒 Add To Cart</span>
+                                                {/* Quick Add overlay */}
+                                                <div className="absolute bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm text-white text-center py-2.5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 cursor-pointer"
+                                                     onClick={() => addToCart(book)}>
+                                                    <span className="font-black text-[10px] uppercase tracking-widest text-[#ff2020] hover:text-white transition-colors">+ Masuk Troli</span>
                                                 </div>
                                             </div>
-                                            <div className="popular-caption" style={{ paddingTop: '20px' }}>
-                                                <h3 style={{ fontSize: '16px', fontFamily: 'Josefin Sans, sans-serif', fontWeight: 600, height: '45px', overflow: 'hidden', marginBottom: '10px' }}>
-                                                    <a href="#" onClick={(e) => { e.preventDefault(); setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false }); }} style={{ color: '#444', textDecoration: 'none', transition: 'color 0.2s' }}>{book.title}</a>
+
+                                            {/* Info & Meta Details */}
+                                            <div className="popular-caption flex flex-col flex-grow pt-4">
+                                                <span className="text-[9px] font-black uppercase text-[#ff2020] tracking-widest block mb-1">{book.genre}</span>
+                                                <h3 className="text-xs sm:text-sm font-bold text-gray-800 line-clamp-2 min-h-[36px] sm:min-h-[40px] mb-2 leading-snug hover:text-[#ff2020] transition-colors">
+                                                    <a href="#" onClick={(e) => { e.preventDefault(); setView('catalog'); setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false }); }} className="no-underline text-gray-800 hover:text-[#ff2020]">{book.title}</a>
                                                 </h3>
-                                                <p style={{ fontSize: '11px', color: '#999', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>{book.author}</p>
-                                                <div className="d-flex justify-content-between align-items-center mt-3" style={{ padding: '0 5px' }}>
-                                                    <span style={{ fontSize: '18px', fontWeight: 900, color: '#ff2020' }}>RM{book.price.toFixed(2)}</span>
+                                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-3 leading-none truncate">Penulis: {book.author}</p>
+                                                
+                                                <div className="d-flex justify-content-between align-items-center mt-auto pt-2 border-t border-gray-50/50">
+                                                    <span className="font-extrabold text-sm sm:text-base text-gray-900 font-mono">RM{book.price.toFixed(2)}</span>
                                                     <button 
                                                         onClick={() => setSummaryModal({ isOpen: true, book, summary: getBookSummary(book), loading: false })}
-                                                        style={{ border: 'none', background: '#f8c146', color: 'white', padding: '6px 12px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold' }}
+                                                        className="px-3 py-1.5 border border-[#f8c146] hover:bg-[#f8c146] text-[#f8c146] hover:text-black rounded-lg text-[10px] font-black uppercase tracking-wider transition-all duration-300"
+                                                        style={{ outline: 'none' }}
                                                     >
                                                         Sinopsis
                                                     </button>
@@ -686,18 +702,18 @@ export default function App() {
                     <div className="container-fluid p-0 fix">
                         <div className="row">
                             <div className="col-xl-6 col-lg-4 col-md-6 col-sm-6">
-                                <div className="single-gallery mb-30" style={{ height: '350px', backgroundImage: 'url(/assets/img/gallery/tuhan-aku-ingin-jumpa-nabi.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
+                                <div className="single-gallery mb-30" style={{ height: '350px', backgroundImage: 'url(/assets/img/books/17-Tuhan-Aku-Ingin-Jumpa-Nabi.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
                             </div>
                             <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                                <div className="single-gallery mb-30" style={{ height: '350px', backgroundImage: 'url(/assets/img/gallery/tuhan-aku-ingin-jumpa-nabi.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
+                                <div className="single-gallery mb-30" style={{ height: '350px', backgroundImage: 'url(/assets/img/books/17-Tuhan-Aku-Ingin-Jumpa-Nabi.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
                             </div>
                             <div className="col-xl-3 col-lg-4 col-md-12">
                                 <div className="row">
                                     <div className="col-xl-12 col-lg-12 col-md-6 col-sm-6">
-                                        <div className="single-gallery mb-30" style={{ height: '165px', backgroundImage: 'url(/assets/img/gallery/ajari-aku-tentang-cinta.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
+                                        <div className="single-gallery mb-30" style={{ height: '165px', backgroundImage: 'url(/assets/img/books/26-Novel-Ajari-Aku-Tentang-Cinta.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
                                     </div>
                                     <div className="col-xl-12 col-lg-12 col-md-6 col-sm-6">
-                                        <div className="single-gallery mb-30" style={{ height: '165px', backgroundImage: 'url(/assets/img/gallery/ajari-aku-tentang-rindu.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
+                                        <div className="single-gallery mb-30" style={{ height: '165px', backgroundImage: 'url(/assets/img/books/42-Ajari-Aku-Tentang-Rindu.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px', margin: '10px' }}></div>
                                     </div>
                                 </div>
                             </div>
