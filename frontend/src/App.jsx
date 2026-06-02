@@ -815,58 +815,72 @@ export default function App() {
         };
 
         return (
-            <div className="container py-5 animate-in zoom-in" style={{ color: '#1a1a1a' }}>
-                <div className="row justify-content-center">
-                    <div className="col-md-6 col-lg-5">
-                        <div className="p-5 bg-white shadow-lg rounded-lg border" style={{ boxShadow: '0 5px 25px rgba(0,0,0,0.05)' }}>
-                            <div className="text-center mb-4">
-                                <div className="bg-[#ff2020]/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                                    <User className="w-8 h-8 text-[#ff2020]" />
-                                </div>
-                                <h2 style={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: 700 }}>Log Masuk <span style={{ color: '#ff2020' }}>Akaun</span></h2>
-                                <p className="text-muted" style={{ fontSize: '12px' }}>Sila log masuk untuk membuat pesanan dan mengakses profil anda.</p>
+            <div className="relative min-h-[80vh] d-flex align-items-center justify-content-center py-12 px-4 overflow-hidden bg-[#fafafa]">
+                {/* Decorative Glowing Blobs */}
+                <div className="absolute top-1/4 left-1/4 w-[250px] h-[250px] bg-[#ff2020]/10 rounded-full filter blur-[80px] pointer-events-none"></div>
+                <div className="absolute bottom-1/4 right-1/4 w-[200px] h-[200px] bg-[#f8c146]/15 rounded-full filter blur-[70px] pointer-events-none"></div>
+
+                <div className="w-full max-w-md relative z-10 animate-in fade-in zoom-in-95 duration-500">
+                    <div className="bg-white rounded-3xl border border-gray-100 p-8 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_60px_rgba(255,32,32,0.05)] transition-all duration-500">
+                        {/* Logo & Header */}
+                        <div className="text-center mb-8">
+                            <div className="inline-flex items-center justify-content-center w-16 h-16 rounded-2xl bg-[#ff2020]/5 mb-4 border border-[#ff2020]/10 text-[#ff2020]">
+                                <User className="w-7 h-7" />
+                            </div>
+                            <h2 className="text-2xl font-black text-gray-900 tracking-tight" style={{ fontFamily: 'Josefin Sans, sans-serif' }}>
+                                Log Masuk <span className="text-[#ff2020]">Akaun</span>
+                            </h2>
+                            <p className="text-gray-400 text-xs mt-2 max-w-xs mx-auto">
+                                Selamat kembali! Log masuk untuk mengakses profil dan membuat pesanan anda.
+                            </p>
+                        </div>
+
+                        {/* Login Form */}
+                        <form onSubmit={onSubmit} className="space-y-4">
+                            <div className="space-y-1.5">
+                                <label className="text-[10px] font-black uppercase tracking-wider text-gray-400 block">Alamat E-mel</label>
+                                <input 
+                                    type="email" 
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#ff2020] focus:ring-1 focus:ring-[#ff2020] outline-none text-sm transition-all duration-300"
+                                    placeholder="nama@contoh.com"
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
+                                    required 
+                                />
                             </div>
                             
-                            <form onSubmit={onSubmit} className="space-y-4">
-                                <div className="form-group mb-3">
-                                    <label className="form-label text-xs font-bold text-muted uppercase tracking-wider">Alamat E-mel</label>
-                                    <input 
-                                        type="email" 
-                                        className="form-control py-3"
-                                        placeholder="nama@contoh.com"
-                                        value={email}
-                                        onChange={e => setEmail(e.target.value)}
-                                        style={{ borderRadius: '8px', fontSize: '13px' }}
-                                        required 
-                                    />
-                                </div>
-                                <div className="form-group mb-4">
-                                    <label className="form-label text-xs font-bold text-muted uppercase tracking-wider">Kata Laluan</label>
-                                    <input 
-                                        type="password" 
-                                        className="form-control py-3"
-                                        placeholder="Sila masukkan kata laluan"
-                                        value={password}
-                                        onChange={e => setPassword(e.target.value)}
-                                        style={{ borderRadius: '8px', fontSize: '13px' }}
-                                        required 
-                                    />
-                                </div>
-                                
-                                <button type="submit" className="btn w-full py-3 text-white" style={{ backgroundColor: '#ff2020', fontWeight: 'bold', textTransform: 'uppercase', borderRadius: '8px', fontSize: '14px' }}>
+                            <div className="space-y-1.5 pt-2">
+                                <label className="text-[10px] font-black uppercase tracking-wider text-gray-400 block">Kata Laluan</label>
+                                <input 
+                                    type="password" 
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#ff2020] focus:ring-1 focus:ring-[#ff2020] outline-none text-sm transition-all duration-300"
+                                    placeholder="Sila masukkan kata laluan"
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                    required 
+                                />
+                            </div>
+
+                            <div className="pt-4">
+                                <button 
+                                    type="submit" 
+                                    className="w-full py-3.5 bg-gradient-to-r from-[#ff2020] to-[#cf1b1b] text-white hover:scale-[1.02] active:scale-[0.98] font-black text-xs uppercase tracking-widest rounded-xl transition-all duration-300 shadow-lg shadow-[#ff2020]/20"
+                                    style={{ border: 'none', outline: 'none' }}
+                                >
                                     Masuk Akaun
                                 </button>
-                            </form>
-                            
-                            <div className="mt-4 text-center">
-                                <button 
-                                    onClick={() => setView('register')}
-                                    className="btn btn-link text-decoration-none"
-                                    style={{ fontSize: '12px', color: '#ff2020', fontWeight: 'bold' }}
-                                >
-                                    Belum ada akaun? Daftar Sekarang
-                                </button>
                             </div>
+                        </form>
+
+                        {/* Footer Action */}
+                        <div className="mt-8 text-center pt-4 border-t border-gray-50">
+                            <button 
+                                onClick={() => setView('register')}
+                                className="text-xs font-black text-[#ff2020] hover:text-black uppercase tracking-wider transition-colors bg-transparent border-0 p-0"
+                                style={{ outline: 'none' }}
+                            >
+                                Belum ada akaun? Daftar Sekarang
+                            </button>
                         </div>
                     </div>
                 </div>
