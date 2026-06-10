@@ -90,7 +90,7 @@ router.post('/login', async (req, res) => {
       errorMessage = 'Authentication service is misconfigured';
     }
 
-    return res.status(status).json({ success: false, error: errorMessage });
+    return res.status(status).json({ success: false, error: errorMessage, message: errorMessage });
   }
 });
 
@@ -194,7 +194,7 @@ router.post('/signup', async (req, res) => {
     } else {
       errorMessage = error.message; // Show the actual error to the user for debugging
     }
-    return res.status(400).json({ success: false, error: errorMessage });
+    return res.status(400).json({ success: false, error: errorMessage, message: errorMessage });
   }
 });
 
