@@ -2362,7 +2362,8 @@ export default function App() {
                     addToast(res.data.error || 'Gagal memadam pengguna', 'error');
                 }
             } catch (err) {
-                addToast('Ralat memadam pengguna', 'error');
+                const actualError = err.response?.data?.error || err.message || 'Ralat memadam pengguna';
+                addToast(actualError, 'error');
                 console.error(err);
             }
         };

@@ -141,6 +141,10 @@ router.delete('/users/:id', verifyToken, permit('admin'), async (req, res) => {
         return res.status(500).json({ success: false, error: 'Service role key not configured' });
     }
 
+    // Pre-emptively delete user's orders and carts to avoid Foreign Key constraint errors
+    await supabase.from('orders').delete().eq('user_id', uid);
+    await supabase.from('carts').delete().eq('user_id', uid);
+
     const { data, error } = await supabase.auth.admin.deleteUser(uid);
     if (error) throw error;
 
