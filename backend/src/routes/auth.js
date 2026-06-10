@@ -35,22 +35,10 @@ router.post('/login', async (req, res) => {
 
     // Verify if user's email has been verified
     if (!userRecord.emailVerified) {
-      let verificationLink = null;
-      if (supabase && supabase.auth.admin) {
-        const { data, error } = await supabase.auth.admin.generateLink({
-          type: 'signup',
-          email: userEmail,
-        });
-        if (!error && data?.properties?.action_link) {
-          verificationLink = data.properties.action_link;
-          console.log(`✉️ Supabase Verification Link for ${userEmail}: ${verificationLink}`);
-        }
-      }
-      
+      // Supabase automatically handles resending via its own API, we just block login here.
       return res.status(403).json({
         success: false,
-        error: 'Email is not verified. Please check your email inbox.',
-        verificationLink,
+        error: 'Email is not verified. Please check your email inbox for the verification link.',
       });
     }
 
@@ -173,32 +161,18 @@ router.post('/signup', async (req, res) => {
   }
 
   try {
-    // Create new Supabase User using Admin API (since we have the secret key)
-    const { data, error } = await supabase.auth.admin.createUser({
+    // Use standard signUp to trigger real Supabase emails instead of admin.createUser
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      email_confirm: true,
-      user_metadata: {
-        role: 'customer'
+      options: {
+        data: { role: 'customer' }
       }
     });
 
     if (error) throw error;
-    
-    // If admin is available, generate a link to display in logs for dev
-    let verificationLink = null;
-    if (supabase.auth.admin) {
-        const { data: linkData, error: linkError } = await supabase.auth.admin.generateLink({
-          type: 'signup',
-          email: email,
-        });
-        if (!linkError && linkData?.properties?.action_link) {
-            verificationLink = linkData.properties.action_link;
-            console.log(`✉️ Supabase Verification Link for ${email}: ${verificationLink}`);
-        }
-    }
 
-    // Assign customer claims if we have admin rights to update app_metadata securely
+    // Assign customer claims securely
     if (supabase.auth.admin && data.user) {
         await supabase.auth.admin.updateUserById(data.user.id, {
             app_metadata: { role: 'customer' }
@@ -207,8 +181,7 @@ router.post('/signup', async (req, res) => {
 
     return res.json({
       success: true,
-      message: 'Registration successful! Verification link sent.',
-      verificationLink,
+      message: 'Registration successful! A real verification email has been sent to your inbox.',
     });
 
   } catch (error) {
