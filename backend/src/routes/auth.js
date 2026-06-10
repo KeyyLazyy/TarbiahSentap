@@ -4,6 +4,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { authenticator } = require('otplib');
 const db = require('../services/db');
+const { sendVerificationEmail } = require('../services/email');
 const {
   isSupabaseEnabled,
   supabase,
@@ -161,27 +162,39 @@ router.post('/signup', async (req, res) => {
   }
 
   try {
-    // Use standard signUp to trigger real Supabase emails instead of admin.createUser
-    const { data, error } = await supabase.auth.signUp({
+    // 1. Create the user without auto-confirming so they MUST verify
+    const { data: userData, error: createError } = await supabase.auth.admin.createUser({
       email,
       password,
-      options: {
-        data: { role: 'customer' }
-      }
+      email_confirm: false,
+      user_metadata: { role: 'customer' }
     });
 
-    if (error) throw error;
+    if (createError) throw createError;
 
-    // Assign customer claims securely
-    if (supabase.auth.admin && data.user) {
-        await supabase.auth.admin.updateUserById(data.user.id, {
+    // 2. Assign customer claims securely
+    if (supabase.auth.admin && userData.user) {
+        await supabase.auth.admin.updateUserById(userData.user.id, {
             app_metadata: { role: 'customer' }
         });
     }
 
+    // 3. Generate the verification link natively through Supabase
+    const { data: linkData, error: linkError } = await supabase.auth.admin.generateLink({
+      type: 'signup',
+      email: email,
+    });
+
+    if (linkError) throw linkError;
+
+    // 4. Send the verification email through Mailtrap!
+    if (linkData?.properties?.action_link) {
+      await sendVerificationEmail(email, linkData.properties.action_link);
+    }
+
     return res.json({
       success: true,
-      message: 'Registration successful! A real verification email has been sent to your inbox.',
+      message: 'Registration successful! A verification email has been sent to your Mailtrap inbox.',
     });
 
   } catch (error) {
