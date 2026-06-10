@@ -1,0 +1,165 @@
+@import "tailwindcss";
+@source "../**/*.js";
+@source "../**/*.jsx";
+
+@theme {
+  /* Override Default Font Families for Premium Look */
+  --font-sans: "Hanken Grotesk", system-ui, sans-serif;
+  --font-serif: "EB Garamond", ui-serif, Georgia, serif;
+  --font-mono: "Courier Prime", ui-monospace, SFMono-Regular, monospace;
+
+  /* Tarbiah Sentap Signature Colors */
+  --color-primary-50: #fff0f0;
+  --color-primary-100: #ffe1e1;
+  --color-primary-200: #ffc8c8;
+  --color-primary-300: #ffa1a1;
+  --color-primary-400: #ff6a6a;
+  --color-primary-500: #ed3333;
+  --color-primary-600: #d81d1d;
+  --color-primary-700: #b51212;
+  --color-primary-800: #8b0000; /* Main Tarbiah Sentap Red */
+  --color-primary-900: #7b0f0f;
+  --color-primary-950: #440303;
+
+  --color-primary: #8b0000;
+  --color-on-primary: #ffffff;
+
+  /* Luxury Gold Accents */
+  --color-gold: #d4af37;
+  --color-gold-hover: #b5952f;
+  --color-secondary: #d4af37;
+
+  /* Backgrounds: Warm Parchment for light mode */
+  --color-white: #fdfbf7;
+  --color-background: #fdfbf7;
+  --color-surface: #ffffff;
+  
+  /* Overriding Gray to be warmer (Stone/Taupe) */
+  --color-gray-50: #faf9f8;
+  --color-gray-100: #f4f2ef;
+  --color-gray-200: #e8e4de;
+  --color-gray-300: #d6cfc5;
+  --color-gray-400: #bfaea0;
+  --color-gray-500: #a38d7d;
+  --color-gray-600: #887261;
+  --color-gray-700: #705b4b;
+  --color-gray-800: #5c4b3f;
+  --color-gray-900: #4f3f35;
+  --color-gray-950: #2b211b;
+
+  /* Overriding Zinc for a deeper, richer dark mode (Espresso/Ink) */
+  --color-zinc-50: #f6f5f4;
+  --color-zinc-100: #eceae8;
+  --color-zinc-200: #dad5d1;
+  --color-zinc-300: #c1b8b2;
+  --color-zinc-400: #a3958e;
+  --color-zinc-500: #8a7b73;
+  --color-zinc-600: #72635c;
+  --color-zinc-700: #5d514a;
+  --color-zinc-800: #4f453f;
+  --color-zinc-900: #423a35;
+  --color-zinc-950: #1a1715;
+
+  --color-black: #110e0c;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-white);
+    color: var(--color-gray-900);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-serif {
+    font-family: var(--font-serif);
+    color: var(--color-black);
+  }
+}
+
+/* Global Aesthetics and Micro-animations */
+
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+    vertical-align: middle;
+}
+
+/* Elevate Buttons */
+button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+button:active {
+    transform: scale(0.97);
+}
+
+/* Premium Shadows */
+.shadow-sm {
+    box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.05) !important;
+}
+.shadow {
+    box-shadow: 0 8px 30px -5px rgba(0, 0, 0, 0.08) !important;
+}
+.shadow-lg {
+    box-shadow: 0 15px 40px -10px rgba(139, 0, 0, 0.1) !important;
+}
+
+/* Beautiful custom selection */
+::selection {
+    background-color: var(--color-primary-200);
+    color: var(--color-primary-900);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--color-white);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color-primary-200);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary-400);
+}
+
+/* Input focus ring overriding */
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--color-primary-400) !important;
+    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1) !important;
+}
+
+/* Add a subtle paper texture overlay for the ultimate "Manuscript" feel */
+.bg-white {
+    background-color: var(--color-white) !important;
+    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+    background-blend-mode: multiply;
+}
+
+/* Dark mode subtle adjustments */
+.dark body {
+    background-color: var(--color-zinc-950);
+    color: var(--color-zinc-200);
+}
+.dark .bg-white {
+    background-color: var(--color-zinc-900) !important;
+    background-blend-mode: color-burn;
+}
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: var(--color-white);
+}
+
+/* Product Cards */
+.book-card {
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+}
+.book-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -10px rgba(139, 0, 0, 0.15);
+    border-color: var(--color-primary-200);
+}

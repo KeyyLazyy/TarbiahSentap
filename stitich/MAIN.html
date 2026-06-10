@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Manuscript | Premier Literary Destination</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#241a00",
+                        "on-tertiary-container": "#b1aeae",
+                        "surface-variant": "#e2e2e2",
+                        "secondary-fixed": "#ffe088",
+                        "secondary-container": "#fed65b",
+                        "tertiary": "#2c2c2c",
+                        "outline-variant": "#e3beb8",
+                        "outline": "#8e706b",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eeeeee",
+                        "primary-container": "#8b0000",
+                        "on-surface": "#1a1c1c",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#ffdad4",
+                        "secondary": "#735c00",
+                        "on-secondary-container": "#745c00",
+                        "on-primary-fixed-variant": "#920703",
+                        "background": "#f9f9f9",
+                        "on-background": "#1a1c1c",
+                        "primary": "#610000",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#f9f9f9",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-secondary-fixed-variant": "#574500",
+                        "inverse-primary": "#ffb4a8",
+                        "surface-container-high": "#e8e8e8",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f3f3f4",
+                        "tertiary-container": "#434242",
+                        "surface-dim": "#dadada",
+                        "secondary-fixed-dim": "#e9c349",
+                        "tertiary-fixed": "#e5e2e1",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2f3131",
+                        "on-primary-fixed": "#410000",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#ff907f",
+                        "surface-tint": "#b52619",
+                        "surface": "#f9f9f9",
+                        "primary-fixed-dim": "#ffb4a8",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f0f1f1",
+                        "on-surface-variant": "#5a403c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "64px",
+                        "section-gap": "120px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Hanken Grotesk"],
+                        "headline-lg": ["EB Garamond"],
+                        "body-md": ["Hanken Grotesk"],
+                        "display-lg-mobile": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"],
+                        "headline-sm": ["EB Garamond"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "headline-md": ["EB Garamond"],
+                        "body-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["48px", { "lineHeight": "56px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "display-lg": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "500" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .paper-texture {
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        }
+        .book-card-hover:hover .quick-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .editorial-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        @media (max-width: 768px) {
+            .editorial-split {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden paper-texture">
+<!-- TopNavBar -->
+<nav class="bg-surface sticky top-0 z-50 flex justify-between items-center w-full px-margin-desktop py-6 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md text-primary uppercase tracking-widest">The Manuscript</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1 transition-colors duration-300" href="#">Collections</a>
+<a class="font-label-md text-label-md text-on-surface hover:text-primary-container transition-colors duration-300" href="#">Archives</a>
+<a class="font-label-md text-label-md text-on-surface hover:text-primary-container transition-colors duration-300" href="#">Membership</a>
+</div>
+<button class="bg-on-surface text-surface px-6 py-2 font-label-md text-label-md transition-all active:opacity-80">Sign In</button>
+</nav>
+<!-- Carousel Hero Banner -->
+<section class="relative h-[819px] w-full overflow-hidden bg-on-surface">
+<div class="relative h-full w-full" id="hero-carousel">
+<div class="absolute inset-0 transition-opacity duration-1000 opacity-100">
+<img class="w-full h-full object-cover opacity-60" data-alt="A cinematic, low-angle shot of a grand private library at twilight. Dark oak shelves reaching the ceiling are filled with leather-bound books. In the center, a single spotlight illuminates an antique mahogany desk with an open manuscript. The atmosphere is quiet, intellectual, and luxurious, with deep shadows and warm amber light reflecting off gold-leaf lettering." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0N2HBaF6DJd6InxUzvsDwfY9pYuhMs2avVx5mu0vNs_OJMmCqDM6xVgxiXWP3VLX5is0YeHayI3G5zUZmB94Auv-mo8Kho3B2EUgqPLaN1vZ7JjmU4ODrfSGgcykN46g1o2TXL1dzBxJemKSAXc7IXXNtKU2UYor3eWO6D0ikl-AXGbUNpM95nBTUjirWdfx7N5f6kIym5lsJYhM1Pc_7oTO40ur5Rg3rVf4lD5lGh8rMOSveTpL9K6EiEsq_pp1bgjbTLpibft8"/>
+<div class="absolute inset-0 flex flex-col justify-center items-center text-center px-6">
+<span class="text-secondary-fixed font-label-md tracking-[0.2em] uppercase mb-4">The Curated Legacy</span>
+<h1 class="text-surface font-display-lg text-display-lg max-w-4xl mb-8">Rare Editions for the Discerning Collector</h1>
+<button class="bg-primary-container text-surface px-10 py-4 font-label-md text-label-md tracking-widest uppercase hover:bg-primary transition-colors border border-primary-container shadow-xl">Reserve Now</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Product Catalog (Essential Series) -->
+<section class="max-w-container-max mx-auto px-margin-desktop py-section-gap">
+<div class="flex justify-between items-end mb-12">
+<div>
+<h2 class="font-headline-lg text-headline-lg mb-2">Essential Series</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant italic">The foundational pillars of the literary canon.</p>
+</div>
+<div class="hidden md:block h-[1px] bg-outline-variant flex-grow mx-12 opacity-30"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter" id="product-grid">
+<!-- Book Card 1 -->
+<div class="group cursor-pointer book-card-hover">
+<div class="aspect-[2/3] overflow-hidden relative border border-outline-variant/20 transition-all duration-500 group-hover:border-secondary">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A close-up vertical shot of a minimalist book cover with gold foil geometric patterns. The book rests on a pristine white marble surface, bathed in soft afternoon sunlight that creates elegant long shadows. The overall aesthetic is high-fashion and editorial, highlighting the texture of the fine linen binding and the sparkle of the gold accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCP_WtZCwFmmAVX87fYrw6_vpdbGwCUqKJxjylSdr4XChidIS6HZ9hvJh-ssI1col-rWlq5Ul0zNEZyhFZcje4vQ0GP8wR9712M4xHMpZ2FEmUJ5HWtDyMtDhpMK82Uf_meeSzv2h7DUPTN7jxo5QUManOG30HNzIrmXgLx0rcni7-I31LngEA5nkKnjtZDsFRLNTqNiiqY4qv0ANwmtXGZvKGltDwiZkIiQZW3znvWQsHIGzadi_DpfnTImZr8bLZmHwc3-cVBilI"/>
+<div class="quick-view absolute bottom-0 left-0 right-0 bg-surface/90 py-3 text-center opacity-0 translate-y-4 transition-all duration-300">
+<span class="font-label-md text-label-md uppercase tracking-widest text-on-surface">Quick View</span>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="font-headline-sm text-headline-sm">The Shadow of the Wind</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-tighter">Carlos Ruiz Zafón</p>
+<p class="mt-2 font-label-md text-label-md text-primary">$185.00</p>
+</div>
+</div>
+<!-- Book Card 2 -->
+<div class="group cursor-pointer book-card-hover">
+<div class="aspect-[2/3] overflow-hidden relative border border-outline-variant/20 transition-all duration-500 group-hover:border-secondary">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A macro shot of a vintage book spine with intricate gold-leaf embossing. The texture of the aged leather is visible, showing deep mahogany and burgundy tones. The lighting is soft and directional, emphasizing the depth of the engravings. The image exudes a sense of history, rarity, and artisanal craftsmanship in a premium editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDJM7UKtz4cIJRsYPWXSi2GIR2MgwwPfuFuU4LPWYY8-CdBRkqlOwWzGmVeArQtx0axJiMO2pXFUeJdKQwuzXGAENZNm315BqdokdKNz5j3ukPhWnX6NZh-J5a0G3q_Q_wgZSTbvsMIy5KI6NtZrfHnZPuk5rJ0GF_lLcjtDu9bVvhnbtx-swILvPK_Fib_mWM3GysnA5NUl6eAkBOwcuSOVQTADkOy8zkorZPmvmSZir4dB7U_Z-Qw1q94IplJciF_nHJbEWBDwU"/>
+<div class="quick-view absolute bottom-0 left-0 right-0 bg-surface/90 py-3 text-center opacity-0 translate-y-4 transition-all duration-300">
+<span class="font-label-md text-label-md uppercase tracking-widest text-on-surface">Quick View</span>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="font-headline-sm text-headline-sm">Labyrinths</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-tighter">Jorge Luis Borges</p>
+<p class="mt-2 font-label-md text-label-md text-primary">$210.00</p>
+</div>
+</div>
+<!-- Book Card 3 -->
+<div class="group cursor-pointer book-card-hover">
+<div class="aspect-[2/3] overflow-hidden relative border border-outline-variant/20 transition-all duration-500 group-hover:border-secondary">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="An elegant arrangement of several hardcover books stacked horizontally on a minimalist black glass table. The book covers are in shades of cream and deep crimson. A single gold fountain pen lies across the top book. The background is a blurred high-end apartment interior with floor-to-ceiling windows. The mood is sophisticated, wealthy, and intellectual." src=""/>
+<div class="quick-view absolute bottom-0 left-0 right-0 bg-surface/90 py-3 text-center opacity-0 translate-y-4 transition-all duration-300">
+<span class="font-label-md text-label-md uppercase tracking-widest text-on-surface">Quick View</span>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="font-headline-sm text-headline-sm">If on a winter's night a traveler</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-tighter">Italo Calvino</p>
+<p class="mt-2 font-label-md text-label-md text-primary">$195.00</p>
+</div>
+</div>
+<!-- Book Card 4 -->
+<div class="group cursor-pointer book-card-hover">
+<div class="aspect-[2/3] overflow-hidden relative border border-outline-variant/20 transition-all duration-500 group-hover:border-secondary">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A modern editorial photograph of a contemporary first edition book featuring bold black and white abstract art on the cover. The book is held by a hand with clean, manicured nails against a solid deep red background. The lighting is sharp and high-contrast, emphasizing the editorial fashion vibe and the purity of the design elements." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6VMacim5tHEe5oA6O0HygXPwY6ZS4SokeO7Y9Mo2BpVjINsibn3FxM7Zu-_8gUMv3AVl8g2c8DVUYm1DPx76_AgGoQj9sw4VVmgS4KzKjgMWnwkSiHeOfMONiMq2gRsxzI0QGNoIOHzrt7pgpL8ox1-d478ZslwdQZNWlTuAnJSF9rrCPORW__qmh5EbFObtGVdb2_rqB5URhy86HQ38Rbng47KS8kIge3ZmbTdBzWtVEbQkka8y1UkWR-Kl40HZ3AK_n9VciHuU"/>
+<div class="quick-view absolute bottom-0 left-0 right-0 bg-surface/90 py-3 text-center opacity-0 translate-y-4 transition-all duration-300">
+<span class="font-label-md text-label-md uppercase tracking-widest text-on-surface">Quick View</span>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="font-headline-sm text-headline-sm">The Unbearable Lightness of Being</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-tighter">Milan Kundera</p>
+<p class="mt-2 font-label-md text-label-md text-primary">$170.00</p>
+</div>
+</div>
+</div>
+<div class="mt-16 flex justify-center">
+<button class="border border-secondary px-12 py-4 font-label-md text-label-md tracking-[0.2em] uppercase text-on-surface hover:bg-on-surface hover:text-surface transition-all duration-500">
+                Show More
+            </button>
+</div>
+</section>
+<!-- The Best Books (Featured Showcase) -->
+<section class="bg-on-surface text-surface py-section-gap">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="editorial-split items-center gap-16">
+<div class="relative order-2 md:order-1">
+<div class="aspect-[3/4] w-full bg-tertiary-container relative z-10">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" data-alt="A museum-grade display of an extremely rare 18th-century manuscript under a glass case. The pages are yellowed with age, showing delicate handwritten script and ornate initial letters in gold ink. The lighting is pinpointed and dramatic, creating a reverent atmosphere. The surrounding environment is dark and hushed, emphasizing the sacredness of the literary artifact." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOwyfC6Wn9MYwOYHURfhOHWNlFcC0Ju7b1N7lw6ZXDBH-Kwc3XSJYPrgpmwtiqJKWJljpgrD22hDbwy72Yc5A3QbFINJuDVXcdfYT7Az1sZXIa9lU6Tz_YuGDCX153kd2RsK0P_y1-S8acDtSwEPDffeGmkL79FciAbCvqp2lBB-gJR0HVTYAboRN43L5nUVpKQebCsrly3dIvIGXlRUHjcBUYStA3qKtA003lmqyWZS5wZe_vYcTVrrhvLhXfMgNM77nL2_E_q04"/>
+</div>
+<div class="absolute -top-10 -left-10 w-full h-full border border-secondary/30 -z-10"></div>
+</div>
+<div class="order-1 md:order-2">
+<span class="text-secondary font-label-md uppercase tracking-widest mb-6 block">Editorial Choice</span>
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg mb-8 leading-tight">The Heritage Collection: Vol. I</h2>
+<p class="font-body-lg text-body-lg mb-8 leading-relaxed text-on-tertiary-container">
+                        An unprecedented gathering of foundational texts, bound in ethically sourced calfskin and embossed with 24-karat gold. Each volume in the Heritage Collection represents a year of meticulous restoration and artisanal printing on archival-grade vellum. This is more than a library; it is a repository of human thought.
+                    </p>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-4 py-4 border-b border-outline/20">
+<span class="material-symbols-outlined text-secondary">verified</span>
+<span class="font-label-md text-label-md">Certified Provenance Documentation</span>
+</div>
+<div class="flex items-center gap-4 py-4 border-b border-outline/20">
+<span class="material-symbols-outlined text-secondary">auto_stories</span>
+<span class="font-label-md text-label-md">Limited to 50 Numbered Editions</span>
+</div>
+</div>
+<button class="mt-12 group flex items-center gap-4 font-label-md text-label-md tracking-widest uppercase">
+                        Explore the Collection 
+                        <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- About the Writers (Carlos Ruiz Zafón) -->
+<section class="py-section-gap bg-surface-container relative overflow-hidden">
+<div class="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/2"></div>
+<div class="max-w-container-max mx-auto px-margin-desktop relative z-10">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg">Masters of the Craft</h2>
+<div class="w-24 h-1 bg-primary mx-auto mt-4"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<!-- Writer 1 -->
+<div class="group">
+<div class="relative mb-6 overflow-hidden">
+<img class="w-full aspect-square object-cover grayscale filter transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110" data-alt="A moody, high-contrast black and white portrait of a distinguished male author in his late 50s, wearing a charcoal turtleneck. He is sitting in a dimly lit study surrounded by stacks of papers and books. The lighting is dramatic, highlighting the texture of his skin and the depth in his eyes. The overall mood is contemplative, profound, and artistically serious." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfFsHAyVbn4XH5_I-Ll5tOgJ33tZdlEjIMQ4ioVUmTRwgIi2qt7YIaVGDT5qGryLavgRlPHaZKvztgQUdczqZas__6r5oeTFidIFbxAye-YUXteoKT5VJvWXrCaC-B_OAvi_rkW5KTP-6BXlojJWgbtgILbgr2Wi5mXkjzLt3343nADEgOm53OxjyH4dFNa7tPVn1jeCqTPY8BvJTST6BedY7Pgmy9zTUZOj839FCV_7RYr9CcmrKCZBQmwO2foFqcOewPEDvdYvg"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-2">Carlos Ruiz Zafón</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">The architect of the Cemetery of Forgotten Books, Zafón's prose captures the misty, gothic heart of Barcelona like no other.</p>
+</div>
+<!-- Writer 2 -->
+<div class="group">
+<div class="relative mb-6 overflow-hidden">
+<img class="w-full aspect-square object-cover grayscale filter transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110" data-alt="A sophisticated black and white portrait of a female novelist with an air of intellectual mystery. She is captured in profile, looking out of a large studio window. Her silhouette is sharp against the bright morning light. The composition is clean and minimalist, reminiscent of high-end literary magazine covers from the mid-20th century." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL2hgoOrgraSMrIzDLmQamPXGrWINnHyhcPh5JbBH7tbl0qJ50gDDRAOZpttWljYcRKB1YAF-mWdNVeBhCZ4UfaKfZ31MLnpLa65lRu0l8ycFvguEDG5cmuPzD7reE_6IU98i7l6vvBV3UTbdnAR20dusjCiaIIahVl9bEPa5r3jQ1JEUaJLl4YZWjGPXGLCg76wB8VQShF5pshdCcDYoBxDDBUkFW5FkSShNj_1wETVP_ymGer4qEuCUD4O63uVH66iGY3nRw3FI"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-2">Elena Ferrante</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">A ghost in the literary world, her Neapolitan novels have redefined contemporary fiction through raw, piercing emotional honesty.</p>
+</div>
+<!-- Writer 3 -->
+<div class="group">
+<div class="relative mb-6 overflow-hidden">
+<img class="w-full aspect-square object-cover grayscale filter transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110" data-alt="An atmospheric portrait of a younger male poet, with soft lighting catching the smoke of a nearby extinguished candle. He has a thoughtful expression, leaning against a weathered stone wall. The image is rendered in rich monochromatic tones with high detail on the fabric of his linen shirt. The style is romantic, editorial, and timeless." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMOYH8fyNJ6UMFA10VijztNaovvuBZoJXMQU2AERlyA6HcPnalockuL7E1S8VXE71Vh5TWgS6qhnZID6WG_JsxLJkC6T9uSF8m3GWvCDN2oLHdAhrJ77nEVSa2J6otOfe-r2V9qvwyVJj9U9xuJ8rv9iGVf-FWcXIiITDF20WcSNzyr08kld4CtRkAax4Q3A0IU71wOBmozmRZD0r_J8oqPpzYtN6ggdHfIcIQBd6UJG5P8k6Y7y1rWNZJRMpjGiESSFe4lvFAW00"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-2">Haruki Murakami</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">The master of magical realism, blending the mundane with the surreal in a rhythmic, jazz-infused literary dance.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Membership/Newsletter -->
+<section class="py-section-gap">
+<div class="max-w-[800px] mx-auto px-margin-mobile text-center border border-secondary/20 p-12 md:p-20 relative">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-surface px-4">
+<span class="material-symbols-outlined text-secondary scale-150" style="font-variation-settings: 'FILL' 1;">mail</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg mb-6">Join The Literary Circle</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-10">
+                Receive exclusive invitations to private auctions, early access to rare acquisitions, and editorial insights from our curators.
+            </p>
+<form class="flex flex-col md:flex-row gap-4">
+<input class="flex-grow bg-transparent border-0 border-b border-on-surface py-4 focus:ring-0 focus:border-primary font-label-md text-label-md placeholder:text-on-tertiary-container" placeholder="Your primary email address" type="email"/>
+<button class="bg-on-surface text-surface px-12 py-4 font-label-md text-label-md uppercase tracking-widest hover:bg-primary transition-colors" type="submit">Join Now</button>
+</form>
+<p class="mt-6 font-label-sm text-label-sm text-on-tertiary-container">Respecting your privacy is a core tenet of our provenance.</p>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface border-t border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-desktop py-12 gap-gutter max-w-container-max mx-auto">
+<div class="flex flex-col gap-4 items-center md:items-start">
+<div class="font-headline-sm text-headline-sm text-primary">The Manuscript</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">© 2024 The Manuscript. All Rights Reserved.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Provenance</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+<div class="flex gap-6">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">share</span></a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for smooth product expansion
+        document.querySelector('button:contains("Show More")')?.addEventListener('click', function() {
+            const grid = document.getElementById('product-grid');
+            // Mock expansion: in a real app, this would fetch more data
+            const clone = grid.children[0].cloneNode(true);
+            grid.appendChild(clone);
+            this.textContent = "Loading...";
+            setTimeout(() => {
+                this.textContent = "Show More";
+                alert("More editions are being curated for you.");
+            }, 800);
+        });
+
+        // Simple intersection observer for fade-in effects
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+            observer.observe(section);
+        });
+    </script>
+</body></html>

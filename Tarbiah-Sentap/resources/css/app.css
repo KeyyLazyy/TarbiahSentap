@@ -1,0 +1,245 @@
+
+@import "tailwindcss";
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source "../../storage/framework/views/*.php";
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../**/*.jsx";
+
+@theme {
+  --color-on-secondary-fixed: #241a00;
+  --color-on-tertiary-container: #b1aeae;
+  --color-surface-variant: #e2e2e2;
+  --color-secondary-fixed: #ffe088;
+  --color-secondary-container: #fed65b;
+  --color-tertiary: #2c2c2c;
+  --color-outline-variant: #e3beb8;
+  --color-outline: #8e706b;
+  --color-on-tertiary: #ffffff;
+  --color-surface-container: #eeeeee;
+  --color-primary-container: #8b0000;
+  --color-on-surface: #1a1c1c;
+  --color-tertiary-fixed-dim: #c8c6c5;
+  --color-surface-container-lowest: #ffffff;
+  --color-primary-fixed: #ffdad4;
+  --color-secondary: #735c00;
+  --color-on-secondary-container: #745c00;
+  --color-on-primary-fixed-variant: #920703;
+  --color-background: #f9f9f9;
+  --color-on-background: #1a1c1c;
+  --color-primary: #610000;
+  --color-error-container: #ffdad6;
+  --color-surface-bright: #f9f9f9;
+  --color-error: #ba1a1a;
+  --color-on-tertiary-fixed: #1c1b1b;
+  --color-surface-container-highest: #e2e2e2;
+  --color-on-secondary-fixed-variant: #574500;
+  --color-inverse-primary: #ffb4a8;
+  --color-surface-container-high: #e8e8e8;
+  --color-on-primary: #ffffff;
+  --color-surface-container-low: #f3f3f4;
+  --color-tertiary-container: #434242;
+  --color-surface-dim: #dadada;
+  --color-secondary-fixed-dim: #e9c349;
+  --color-tertiary-fixed: #e5e2e1;
+  --color-on-error-container: #93000a;
+  --color-inverse-surface: #2f3131;
+  --color-on-primary-fixed: #410000;
+  --color-on-secondary: #ffffff;
+  --color-on-primary-container: #ff907f;
+  --color-surface-tint: #b52619;
+  --color-surface: #f9f9f9;
+  --color-primary-fixed-dim: #ffb4a8;
+  --color-on-error: #ffffff;
+  --color-inverse-on-surface: #f0f1f1;
+  --color-on-surface-variant: #5a403c;
+
+  --spacing-margin-desktop: 64px;
+  --spacing-margin-mobile: 20px;
+  --spacing-section-gap: 120px;
+  --spacing-gutter: 24px;
+  --spacing-container-max: 100%;
+
+  --font-label-sm: "Hanken Grotesk", sans-serif;
+  --font-headline-sm: "EB Garamond", serif;
+  --font-body-lg: "Hanken Grotesk", sans-serif;
+  --font-headline-lg: "EB Garamond", serif;
+  --font-body-md: "Hanken Grotesk", sans-serif;
+  --font-headline-md: "EB Garamond", serif;
+  --font-label-md: "Hanken Grotesk", sans-serif;
+  --font-display-lg-mobile: "EB Garamond", serif;
+  --font-display-lg: "EB Garamond", serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-on-surface);
+  }
+}
+
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+    vertical-align: middle;
+}
+
+@utility text-label-sm { font-family: var(--font-label-sm); font-size: 12px; line-height: 16px; letter-spacing: 0.03em; font-weight: 500; }
+@utility text-headline-sm { font-family: var(--font-headline-sm); font-size: 24px; line-height: 32px; font-weight: 600; }
+@utility text-body-lg { font-family: var(--font-body-lg); font-size: 18px; line-height: 28px; font-weight: 400; }
+@utility text-headline-lg { font-family: var(--font-headline-lg); font-size: 48px; line-height: 56px; font-weight: 500; }
+@utility text-body-md { font-family: var(--font-body-md); font-size: 16px; line-height: 24px; font-weight: 400; }
+@utility text-display-lg-mobile { font-family: var(--font-display-lg-mobile); font-size: 40px; line-height: 48px; letter-spacing: -0.01em; font-weight: 500; }
+@utility text-headline-md { font-family: var(--font-headline-md); font-size: 32px; line-height: 40px; font-weight: 500; }
+@utility text-label-md { font-family: var(--font-label-md); font-size: 14px; line-height: 20px; letter-spacing: 0.05em; font-weight: 600; }
+@utility text-display-lg { font-family: var(--font-display-lg); font-size: 64px; line-height: 72px; letter-spacing: -0.02em; font-weight: 500; }
+
+.text-primary { color: var(--color-primary) !important; }
+.text-secondary { color: var(--color-secondary) !important; }
+
+.paper-texture {
+    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+}
+.book-card-hover:hover .quick-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+.book-container .book-details {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-10px);
+    transition: all 0.4s ease;
+}
+.book-container:hover .book-details {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+}
+
+/* Fix right-side overflow on xl screens (5 columns) */
+@media (min-width: 1280px) and (max-width: 1535px) {
+    .book-container:nth-child(5n) .book-details,
+    .book-container:nth-child(5n-1) .book-details {
+        left: auto;
+        right: 105%;
+        transform: translateX(10px);
+    }
+    .book-container:nth-child(5n):hover .book-details,
+    .book-container:nth-child(5n-1):hover .book-details {
+        transform: translateX(0);
+    }
+}
+
+/* Fix right-side overflow on 2xl screens (6 columns) */
+@media (min-width: 1536px) {
+    .book-container:nth-child(6n) .book-details,
+    .book-container:nth-child(6n-1) .book-details {
+        left: auto;
+        right: 105%;
+        transform: translateX(10px);
+    }
+    .book-container:nth-child(6n):hover .book-details,
+    .book-container:nth-child(6n-1):hover .book-details {
+        transform: translateX(0);
+    }
+}
+.editorial-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+}
+@media (max-width: 768px) {
+    .editorial-split {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-input-modern {
+    border: 1px solid transparent;
+    background-color: #f3f3f4;
+    padding: 16px 16px;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+}
+.form-input-modern:focus {
+    outline: none;
+    background-color: #ffffff;
+    border-color: #8e706b;
+    box-shadow: 0 0 0 2px rgba(142, 112, 107, 0.1);
+}
+
+.visual-card {
+    background-color: #8B0000;
+    background-image: url('https://www.transparenttextures.com/patterns/leather.png');
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+.visual-card::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    pointer-events: none;
+}
+.visual-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.05) 0%, transparent 70%);
+    pointer-events: none;
+}
+.card-gold-text {
+    color: #D4AF37;
+    text-shadow: 0px 1px 1px rgba(0,0,0,0.3);
+}
+.card-chip {
+    background: linear-gradient(135deg, #d4af37 0%, #f7e08b 50%, #d4af37 100%);
+    width: 50px;
+    height: 38px;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+.card-chip::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(90deg, transparent 48%, rgba(0,0,0,0.1) 50%, transparent 52%),
+        linear-gradient(0deg, transparent 48%, rgba(0,0,0,0.1) 50%, transparent 52%);
+    background-size: 15px 15px;
+}
+
+.parchment-texture {
+    background-color: #ffffff;
+    position: relative;
+}
+.parchment-texture::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+    opacity: 0.05;
+    pointer-events: none;
+}
+.certificate-border {
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    outline: 4px double rgba(212, 175, 55, 0.1);
+    outline-offset: -12px;
+}
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.98) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-success {
+    animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.editorial-shadow {
+    box-shadow: 0 4px 20px -2px rgba(139, 0, 0, 0.04);
+}
+.ink-bleed {
+    filter: contrast(1.1) brightness(0.95);
+}
+
