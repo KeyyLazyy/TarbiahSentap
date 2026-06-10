@@ -4,7 +4,7 @@ const isDev = import.meta.env.DEV;
 
 // Client for Express backend (books, orders, admin)
 const api = axios.create({
-  baseURL: 'http://localhost:4000/api',
+  baseURL: isDev ? 'http://localhost:4000/api' : 'https://tarbiahsentap.onrender.com/api',
 });
 
 // Client for Laravel backend (auth)
